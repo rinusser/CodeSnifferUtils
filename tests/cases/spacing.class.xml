@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="spacing.class">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/spacing</file>
+  <rule ref="RN.Spacing.Class"/>
+  <expectations>
+    <file_count>5</file_count>
+    <error file="spacing/TooLittleSpace.php" line="12">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/TooLittleSpace.php" line="52">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/TooLittleSpace.php" line="55">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="22">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="192">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="207">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
+  </expectations>
+</ruleset>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="spacing.openingbracket">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/spacing</file>
+  <rule ref="RN.Spacing.OpeningBracket"/>
+  <expectations>
+    <file_count>5</file_count>
+    <error file="spacing/TooMuchSpace.php" line="23">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="39">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="48">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="56">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="66">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="73">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="87">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="104">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="118">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="140">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="186">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/TooMuchSpace.php" line="193">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+  </expectations>
+</ruleset>

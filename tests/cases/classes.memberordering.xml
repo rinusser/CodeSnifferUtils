@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="classes.memberordering">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/classes</file>
+  <rule ref="RN.Classes.MemberOrdering"/>
+  <expectations>
+    <file_count>2</file_count>
+    <error file="classes/Wrong.php" line="17">CodeSnifferUtils.Classes.MemberOrdering.ConstTooLate</error>
+    <error file="classes/Wrong.php" line="27">CodeSnifferUtils.Classes.MemberOrdering.StaticPropertyTooLate</error>
+    <error file="classes/Wrong.php" line="40">CodeSnifferUtils.Classes.MemberOrdering.InstancePropertyTooLate</error>
+    <error file="classes/Wrong.php" line="48">CodeSnifferUtils.Classes.MemberOrdering.StaticMethodTooLate</error>
+  </expectations>
+</ruleset>

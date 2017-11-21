@@ -10,6 +10,19 @@ Some of these rules extend PHP\_CodeSniffer's built-in sniffs.
 
 Booleans `true` and `false` must be lowercase, `NULL` must be uppercase.
 
+Examples:
+
+    $a=[true,false];  //this is OK
+
+    $b=[True,False]; //nope, neither will work
+    $c=[TRUE,FALSE]; //no good
+
+
+    $d=NULL; //this is OK
+
+    $e=Null; //no good
+    $f=null; //nope
+
 This is similar to C/C++.
 
 
@@ -24,6 +37,25 @@ Class members must be in this order:
 3. static methods (e.g. `public static function staticMethod() {...}`)
 4. instance properties (e.g. `public $property;`)
 5. instance methods (e.g. `public function method() {...}`)
+
+For example:
+
+    class X
+    {
+      const A=1;
+
+      public static $staticProperty;
+
+      public static function staticMethod()
+      {
+      }
+
+      public $property;
+
+      public function method()
+      {
+      }
+    }
 
 
 ## CodeAnalysis
@@ -89,7 +121,10 @@ If you don't set the minimumVisibility property the default "private" will be us
 
 ### DeclareStrictSniff
 
-All PHP files must use `declare(strict_types=1)`;
+All PHP files must use `declare(strict_types=1)`; like this:
+
+    <?php
+    declare(strict_types=1);
 
 
 ## Spacing
@@ -119,6 +154,25 @@ counts as having 1 empty line between the methods.
 * be preceded by 0-1 empty lines after one-line comments (`//`), or
 * (for use in lamba functions) be on the same line as the closing parenthesis
 
+Example 1:
+
+    <?php
+    use A\B;    //no empty line between this and opening PHP tag above
+
+Example 2:
+
+    <?php
+    namespace X;
+
+    use A\B;    //this must be after an empty line since there's a namespace declaration above
+    //use A\C;  //it's OK to comment out use clauses
+    use A\D;
+
+Example 3:
+
+    $x=function() use ($x) {}   //no empty lines required if used in a lambda function
+
+
 ### NamespaceSniff
 
 `namespace` declarations must:
@@ -126,6 +180,20 @@ counts as having 1 empty line between the methods.
 * immediately follow a previous `<?php` opening tag or a `declare` statement, or
 * be preceded by 1 empty line after a file's docblock, or
 * be preceded by 0-1 empty lines after one-line comments (`//`)
+
+Example 1:
+
+    <?php
+    namespace X;   //no empty line between this and opening PHP tag above
+
+Example 2:
+
+    <?php
+    /**
+     * this is the file's docblock
+     */
+
+    namespace X;   //1 empty line between above docblock and namespace declaration
 
 ### ClassSniff
 
@@ -135,13 +203,45 @@ Class definitions must:
 * be preceded by 1-2 empty lines after another class, function or statement, or
 * be preceded by 0-2 empty lines after one-line comments or the PHP opening tag `<?php`
 
+Example:
+
+    <?php
+
+    class A  //there can be 0-2 empty lines above
+    {
+    }
+
+    /**
+     * this docblock is part of class B
+     * the above empty line counts as 1 empty line between classes A and B
+     */
+    class B
+    {
+    }
+
 ### OpeningBracketSniff
 
 Opening curly brackets (`{`) must not be followed by empty lines.
 
+Example:
+
+    function asdf()
+    {
+      $x=1;  //no empty line above!
+    }
+
 ### ClosingBracketSniff
 
 Closing curly brackets (`}`) must not be preceded by empty lines.
+
+Example:
+
+    class X
+    {
+      function asdf()
+      {
+      }  //no empty line below!
+    }
 
 ### ConstSniff
 
@@ -149,6 +249,17 @@ Class constants must:
 
 * immediately follow an opening curly bracket (`{`), or
 * be preceded by 0-1 empty lines after another constant
+
+Example:
+
+    class X
+    {
+      const C1=1;
+      const C2=2;
+
+      const D1=3;
+      const D2=4;
+    }
 
 ### PropertySniff
 
@@ -159,6 +270,19 @@ Class properties must:
 * be preceded by 1-2 empty lines after another class property if one is a static and the other is an instance property, or
 * be preceded by 1-2 empty lines after other statements
 
+Example:
+
+    class X
+    {
+      public static $a;
+      public static $b;  //$a and $b are static, so there can be 0-1 empty lines above
+
+      public static $c;  //this is OK too
+
+      public $x;   //$c is static, $x isn't, so there must be 1-2 empty lines above
+      public $y;   //$x and $y are instance properties, no empty line needed
+    }
+
 ### FunctionSniff
 
 Class methods must:
@@ -167,6 +291,27 @@ Class methods must:
 * be preceded by 0-2 empty lines after another method if both are abstract and either static or not, or
 * be preceded by 1-2 empty lines after another method if both are abstract and one is static while the other is not, or
 * be preceded by 1-2 empty lines after non-abstract methods
+
+Example:
+
+    abstract class Y
+    {
+      /**
+       * docblocks are considered part of the function, so this counts as 0 empty lines between
+       * function asdf and the class's opening bracket
+       */
+      public static function asdf()
+      {
+      }
+
+      abstract public static function f1(); //in general there need to be 1-2 empty lines above functions
+      abstract public static function f2(); //unless they're both abstract and share the same static-ness
+
+      abstract public static function f3(); //but they don't need to be grouped
+
+      public static function f4();
+      public static function f5(); //abstract instance methods can be grouped too
+
 
 ### FunctionParametersSniff
 

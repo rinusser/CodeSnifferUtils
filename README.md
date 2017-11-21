@@ -5,14 +5,6 @@ PHP\_CodeSniffer rules implementing personal preferences. Can be used locally or
 FEATURES.md contains short explanations of custom rules.
 
 
-# TODOs
-
-* tabs for indenting, plus space for multiline alignment
-* single-line function call parameter spacing, e.g. `asdf(1,2,3);`
-* references to e.g. InvalidArgumentException in wrong namespace
-* add fixer code
-
-
 # Requirements
 
 ### Locally Installed
@@ -70,11 +62,6 @@ The "RN" coding standard is already set as default in the docker image. If you h
 like this:
 
     docker run --rm -v "$PWD:/app" -it <imagename>
-
-
-# Limitations
-
-This is still a work in progress, limitations are currently listed in the TODOs.
 
 
 # Tests

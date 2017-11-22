@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <ruleset name="commenting.all.without_tags">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/commenting</file>
-  <exclude-pattern>../files/commenting/WithoutComments.php</exclude-pattern>
+  <file>../files/commenting/general</file>
+  <exclude-pattern>../files/commenting/general/WithoutComments.php</exclude-pattern>
   <rule ref="RN.Commenting.ConfigurableFileComment">
     <properties>
       <property name="requiredTags" value="author,@link"/>
+      <property name="requireAuthorEmail" value="yes"/>
     </properties>
   </rule>
 
@@ -23,8 +24,8 @@
 
   <expectations>
     <file_count>2</file_count>
-    <error file="commenting/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingAuthorTag</error>
-    <error file="commenting/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingLinkTag</error>
-    <error file="commenting/WithComments.php" line="18">RN.Commenting.ConfigurableClassComment.MissingSinceTag</error>
+    <error file="commenting/general/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingAuthorTag</error>
+    <error file="commenting/general/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingLinkTag</error>
+    <error file="commenting/general/WithComments.php" line="18">RN.Commenting.ConfigurableClassComment.MissingSinceTag</error>
   </expectations>
 </ruleset>

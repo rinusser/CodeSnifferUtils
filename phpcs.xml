@@ -9,6 +9,7 @@
   <rule ref="RN.Commenting.ConfigurableFileComment">
     <properties>
       <property name="requiredTags" value="author,license,copyright"/>
+      <property name="requireAuthorEmail" value="no"/>
     </properties>
   </rule>
 </ruleset>

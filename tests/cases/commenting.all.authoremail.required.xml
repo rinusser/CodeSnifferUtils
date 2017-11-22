@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset name="commenting.all.without_tags">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/commenting/authoremail</file>
+  <rule ref="RN.Commenting.ConfigurableFileComment">
+    <properties>
+      <property name="requiredTags" value="author"/>
+      <property name="requireAuthorEmail" value="yes"/>
+    </properties>
+  </rule>
+
+  <rule ref="RN.Commenting.ConfigurableClassComment">
+    <properties>
+      <property name="requiredTags" value="author"/>
+      <property name="requireAuthorEmail" value="yes"/>
+    </properties>
+  </rule>
+
+  <expectations>
+    <file_count>2</file_count>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="5">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="6">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="13">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="14">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="4">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="5">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="6">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="12">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="13">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="14">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
+  </expectations>
+</ruleset>

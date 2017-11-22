@@ -1,6 +1,6 @@
 # Sniffs
 
-This codebase's PHP\_CodeSniffer (henceforth "phpcs") "sniffs", i.e. individual code style rules, as described here reflect personal preferences. Use whatever rules you find useful.
+This codebase's PHP\_CodeSniffer ("phpcs") "sniffs", i.e. individual code style rules, as described here reflect personal preferences. Use whatever rules you find useful.
 
 Some of these rules extend PHP\_CodeSniffer's built-in sniffs.
 
@@ -82,7 +82,10 @@ Start the docblock's parameter description with `(unused)` to mark unused parame
 
 ### ConfigurableClassCommentSniff, ConfigurableFileCommentSniff
 
-These extend PEAR.Commenting.ClassComment and PEAR.Commenting.FileComment: they accept a configurable list of required docblock tags.
+These extend PEAR.Commenting.ClassComment and PEAR.Commenting.FileComment: they accept a configurable list of required docblock tags
+and can remove the @author tag's email requirement.
+
+#### Required Tags Configuration
 
 You can either disable all required tags, e.g. for classes' docblocks:
 
@@ -101,6 +104,16 @@ or pass an arbitrary list of required tags (you can optionally prefix the tags w
     </rule>
 
 If you leave out the "requiredTags" property PEAR.Commenting.ClassComment's and PEAR.Commenting.FileComment's defaults will be used.
+
+#### Author Email Configuration
+
+By default the extended sniff requires the `Display Name <user@example.com>` @author tag format.
+
+This can be changed to just require a name, for both sniffs separately:
+
+    <property name="requireAuthorEmail" value="no"/>
+
+If this is set to "no" but there seems to be an email address anyway, the setting is ignored and the email address will be validated as usual.
 
 ### ConfigurableFunctionCommentSniff
 

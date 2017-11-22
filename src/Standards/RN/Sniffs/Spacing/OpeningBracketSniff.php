@@ -41,8 +41,7 @@ class OpeningBracketSniff implements Sniff
     if($lines_between>0)
     {
       $currents_name=TokenNames::getPrintableName($tokens[$stackPtr]['code'],$tokens[$stackPtr]['type']);
-      $nexts_name=TokenNames::getPrintableName($tokens[$next]['code'],$tokens[$stackPtr]['type']);
-      $error='Expected 0 empty lines between '.$currents_name.' and '.$nexts_name.', got '.$lines_between.' instead';
+      $error='Expected 0 empty lines after '.$currents_name.', got '.$lines_between.' instead';
       $phpcsFile->addError($error,$stackPtr,'SucceedingNewlines');
     }
     return NULL;

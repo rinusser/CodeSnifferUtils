@@ -13,4 +13,6 @@ use B\{D,E};
 
 class Improper
 {
+
+  use SomeTrait;
 }

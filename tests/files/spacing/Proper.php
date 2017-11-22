@@ -229,3 +229,17 @@ class MethodParameterWithDefault
                                       $b,
                                       $c);
 }
+
+
+class ClassImportingTraits
+{
+  use Trait1;
+  use Trait2;
+
+  //currently importing multiple traits requires a comment to allow an empty line in between
+  use Trait3;
+  //use Trait4;
+
+  //use Trait5;
+  use Trait6;
+}

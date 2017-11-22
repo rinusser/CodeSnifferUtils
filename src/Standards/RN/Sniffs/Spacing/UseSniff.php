@@ -41,6 +41,7 @@ class UseSniff implements Sniff
                       T_NAMESPACE=>1,
                       T_USE=>0,
                       T_CLOSE_PARENTHESIS=>-1, //this is for lambda expressions
+                      T_OPEN_CURLY_BRACKET=>0, //this is for trait imports
                       T_DOC_COMMENT_CLOSE_TAG=>1,
                       T_COMMENT=>[0,1]];
     return (new PrecedingEmptyLinesChecker())->process($phpcsFile,$stackPtr,$allowed_by_type);

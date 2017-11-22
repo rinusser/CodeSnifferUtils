@@ -10,5 +10,6 @@
     <error file="spacing/TooMuchSpace.php" line="15">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
     <error file="spacing/TooMuchSpaceWithoutComments.php" line="9">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
     <error file="spacing/TooMuchSpaceWithoutComments.php" line="11">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/TooMuchSpaceWithoutComments.php" line="17">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
   </expectations>
 </ruleset>

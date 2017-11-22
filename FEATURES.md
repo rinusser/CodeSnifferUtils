@@ -185,6 +185,17 @@ Example 3:
 
     $x=function() use ($x) {}   //no empty lines required if used in a lambda function
 
+Example 4:
+
+    class X
+    {
+      use Trait1;  //there must not be any empty lines above
+      use Trait2;  //you can import multiple traits without empty lines in between
+
+      //trait description
+      use Trait3;  //you need a comment between multiple imports to allow an empty line in between
+    }
+
 
 ### NamespaceSniff
 

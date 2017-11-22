@@ -77,6 +77,33 @@ Start the docblock's parameter description with `(unused)` to mark unused parame
       echo $used;
     }
 
+### SPLExceptionNamespaceSniff
+
+This rule checks for references to PHP's built-in SPL exceptions when used in namespaced code, e.g.:
+
+    <?php
+    namespace A\B;
+
+    use \LogicException;
+
+    try
+    {
+      throw new DomainException();   //this gets a warning, DomainException is built-in but it's accessed as A\B\DomainException
+      throw new LogicException();    //this is OK, as LogicException is imported above
+      throw new \RuntimeException(); //this is OK, as it explicitly references the root namespace
+      throw new CustomException();   //this is OK, it's not built-in
+      throw new Some\Exception();    //this is ignored, any namespace references are considered to be made on purpose
+      throw new $x;                  //this is ignored, dynamic instantiations aren't checked
+    }
+    catch(DomainException $x)  //this gets a warning, same as above: DomainException is probably accessed in the wrong namespace
+    {
+    }
+    catch(LogicException | \RuntimeException | Some\Exception $e)  //this is OK: all 3 are checked, all 3 are valid references
+    {
+    }
+
+The main reason to use this rule is because it's easy to forget the namespace reference when writing exception handlers.
+This will catch those references before they result in runtime "class not found" errors.
 
 ## Commenting
 

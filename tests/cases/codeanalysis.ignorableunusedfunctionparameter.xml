@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ruleset name="codeanalysis.ignorableunusedfunctionparameter">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/codeanalysis</file>
+  <file>../files/codeanalysis/unusedparameters</file>
   <rule ref="RN.CodeAnalysis.IgnorableUnusedFunctionParameter"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="codeanalysis/Wrong.php" line="3">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/Wrong.php" line="21">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="3">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="21">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
   </expectations>
 </ruleset>

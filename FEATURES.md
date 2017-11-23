@@ -142,6 +142,25 @@ This can be changed to just require a name, for both sniffs separately:
 
 If this is set to "no" but there seems to be an email address anyway, the setting is ignored and the email address will be validated as usual.
 
+#### Expected Content Configuration
+
+Both file and class comment sniffs can be configured to require specific content in some tags. If configured, any found tags'
+contents will be compared against the configured expectations. Setting any of these doesn't make the tag required, this is handled
+separately by the `requiredTags` property.
+
+The following tags can be checked:
+
+    <property name="categoryContent" value="my category"/>
+    <property name="packageContent" value="package 1"/>
+    <property name="subpackageContent" value="subpackage X"/>
+    <property name="authorContent" value="Me"/>
+    <property name="copyrightContent" value="2017 Some Person"/>
+    <property name="licenseContent" value="proprietary"/>
+    <property name="versionContent" value="1.0"/>
+
+Any trailing newlines in the source file will be trimmed before comparing the actual tag content against the expectation.
+After confirming the tag content matches processing continues as usual, so make sure your expected content is valid for the tag.
+
 ### ConfigurableFunctionCommentSniff
 
 This extends PEAR.Commenting.FunctionComment: it has a configurable minimum method visibility to require docblocks.

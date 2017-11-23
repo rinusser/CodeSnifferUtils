@@ -10,6 +10,9 @@
     <properties>
       <property name="requiredTags" value="author,license,copyright"/>
       <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="Richard Nusser"/>
+      <property name="copyrightContent" value="2017 Richard Nusser"/>
+      <property name="licenseContent" value="GPLv3 (see http://www.gnu.org/licenses/)"/>
     </properties>
   </rule>
 </ruleset>

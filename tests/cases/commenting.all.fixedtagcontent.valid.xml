@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset name="commenting.all.fixedtagcontent.valid">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/commenting/fixedtagcontent</file>
+  <rule ref="RN.Commenting.ConfigurableFileComment">
+    <properties>
+      <property name="requiredTags" value=""/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="Richard Nusser"/>
+      <property name="copyrightContent" value="2017  Richard Nusser"/>
+      <property name="licenseContent" value="asdf 1234"/>
+      <property name="linkContent" value="about:blank"/>
+      <property name="sinceContent" value="1.23.567b-890"/>
+    </properties>
+  </rule>
+
+  <rule ref="RN.Commenting.ConfigurableClassComment">
+    <properties>
+      <property name="requiredTags" value=""/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="No one"/>
+      <property name="copyrightContent" value="2017 Richard  Nusser"/>
+      <property name="licenseContent" value="proprietary 9999"/>
+      <property name="linkContent" value="http://127.0.0.1/"/>
+      <property name="sinceContent" value="never"/>
+    </properties>
+  </rule>
+
+  <expectations>
+    <file_count>2</file_count>
+  </expectations>
+</ruleset>

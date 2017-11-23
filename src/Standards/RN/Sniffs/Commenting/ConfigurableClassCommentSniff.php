@@ -12,14 +12,18 @@ namespace PHP_CodeSniffer\Standards\RN\Sniffs\Commenting; //XXX phpcs's property
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Sniffs\Commenting\RequireAuthorEmail;
+use RN\CodeSnifferUtils\Sniffs\Commenting\CheckTagContent;
 
 /**
- * This is pretty much PEAR.Commenting.ClassComment, just with a configurable list of required tags
+ * This is based on PEAR.Commenting.ClassComment, adds configurable features
  */
 class ConfigurableClassCommentSniff extends ClassCommentSniff
 {
   //include requireAuthorEmail property and handling
   use RequireAuthorEmail;
+
+  //include expected content properties and content checker
+  use CheckTagContent;
 
   public $requiredTags=NULL;
 
@@ -35,10 +39,48 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
     return parent::process($phpcsFile,$stackPtr);
   }
 
+
+  protected function processCategory($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'category',$tags);
+    parent::processCategory($phpcsFile,$tags);
+  }
+
+  protected function processPackage($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'package',$tags);
+    parent::processPackage($phpcsFile,$tags);
+  }
+
+  protected function processSubpackage($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'subpackage',$tags);
+    parent::processSubpackage($phpcsFile,$tags);
+  }
+
   protected function processAuthor($phpcsFile, array $tags)
   {
+    $this->_checkTagContent($phpcsFile,'author',$tags);
     $unhandled=$this->_processAuthorWrapper($phpcsFile,$tags);
     if($unhandled)
       parent::processAuthor($phpcsFile,$unhandled);
+  }
+
+  protected function processCopyright($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'copyright',$tags);
+    parent::processCopyright($phpcsFile,$tags);
+  }
+
+  protected function processLicense($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'license',$tags);
+    parent::processLicense($phpcsFile,$tags);
+  }
+
+  protected function processVersion($phpcsFile, array $tags)
+  {
+    $this->_checkTagContent($phpcsFile,'version',$tags);
+    parent::processVersion($phpcsFile,$tags);
   }
 }

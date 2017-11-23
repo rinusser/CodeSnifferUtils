@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="commenting.all.fixedtagcontent.valid">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/commenting/fixedtagcontent</file>
+  <rule ref="RN.Commenting.ConfigurableFileComment">
+    <properties>
+      <property name="requiredTags" value=""/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="No one"/>
+      <property name="copyrightContent" value="2017 Richard  Nusser"/>
+      <property name="licenseContent" value="proprietary 9999"/>
+    </properties>
+  </rule>
+
+  <rule ref="RN.Commenting.ConfigurableClassComment">
+    <properties>
+      <property name="requiredTags" value=""/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="Richard Nusser"/>
+      <property name="copyrightContent" value="2017  Richard Nusser"/>
+      <property name="licenseContent" value="asdf 1234"/>
+    </properties>
+  </rule>
+
+  <expectations>
+    <file_count>2</file_count>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="8">RN.Commenting.ConfigurableFileComment.WrongLicenseContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="16">RN.Commenting.ConfigurableClassComment.WrongAuthorContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="17">RN.Commenting.ConfigurableClassComment.WrongCopyrightContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="18">RN.Commenting.ConfigurableClassComment.WrongLicenseContent</error>
+  </expectations>
+</ruleset>

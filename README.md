@@ -64,6 +64,25 @@ like this:
 
     docker run --rm -v "$PWD:/app" -it <imagename>
 
+### Referencing from Other Rulesets
+
+A lot of the RN.\* rules require a custom autoloader. The "RN" phpcs standard already includes this autoloader, so if you reference
+the entire standard you don't need to do anything special. This applies to both entire phpcs standards (ruleset.xml) and
+application's individual setups (phpcs.xml):
+
+    <ruleset name="all">
+      <file>.</file>
+      <rule ref="RN"/>  <!-- includes autoloader, everything will work just fine -->
+    </ruleset>
+
+If you just use individual rules the autoloader isn't included automatically so you'll need to do it yourself:
+
+    <ruleset name="individual">
+      <file>.</file>
+      <autoload>/path/to/CodeSnifferUtils/src/autoloader.php</autoload>
+      <rule ref="RN.Spacing.Use"/>  <!-- this would fail without the autoloader -->
+    </ruleset>
+
 
 # Tests
 

@@ -156,6 +156,8 @@ For example to require docblocks only for public methods use this:
 
 If you don't set the minimumVisibility property the default "private" will be used. Functions outside classes are always public.
 
+Methods below minimum visibility do not require a docblock - if one is found anyway it will be validated.
+
 
 ## Files
 

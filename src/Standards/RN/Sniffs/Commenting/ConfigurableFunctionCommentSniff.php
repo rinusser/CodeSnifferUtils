@@ -11,6 +11,7 @@ namespace PHP_CodeSniffer\Standards\RN\Sniffs\Commenting; //XXX phpcs's property
 
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * This is pretty much PEAR.Commenting.FunctionComment, just with minimum visibility configuration
@@ -27,14 +28,19 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
    */
   public function process(File $phpcsFile, $stackPtr)
   {
-    $properties=$phpcsFile->getMethodProperties($stackPtr);
-    if($this->minimumVisibility=='protected')
+    $tokens=$phpcsFile->getTokens();
+    $prev=$phpcsFile->findPrevious(array_merge(Tokens::$scopeModifiers,[T_WHITESPACE]),$stackPtr-1,NULL,true);
+    if($tokens[$prev]['code']!==T_DOC_COMMENT_CLOSE_TAG)
     {
-      if($properties['scope']=='private')
-        return;
+      $properties=$phpcsFile->getMethodProperties($stackPtr);
+      if($this->minimumVisibility=='protected')
+      {
+        if($properties['scope']=='private')
+          return;
+      }
+      elseif($this->minimumVisibility!='private' && $properties['scope']!='public')
+       return;
     }
-    elseif($this->minimumVisibility!='private' && $properties['scope']!='public')
-      return;
 
     return parent::process($phpcsFile,$stackPtr);
   }

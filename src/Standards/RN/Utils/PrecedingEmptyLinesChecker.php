@@ -76,11 +76,11 @@ class PrecedingEmptyLinesChecker
 
 
   /**
-   * @param array $allowed_by_type
-   * @param File  $phpcsFile
-   * @param int   $previous
-   * @param int   $current (unused)
-   * @param bool  $match_any
+   * @param array $allowed_by_type a list of token type=>distance values
+   * @param File  $phpcsFile       the current phpcs file
+   * @param int   $previous        the previous token to check distance to
+   * @param int   $current         (unused) the current token to compare distance to
+   * @param bool  $match_any       whether to check distance to any previous tag (true) or a specific one (false)
    * @return int|array
    */
   protected function _fetchExpectation(array $allowed_by_type, File $phpcsFile, int $previous, int $current, bool $match_any)

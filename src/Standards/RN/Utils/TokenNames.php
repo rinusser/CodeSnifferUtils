@@ -21,6 +21,7 @@ abstract class TokenNames
                           T_CLOSE_PARENTHESIS=>'closing parenthesis',
                           T_DOC_COMMENT_CLOSE_TAG=>'docblock',
                           T_COMMENT=>'comment',
+                          T_CLASS=>'class',
                           T_OPEN_CURLY_BRACKET=>'opening curly bracket "{"',
                           T_CLOSE_CURLY_BRACKET=>'closing curly bracket "}"',
                           T_OPEN_PARENTHESIS=>'opening parenthesis "("',

@@ -88,17 +88,17 @@ This rule checks for references to PHP's built-in SPL exceptions when used in na
 
     try
     {
-      throw new DomainException();   //this gets a warning, DomainException is built-in but it's accessed as A\B\DomainException
+      throw new DomainException();   //invalid, DomainException is built-in but accessed as A\B\DomainException
       throw new LogicException();    //this is OK, as LogicException is imported above
       throw new \RuntimeException(); //this is OK, as it explicitly references the root namespace
       throw new CustomException();   //this is OK, it's not built-in
-      throw new Some\Exception();    //this is ignored, any namespace references are considered to be made on purpose
+      throw new Some\Exception();    //this is ignored, namespace references are considered to be made on purpose
       throw new $x;                  //this is ignored, dynamic instantiations aren't checked
     }
-    catch(DomainException $x)  //this gets a warning, same as above: DomainException is probably accessed in the wrong namespace
+    catch(DomainException $x)        //invalid, DomainException is probably accessed in the wrong namespace
     {
     }
-    catch(LogicException | \RuntimeException | Some\Exception $e)  //this is OK: all 3 are checked, all 3 are valid references
+    catch(LogicException | \RuntimeException | Some\Exception $e)  //this is OK: all 3 are valid references
     {
     }
 
@@ -251,10 +251,10 @@ Example 2:
 Class definitions must:
 
 * immediately follow a docblock, or
-* be preceded by 1-2 empty lines after another class, function or statement, or
+* be preceded by 1-2 empty lines after file docblock, another class, function or statement, or
 * be preceded by 0-2 empty lines after one-line comments or the PHP opening tag `<?php`
 
-Example:
+Example 1:
 
     <?php
 
@@ -267,6 +267,31 @@ Example:
      * the above empty line counts as 1 empty line between classes A and B
      */
     class B
+    {
+    }
+
+Example 2:
+
+    <?php
+    /**
+     * this is a file docblock
+     */
+
+    /**
+     * this is a class docblock, the above newline is OK since there's class AND file docblocks
+     */
+    class C
+    {
+    }
+
+When there's empty lines between a docblock and a class, the docblock may be misplaced so an error is generated:
+
+    <?php
+    /**
+     * this is invalid, might be a misplaced class docblock
+     */
+
+    class Invalid  //an error will be reported on this line!
     {
     }
 

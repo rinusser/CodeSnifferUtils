@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <ruleset name="spacing.function">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/spacing</file>
+  <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.Function"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/TooLittleSpace.php" line="18">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="22">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="28">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="34">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="38">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="43">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="49">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="106">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="112">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="121">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="128">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="134">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="145">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="154">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="161">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="168">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="176">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="185">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="18">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="22">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="28">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="34">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="38">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="43">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="49">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="106">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="112">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="121">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="128">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="134">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="145">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="154">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="161">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="168">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="176">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="185">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
   </expectations>
 </ruleset>

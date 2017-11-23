@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <ruleset name="spacing.property">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/spacing</file>
+  <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.Property"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/TooLittleSpace.php" line="15">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
-    <error file="spacing/TooLittleSpace.php" line="16">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="25">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="29">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="44">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="51">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="15">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="16">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="25">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="29">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="44">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="51">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
   </expectations>
 </ruleset>

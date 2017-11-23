@@ -38,7 +38,8 @@ Build the docker image:
 
 or use `./build.sh`. It's recommended to create an alias for running the container, e.g. (assuming image name "phpcs"):
 
-    alias phpcs='docker run --rm -u "$UID:$(id -g)" -v "$PWD:/app" --name phpcs.$(NOW) -it phpcs --basepath=/app/'
+    alias phpcs='docker run --rm -u "$UID:$(id -g)" -v "$PWD:/app" --name phpcs.$(NOW) -it \
+                   phpcs --basepath=/app/'
 
 
 # Usage

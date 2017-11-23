@@ -55,7 +55,7 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
     }
 
     $lines_between=$tokens[$effective_start]['line']-$preceding_line-1;
-    $expectation=$this->_fetchExpectation($allowed_by_type,$phpcsFile,$prev,$stackPtr,false);
+    $expectation=$this->_fetchExpectation($allowed_by_type,$phpcsFile,$prev,$stackPtr,false,$effective_start);
 
     $error_expectation=NULL;
     if(is_array($expectation))
@@ -144,16 +144,27 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   }
 
   /**
-   * @param array $allowed_by_type the initial expectation map
-   * @param File  $phpcsFile       the phpcs file handle
-   * @param int   $previous        the previous token's offset
-   * @param int   $current         the current token's offset
-   * @param bool  $match_any       (unused)
+   * @param array    $allowed_by_type   the initial expectation map
+   * @param File     $phpcsFile         the phpcs file handle
+   * @param int      $previous          the previous token's offset
+   * @param int      $current           the current token's offset
+   * @param bool     $match_any         (unused)
+   * @param int|NULL $effective_current start of current token's context, e.g. start of accompaning docblock
    * @return array a pair of integers
    */
-  protected function _fetchExpectation(array $allowed_by_type, File $phpcsFile, int $previous, int $current, bool $match_any)
+  protected function _fetchExpectation(array $allowed_by_type, File $phpcsFile, int $previous, int $current, bool $match_any, ?int $effective_current=NULL)
   {
+    if($effective_current===NULL)
+      $effective_current=$current;
     $tokens=$phpcsFile->getTokens();
+
+    if($this->_expectedToken===T_CLASS) //XXX should be extracted
+    {
+      //if there are file and class docblocks require 1..2 empty lines
+      if($tokens[$effective_current]['code']===T_DOC_COMMENT_OPEN_TAG && $tokens[$previous]['code']===T_DOC_COMMENT_CLOSE_TAG)
+        return [1,2];
+    }
+
     if($tokens[$previous]['code']!==T_SEMICOLON)
       return $allowed_by_type[$tokens[$previous]['code']];
 

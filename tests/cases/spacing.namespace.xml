@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <ruleset name="spacing.namespace">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/spacing</file>
+  <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.Namespace"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/TooLittleSpace.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpace.php" line="10">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
-    <error file="spacing/TooMuchSpaceWithoutComments.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="10">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
   </expectations>
 </ruleset>

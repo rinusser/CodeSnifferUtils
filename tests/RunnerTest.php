@@ -111,7 +111,7 @@ class RunnerTest extends TestCase
         $file_count++;
         continue;
       }
-      if($file_count<1)
+      if($file_count<1 || !$columns&&!preg_match('/^File,([^,]+,){4,}/',$row))
         continue;
       if(!$columns)
       {

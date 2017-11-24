@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.Function"/>
-  <expectations>
+  <expectations fixable="no">
     <file_count>5</file_count>
     <error file="spacing/general/TooLittleSpace.php" line="18">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
     <error file="spacing/general/TooLittleSpace.php" line="22">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>

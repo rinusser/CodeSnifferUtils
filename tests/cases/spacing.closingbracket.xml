@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.ClosingBracket"/>
-  <expectations>
+  <expectations fixable="no">
     <file_count>5</file_count>
     <error file="spacing/general/TooMuchSpace.php" line="36">CodeSnifferUtils.Spacing.ClosingBracket.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="188">CodeSnifferUtils.Spacing.ClosingBracket.PrecedingNewlines</error>

@@ -16,7 +16,7 @@
     </properties>
   </rule>
 
-  <expectations>
+  <expectations fixable="no">
     <file_count>2</file_count>
     <error file="commenting/authoremail/WithAuthorEmail.php" line="5">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
     <error file="commenting/authoremail/WithAuthorEmail.php" line="6">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>

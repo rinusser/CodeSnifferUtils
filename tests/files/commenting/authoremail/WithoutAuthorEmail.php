@@ -6,7 +6,7 @@
  * @author 0invalid
  */
 
-//this comment is a CSU-3 workaround (consecutive file/class docblocks)
+
 
 /**
  * @author Richard Nusser

@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/classes</file>
   <rule ref="RN.Classes.MemberOrdering"/>
-  <expectations>
+  <expectations fixable="no">
     <file_count>2</file_count>
     <error file="classes/Wrong.php" line="17">CodeSnifferUtils.Classes.MemberOrdering.ConstTooLate</error>
     <error file="classes/Wrong.php" line="27">CodeSnifferUtils.Classes.MemberOrdering.StaticPropertyTooLate</error>

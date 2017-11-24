@@ -25,6 +25,8 @@ Examples:
 
 This is similar to C/C++.
 
+This can be automatically fixed by phpcbf.
+
 
 ## Classes
 
@@ -57,8 +59,12 @@ For example:
       }
     }
 
+This rule currently isn't automatically fixable by phpcbf, you'll need to fix the code manually.
+
 
 ## CodeAnalysis
+
+The code analysis errors won't be fixed automatically by phpcbf as it's way too easy to introduce bugs.
 
 ### IgnorableUnusedFunctionParameterSniff
 
@@ -112,6 +118,8 @@ This will catch those references before they result in runtime "class not found"
 These extend PEAR.Commenting.ClassComment and PEAR.Commenting.FileComment: they accept a configurable list of required docblock tags
 and can remove the @author tag's email requirement.
 
+Most of the issues found by these rules aren't automatically fixable by phpcbf.
+
 #### Required Tags Configuration
 
 You can either disable all required tags, e.g. for classes' docblocks:
@@ -158,8 +166,11 @@ The following tags can be checked:
     <property name="licenseContent" value="proprietary"/>
     <property name="versionContent" value="1.0"/>
 
-Any trailing newlines in the source file will be trimmed before comparing the actual tag content against the expectation.
 After confirming the tag content matches processing continues as usual, so make sure your expected content is valid for the tag.
+
+The content you enter needs to be valid XML, you'll e.g. need to use &lt; (instead of <) and &gt; (instead of >).
+
+Invalid contents for found tags can automatically be fixed by phpcbf.
 
 ### ConfigurableFunctionCommentSniff
 
@@ -177,6 +188,17 @@ If you don't set the minimumVisibility property the default "private" will be us
 
 Methods below minimum visibility do not require a docblock - if one is found anyway it will be validated.
 
+This can't be fixed automatically with phpcbf.
+
+#### Return Tag Exception for Test Code
+
+This rule makes an exception for test methods: they don't require a `@return` tag. PHPUnit test methods never return anything
+anyway, the @return tag would always list "void" or "NULL" and clutter the test sources.
+
+Files within a "tests" directory with filenames ending in "Test.php" are considered tests. Within those test files the methods
+`setUpBeforeClass()`, `tearDownAfterClass()`, `setUp()` and `tearDown()` are exempt from the @return tag requirement, as are any
+other methods whose name starts with `test`.
+
 
 ## Files
 
@@ -186,6 +208,8 @@ All PHP files must use `declare(strict_types=1)`; like this:
 
     <?php
     declare(strict_types=1);
+
+This won't be fixed automatically by phpcbf as it might introduce runtime errors as a result of declaring strict types.
 
 
 ## Spacing
@@ -204,6 +228,8 @@ A lot of the following spacing sniffs consider PHP docblocks as part of the stat
     }
 
 counts as having 1 empty line between the methods.
+
+The spacing errors currently aren't automatically fixable by phpcbf as this isn't straightforward to implement reliably.
 
 
 ### UseSniff

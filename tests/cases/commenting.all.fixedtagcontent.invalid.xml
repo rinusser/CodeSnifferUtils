@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="commenting.all.fixedtagcontent.valid">
+<ruleset name="commenting.all.fixedtagcontent.invalid">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/fixedtagcontent</file>
   <rule ref="RN.Commenting.ConfigurableFileComment">
@@ -22,7 +22,7 @@
     </properties>
   </rule>
 
-  <expectations>
+  <expectations fixable="yes">
     <file_count>2</file_count>
     <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>

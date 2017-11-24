@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/codeanalysis/unusedparameters</file>
   <rule ref="RN.CodeAnalysis.IgnorableUnusedFunctionParameter"/>
-  <expectations>
+  <expectations fixable="no">
     <file_count>2</file_count>
     <error file="codeanalysis/unusedparameters/Wrong.php" line="3">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
     <error file="codeanalysis/unusedparameters/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>

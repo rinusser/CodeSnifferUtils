@@ -2,7 +2,7 @@ FROM php:7.1-cli
 WORKDIR /phpcs
 
 RUN apt-get update && apt-get -y install wget unzip
-RUN wget https://getcomposer.org/download/1.5.2/composer.phar
+RUN wget -nv https://getcomposer.org/download/1.5.2/composer.phar
 
 ADD phpconf.d/* /usr/local/etc/php/conf.d/
 

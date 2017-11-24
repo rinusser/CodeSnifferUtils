@@ -35,21 +35,59 @@ trait CheckTagContent
     $tokens=$phpcsFile->getTokens();
     $tag_boundaries=$tokens[$docblock_start]['comment_tags'];
     $tag_boundaries[]=$tokens[$docblock_start]['comment_closer'];
-    $tag_ranges=[];
-    foreach($tag_boundaries as $ti=>$start)
-    {
-      if(!isset($tag_boundaries[$ti+1]))
-        break;
-      $tag_ranges[$start]=$tag_boundaries[$ti+1]-$start-1;
-    }
+    $tag_sizes=$this->_assembleTagSizes($tokens,$tag_boundaries);
 
     foreach($offsets as $offset)
     {
-      $content=trim($phpcsFile->getTokensAsString($offset+1,$tag_ranges[$offset]-2));
+      $content=$phpcsFile->getTokensAsString($offset+2,$tag_sizes[$offset]);
       if($content===$expectation)
         continue;
       $error="@$tagname tag content doesn't match configured content";
-      $phpcsFile->addError($error,$offset,'Wrong'.ucfirst($tagname).'Content');
+      $fix=$phpcsFile->addFixableError($error,$offset,'Wrong'.ucfirst($tagname).'Content');
+      if($fix)
+      {
+        $phpcsFile->fixer->beginChangeset();
+
+        //replace first text after tag with expectected content
+        $phpcsFile->fixer->replaceToken($offset+2,$expectation);
+
+        //remove the rest of the line
+        for($ti=1;$ti<$tag_sizes[$offset];$ti++)
+          $phpcsFile->fixer->replaceToken($offset+2+$ti,'');
+
+        $phpcsFile->fixer->endChangeset();
+      }
     }
+  }
+
+  /**
+   * Turns the list of phpdoc tag token offsets into an array of start=>length entries for the tags' contents
+   *
+   * @param array $tokens         the phpcs file tokens to look through
+   * @param array $tag_boundaries the list of tag token offsets, plus a final delimiter (e.g. end of the docblock)
+   * @return array a list of start=>length entries
+   */
+  private function _assembleTagSizes(array $tokens, array $tag_boundaries): array
+  {
+    $rv=[];
+    foreach($tag_boundaries as $ti=>$start)
+    {
+      //last boundary entry is actually end of the docblock
+      if(!isset($tag_boundaries[$ti+1]))
+        break;
+
+      $rv[$start]=0;
+      for($offset=$start+2;$offset<$tag_boundaries[$ti+1];$offset++)
+      {
+        if($tokens[$offset]['line']!=$tokens[$start]['line'])
+          break;
+        $rv[$start]++;
+      }
+
+      //skip trailing newline token
+      if($rv[$start]>0)
+        $rv[$start]--;
+    }
+    return $rv;
   }
 }

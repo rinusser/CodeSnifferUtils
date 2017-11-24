@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/capitalization</file>
   <rule ref="RN.Capitalization.BooleanNULL"/>
-  <expectations>
+  <expectations fixable="yes">
     <file_count>2</file_count>
     <error file="capitalization/Wrong.php" line="2">CodeSnifferUtils.Capitalization.BooleanNULL.BooleanNULLCase</error>
     <error file="capitalization/Wrong.php" line="3">CodeSnifferUtils.Capitalization.BooleanNULL.BooleanNULLCase</error>

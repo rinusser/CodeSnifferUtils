@@ -22,7 +22,7 @@
     </properties>
   </rule>
 
-  <expectations>
+  <expectations fixable="no">
     <file_count>2</file_count>
     <error file="commenting/general/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingAuthorTag</error>
     <error file="commenting/general/WithComments.php" line="6">RN.Commenting.ConfigurableFileComment.MissingLinkTag</error>

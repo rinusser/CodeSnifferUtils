@@ -45,7 +45,9 @@ class BooleanNULLSniff implements Sniff
     if($actual!==$expected)
     {
       $error='true and false should be lowercase, NULL should be uppercase. Got "'.$actual.'" instead.';
-      $phpcsFile->addError($error,$stackPtr,'BooleanNULLCase');
+      $fix=$phpcsFile->addFixableError($error,$stackPtr,'BooleanNULLCase');
+      if($fix)
+        $phpcsFile->fixer->replaceToken($stackPtr,$expected);
     }
   }
 }

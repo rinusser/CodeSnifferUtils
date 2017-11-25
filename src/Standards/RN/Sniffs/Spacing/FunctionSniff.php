@@ -40,6 +40,8 @@ class FunctionSniff implements Sniff
   {
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
                       T_CLOSE_CURLY_BRACKET=>[1,2],
+                      T_OPEN_TAG=>[0,1],
+                      T_CLOSE_TAG=>[0,2],
                       T_SEMICOLON=>[0,2]];
     return (new ContextAwarePrecedingEmptyLinesChecker(T_FUNCTION,[T_ABSTRACT,T_STATIC]))->process($phpcsFile,$stackPtr,$allowed_by_type);
   }

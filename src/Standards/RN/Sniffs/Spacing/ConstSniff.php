@@ -36,6 +36,8 @@ class ConstSniff implements Sniff
   public function process(File $phpcsFile, $stackPtr)
   {
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
+                      T_OPEN_TAG=>[0,1],
+                      T_CLOSE_TAG=>[0,2],
                       T_SEMICOLON=>[0,2]];
     return (new ContextAwarePrecedingEmptyLinesChecker(T_CONST))->process($phpcsFile,$stackPtr,$allowed_by_type);
   }

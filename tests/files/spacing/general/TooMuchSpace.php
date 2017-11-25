@@ -230,3 +230,17 @@ abstract class MethodParameters
   abstract public function withLaterEllipsisAndTypeHint($x,  string ...$y);
   abstract public function withEllipsisAndTypeHint(string  ...$y);
 }
+
+?>
+<?php
+
+
+function too_much_space_after_php_tag()
+{
+}
+
+?>
+<?php
+
+
+const TOO_MUCH_SPACE_AFTER_PHP_TAG=2;

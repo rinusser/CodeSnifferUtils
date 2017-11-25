@@ -251,3 +251,25 @@ class ClassImportingTraits
   //use Trait5;
   use Trait6;
 }
+
+?>
+<?php
+function function_after_open_tag()
+{
+}
+
+?>
+<?php
+
+function another_after_open_tag()
+{
+}
+
+?>
+<?php
+const ASDF=1; //no idea why this is legal PHP syntax, but hey
+
+?>
+<?php
+
+const ANOTHERCONST=2;

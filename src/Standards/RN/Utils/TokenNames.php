@@ -30,6 +30,7 @@ abstract class TokenNames
                           T_SEMICOLON=>'semicolon',
                           T_COMMA=>'comma',
                           T_EQUAL=>'equal sign',
+                          T_CONST=>'constant',
                          ];
 
   /**

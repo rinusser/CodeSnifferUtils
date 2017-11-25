@@ -23,5 +23,6 @@
     <error file="spacing/general/TooMuchSpace.php" line="168">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="176">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="185">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="238">CodeSnifferUtils.Spacing.Function.PrecedingNewlines</error>
   </expectations>
 </ruleset>

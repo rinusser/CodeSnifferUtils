@@ -94,6 +94,9 @@ The testsuite requires PHPUnit and PHP\_CodeSniffer installed. Start the Docker 
 
 PHPUnit invokes phpcs (via `tests/TestRunner.php`) for each case (`tests/cases/*.xml`) and then parsing phpcs's output. Tested files are in `tests/files/`.
 
+If any tested errors are fixable the test runner will run phpcbf on a copy of the test case's files and run phpcs on the modified
+copies to confirm the fixable errors were actually fixed.
+
 
 # Legal
 

@@ -26,7 +26,7 @@
     </properties>
   </rule>
 
-  <expectations fixable="no">
+  <expectations>
     <file_count>2</file_count>
   </expectations>
 </ruleset>

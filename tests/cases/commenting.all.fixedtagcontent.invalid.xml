@@ -22,7 +22,7 @@
     </properties>
   </rule>
 
-  <expectations fixable="yes">
+  <expectations>
     <file_count>2</file_count>
     <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>

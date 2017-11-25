@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/files</file>
   <rule ref="RN.Files.DeclareStrict"/>
-  <expectations fixable="no">
+  <expectations>
     <file_count>2</file_count>
     <error file="files/Wrong.php" line="1">CodeSnifferUtils.Files.DeclareStrict.DeclareStrictMissing</error>
   </expectations>

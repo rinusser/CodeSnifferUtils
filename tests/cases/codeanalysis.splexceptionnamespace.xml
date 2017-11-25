@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/codeanalysis/splexceptionnamespace</file>
   <rule ref="RN.CodeAnalysis.SPLExceptionNamespace"/>
-  <expectations fixable="no">
+  <expectations>
     <file_count>3</file_count>
     <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="5">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
     <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>

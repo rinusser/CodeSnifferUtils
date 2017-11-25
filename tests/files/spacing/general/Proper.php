@@ -212,6 +212,14 @@ function properly_spaced_parameters($a=1, $b)
 {
 }
 
+abstract class MethodParametersWithEllipses
+{
+  abstract public function firstWithTypeHint(string ...$x);
+  abstract public function firstWithoutTypeHint(...$x);
+  abstract public function laterWithTypeHint($a, $b, string ...$x);
+  abstract public function laterWithoutTypeHint($a, $b, ...$x);
+}
+
 class MethodParameterWithDefault
 {
   function x($c=$def, $d=$def){}

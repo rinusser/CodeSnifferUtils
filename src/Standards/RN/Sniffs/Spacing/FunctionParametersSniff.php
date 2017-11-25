@@ -12,7 +12,6 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use RN\CodeSnifferUtils\Utils\Debug;
 use RN\CodeSnifferUtils\Utils\TokenNames;
 
 /**
@@ -72,6 +71,7 @@ class FunctionParametersSniff implements Sniff
       $preceding_token=$preceding_tokens[$tokens[$type]['code']];
 
       $str=$phpcsFile->getTokensAsString($type+1,$current-$type-1);
+      $str=$this->_stripParameterModifiers($str);
 
       if($tokens[$type]['code']!==T_EQUAL && trim($str))
         $str=$this->_processTypeHint($str,$phpcsFile,$current);
@@ -87,10 +87,24 @@ class FunctionParametersSniff implements Sniff
     }
   }
 
+  protected function _stripParameterModifiers(string $str): string
+  {
+    if(strlen($str)>0 && $str[-1]==='&')
+      $str=substr($str,0,-1);
+    if(strlen($str)>=3 && substr($str,-3)==='...')
+      $str=substr($str,0,-3);
+    return $str;
+  }
+
   protected function _processTypeHint(string $str, File $phpcsFile, int $current): string
   {
-    if($str[-1]==='&')
-      $str=substr($str,0,-1);
+    if(preg_match('/[ \t]/',trim($str)))
+    {
+      $warning='Could not parse type hint "'.$str.'", it contains whitespaces';
+      $phpcsFile->addWarning($warning,$current-1,'CantParseTypeHint');
+      return '';
+    }
+
     if(strlen($str)>=2)
     {
       $last2=substr($str,-2);

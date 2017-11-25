@@ -223,4 +223,10 @@ abstract class MethodParameters
 
   abstract protected function withMultilineTypeHints(int  $x,
                                                      \Exception  $e);
+
+  abstract public function withFirstEllipsis( ...$x);
+  abstract public function withLaterEllipsis($a,  ...$x);
+  abstract public function withFirstEllipsisAndTypeHint( string ...$y);
+  abstract public function withLaterEllipsisAndTypeHint($x,  string ...$y);
+  abstract public function withEllipsisAndTypeHint(string  ...$y);
 }

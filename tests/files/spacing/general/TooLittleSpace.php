@@ -61,4 +61,8 @@ function too_close($a,$b,$c) {}
 class MethodParameterSpacing
 {
   public function tooClose($a,$b=$a) {}
+
+  public function tooCloseWithEllipsis($a,...$x) {}
+
+  public function tooCloseWithEllipsisAndTypeHint($b,string ...$y) {}
 }

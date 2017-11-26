@@ -49,3 +49,9 @@ abstract class WrongOrder
   {
   }
 }
+
+class MultiplePropertiesInOneStatement
+{
+  public $a, $b, $c, //some comment
+         $d;
+}

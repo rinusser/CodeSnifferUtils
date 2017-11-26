@@ -98,8 +98,8 @@ class PrecedingEmptyLinesChecker
       $prev_start=$phpcsFile->findPrevious(Tokens::$scopeOpeners,$start-1,NULL,false,NULL,true);
       if($prev_start===false)
       {
-        $error='Unhandled preceding statement type';
-        $phpcsFile->addError($error,$start,'UnknownContext');
+        $warning='Unhandled preceding statement type';
+        $phpcsFile->addWarning($warning,$start,'UnknownContext');
         return $start;
       }
       $start=$prev_start;

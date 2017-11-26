@@ -1,6 +1,19 @@
-# Sniffs
+# General
 
-This codebase's PHP\_CodeSniffer ("phpcs") "sniffs", i.e. individual code style rules, as described here reflect personal preferences. Use whatever rules you find useful.
+This codebase's PHP\_CodeSniffer ("phpcs") "sniffs", i.e. individual code style rules, as described here reflect personal
+preferences. Use whatever rules you find useful.
+
+## Error Types
+
+Custom rules output warnings and errors according to these general guidelines:
+
+* definite styling violations generate errors
+* uncertain styling violations that might actually be false positives generate warnings instead
+* code analysis sniffs generally issue warnings - in severe cases errors
+* if there's an internal error, e.g. if an unexpected case is encountered, a warning is issued
+
+
+# Sniffs
 
 Some of these rules extend PHP\_CodeSniffer's built-in sniffs.
 
@@ -29,6 +42,20 @@ This can be automatically fixed by phpcbf.
 
 
 ## Classes
+
+### IndividualPropertiesSniff
+
+Class properties should be declared individually:
+
+    class A
+    {
+      public $a;      //this is OK
+      public $b;      //this is OK
+      public $c, $d,  //this is wrong: $d should be declared separately
+             $e;      //this is wrong: newlines don't count either
+    }
+
+This currently isn't automatically fixable by phpcbf.
 
 ### MemberOrderingSniff
 

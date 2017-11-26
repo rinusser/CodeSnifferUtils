@@ -60,8 +60,8 @@ class FunctionParametersSniff implements Sniff
       $type=$phpcsFile->findPrevious([T_EQUAL,T_COMMA,T_OPEN_PARENTHESIS],$current,NULL,false,NULL,true);
       if($type===false)
       {
-        $error='Could not parse parameter context';
-        $phpcsFile->addError($error,$current,'CouldNotParseContext');
+        $warning='Could not parse parameter context';
+        $phpcsFile->addWarning($warning,$current,'CouldNotParseContext');
         return;
       }
 

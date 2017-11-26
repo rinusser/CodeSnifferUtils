@@ -244,3 +244,17 @@ function too_much_space_after_php_tag()
 
 
 const TOO_MUCH_SPACE_AFTER_PHP_TAG=2;
+
+class ClassWithMultiplePropertiesPerLine
+{
+  public static function asdf()
+  {
+  }
+
+
+
+  public $d,
+
+         $e,
+         $f;
+}

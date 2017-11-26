@@ -273,3 +273,17 @@ const ASDF=1; //no idea why this is legal PHP syntax, but hey
 <?php
 
 const ANOTHERCONST=2;
+
+
+class ClassWithMultiplePropertiesPerLine
+{
+  public static function asdf()
+  {
+  }
+
+  public $a, $b, $c;
+
+  public $d,
+         //$e,
+         $f;
+}

@@ -27,6 +27,10 @@ class PropertySniff extends AbstractVariableSniff
   protected function processMemberVar(File $phpcsFile, $stackPtr)
   {
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
+                      T_CLOSE_CURLY_BRACKET=>[1,2],
+                      T_COMMA=>[-1,0],
+                      T_VARIABLE=>[-1,0],
+                      T_COMMENT=>[0,1],
                       T_SEMICOLON=>[0,2]];
     return (new ContextAwarePrecedingEmptyLinesChecker(T_VARIABLE,[T_STATIC]))->process($phpcsFile,$stackPtr,$allowed_by_type);
   }

@@ -11,5 +11,7 @@
     <error file="spacing/general/TooMuchSpace.php" line="29">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="44">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="51">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="256">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="258">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
   </expectations>
 </ruleset>

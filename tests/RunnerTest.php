@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Tests;
 
 use PHPUnit\Framework\TestCase;
-use RN\CodeSnifferUtils\Utils\PropertyCast;
 
 /**
  * Runner for phpcs XML test cases

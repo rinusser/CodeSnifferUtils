@@ -11,7 +11,6 @@ namespace RN\CodeSnifferUtils\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use RN\CodeSnifferUtils\Utils\Debug;
 
 /**
  * This checks for built-in SPL exception referenced in wrong namespace

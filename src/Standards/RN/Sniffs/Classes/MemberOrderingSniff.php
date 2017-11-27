@@ -11,9 +11,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Classes;
 
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
-use RN\CodeSnifferUtils\Utils\Debug;
 use RN\CodeSnifferUtils\Utils\TokenNames;
 
 /**

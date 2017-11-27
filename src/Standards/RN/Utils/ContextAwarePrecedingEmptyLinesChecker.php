@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Utils;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 

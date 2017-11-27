@@ -11,7 +11,6 @@ namespace RN\CodeSnifferUtils\Sniffs\Capitalization;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * Ensures true and false are lowercase, NULL is uppercase

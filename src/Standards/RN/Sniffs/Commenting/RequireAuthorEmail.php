@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Sniffs\Commenting;
 
-use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PropertyCast;
 

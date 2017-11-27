@@ -138,6 +138,22 @@ This rule checks for references to PHP's built-in SPL exceptions when used in na
 The main reason to use this rule is because it's easy to forget the namespace reference when writing exception handlers.
 This will catch those references before they result in runtime "class not found" errors.
 
+### UnusedNamespaceImportSniff
+
+This rule checks `use` statements for imported symbols from other namespaces that aren't being used in the file.
+
+For example:
+
+    use A\B;          //B gets a warning, it isn't being used anywhere
+    use A\{C,D,E,F};  //C, E and F get a warning each; D is being used below
+    use G\H as I;     //I gets a warning
+
+    class Y
+    {
+      use D;
+    }
+
+
 ## Commenting
 
 ### ConfigurableClassCommentSniff, ConfigurableFileCommentSniff

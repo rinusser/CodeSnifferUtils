@@ -11,7 +11,6 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\PrecedingEmptyLinesChecker;
 
 /**

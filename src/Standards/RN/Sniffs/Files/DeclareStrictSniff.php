@@ -11,7 +11,6 @@ namespace RN\CodeSnifferUtils\Sniffs\Files;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * Ensures PHP files declare strict typing

@@ -14,8 +14,8 @@ namespace RN\CodeSnifferUtils\Utils;
  */
 abstract class PropertyCast
 {
-  private static $_bool_values=[[true, ['true', 'yes','1','y']],
-                                [false,['false','no', '0','n']]];
+  private static $_boolValues=[[true, ['true', 'yes','1','y']],
+                               [false,['false','no', '0','n']]];
 
   /**
    * Parses a boolean property
@@ -31,7 +31,7 @@ abstract class PropertyCast
       return $raw_value;
 
     $value=trim(strtolower($raw_value));
-    foreach(self::$_bool_values as [$rv,$values])
+    foreach(self::$_boolValues as [$rv,$values])
       if(in_array($value,$values))
         return $rv;
 

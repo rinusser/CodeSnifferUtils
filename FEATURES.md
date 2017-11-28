@@ -255,6 +255,21 @@ All PHP files must use `declare(strict_types=1)`; like this:
 This won't be fixed automatically by phpcbf as it might introduce runtime errors as a result of declaring strict types.
 
 
+## Naming
+
+### PropertySniff
+
+Class (and trait) properties must:
+
+* start with an underscore if they're private or protected
+* NOT start with an underscore if they're public
+* start with a lowercase letter after the visibility-dependent leading underscore
+* NOT contain any other underscores after the start
+
+This won't be fixed automatically by phpcbf as it's very difficult to do reliably and may very well require changes across multiple
+analyzed files.
+
+
 ## Spacing
 
 A lot of the following spacing sniffs consider PHP docblocks as part of the statement, e.g. having code like this:

@@ -257,17 +257,54 @@ This won't be fixed automatically by phpcbf as it might introduce runtime errors
 
 ## Naming
 
-### PropertySniff
+Naming errors won't be fixed automatically by phpcbf as it's very difficult to do reliably and may very well require changes across
+multiple analyzed files.
 
-Class (and trait) properties must:
+### SnakeCaseFunctionSniff
+
+Functions outside classes/traits must:
+
+* NOT start with an underscore (except for PHP magic functions)
+* consist of lowercase letters, numbers and underscores
+
+For example:
+
+    <?php
+    function i_am_valid() {}
+    function me2() {}
+
+### CamelCaseMethodSniff, PropertySniff
+
+Class (and trait) methods and properties must:
 
 * start with an underscore if they're private or protected
-* NOT start with an underscore if they're public
+* NOT start with an underscore if they're public (except for PHP magic methods)
 * start with a lowercase letter after the visibility-dependent leading underscore
 * NOT contain any other underscores after the start
 
-This won't be fixed automatically by phpcbf as it's very difficult to do reliably and may very well require changes across multiple
-analyzed files.
+Sometimes there are outside requirements to violate the class member naming rules (e.g. inheritance or interfaces), in these cases
+it's possible to make an exception for the class member by adding `CSU.IgnoreName` in a comment on the same line.
+
+For example:
+
+    class A
+    {
+      public static $ok;
+      protected static $_isValid;
+
+      public $iAmValid;
+      protected $_soAmI;
+      private $_me2;
+      private $Very_invalid;  //CSU.IgnoreName - property name will be ignored
+
+
+      public function __get($key) {}  //static methods are ignored
+
+      public function valid() {}
+      public function _Nope() {} //CSU.IgnoreName - invalid but ignored
+      protected function _validToo() {}
+      private function _same() {}
+    }
 
 
 ## Spacing

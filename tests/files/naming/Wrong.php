@@ -38,3 +38,27 @@ trait WronglyNamedTrait
   public static $_traitProperty;
   protected $traitProperty;
 }
+
+
+class WrongMethodNaming
+{
+  public static function NoLeadingUppercase() {}
+  public function _extraLeadingUnderscore() {}
+  public function snake_case() {}
+
+  protected static function missingLeadingUnderscore() {}
+  private function missing2() {}
+  private function _snake_case() {}
+}
+
+trait WrongTraitMethodNaming
+{
+  public static function _pleaseBreak() {}
+  protected function _IneedThis() {}
+  private function really() {}
+}
+
+function thisIsWrong() {}
+function asShouldThis() {}
+function Afunction() {}
+function _no_leading_underscores() {}

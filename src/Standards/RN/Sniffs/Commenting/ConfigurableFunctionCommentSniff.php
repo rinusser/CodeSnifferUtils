@@ -45,7 +45,7 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
     return parent::process($phpcsFile,$stackPtr);
   }
 
-  protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)
+  protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)  //CSU.IgnoreName: required by parent class
   {
     //special handling for tests: don't inspect PHPUnit setup/teardown and test methods too closely, especially skip the @return tag check
     if(preg_match('#/tests/.*Test\.php$#',$phpcsFile->getFilename()))

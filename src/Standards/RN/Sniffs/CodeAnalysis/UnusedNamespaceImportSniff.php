@@ -27,7 +27,7 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
   }
 
 
-  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
+  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
     $tokens=$phpcsFile->getTokens();
 
@@ -87,7 +87,7 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
   }
 
 
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
+  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
   {
   }
 }

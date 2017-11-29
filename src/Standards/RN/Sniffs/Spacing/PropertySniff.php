@@ -23,7 +23,7 @@ class PropertySniff extends AbstractVariableSniff
    * @param int  $stackPtr  the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  protected function processMemberVar(File $phpcsFile, $stackPtr)
+  protected function processMemberVar(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
                       T_CLOSE_CURLY_BRACKET=>[1,2],
@@ -34,11 +34,11 @@ class PropertySniff extends AbstractVariableSniff
     return (new ContextAwarePrecedingEmptyLinesChecker(T_VARIABLE,[T_STATIC]))->process($phpcsFile,$stackPtr,$allowed_by_type);
   }
 
-  protected function processVariable(File $phpcsFile, $stackPtr)
+  protected function processVariable(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processVariableInString(File $phpcsFile, $stackPtr)
+  protected function processVariableInString(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
   }
 }

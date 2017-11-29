@@ -47,7 +47,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
    * @param int  $currScope (unused) The current scope opener token.
    * @return void
    */
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
+  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
   {
     $tokens=$phpcsFile->getTokens();
     $order=NULL;
@@ -131,7 +131,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
    * @param int  $stackPtr  (unused)
    * @return void
    */
-  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
+  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
   }
 

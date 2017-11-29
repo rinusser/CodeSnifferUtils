@@ -24,7 +24,7 @@ class IndividualPropertiesSniff extends AbstractVariableSniff
    * @param int  $stackPtr  The position where the token was found.
    * @return void
    */
-  protected function processMemberVar(File $phpcsFile, $stackPtr)
+  protected function processMemberVar(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
     $tokens=$phpcsFile->getTokens();
     $prev=$phpcsFile->findPrevious([T_WHITESPACE,T_COMMENT],$stackPtr-1,NULL,true);
@@ -36,11 +36,11 @@ class IndividualPropertiesSniff extends AbstractVariableSniff
   }
 
 
-  protected function processVariable(File $phpcsFile, $stackPtr)
+  protected function processVariable(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processVariableInString(File $phpcsFile, $stackPtr)
+  protected function processVariableInString(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
   {
   }
 }

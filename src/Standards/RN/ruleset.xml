@@ -40,21 +40,16 @@
 <rule ref="Generic.Metrics.NestingLevel"/>
 <rule ref="Generic.NamingConventions.ConstructorName"/>
 <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-
-<!--<rule ref="Generic.NamingConventions.CamelCapsFunctionName"/>-->
-
 <rule ref="Generic.PHP.DeprecatedFunctions"/>
 <rule ref="Generic.PHP.DisallowShortOpenTag"/>
 <rule ref="Generic.PHP.ForbiddenFunctions"/>
-
-<!--<rule ref="Generic.PHP.LowerCaseConstant"/>-->
-
 <rule ref="Generic.PHP.NoSilencedErrors"/>
 <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 <rule ref="Generic.WhiteSpace.ScopeIndent">
-    <properties>
-        <property name="indent" value="2"/>
-    </properties>
+  <properties>
+    <property name="indent" value="2"/>
+    <property name="ignoreIndentationTokens" type="array" value="T_COMMENT"/>
+  </properties>
 </rule>
 <rule ref="MySource.PHP.EvalObjectFactory"/>
 <rule ref="PEAR.Classes.ClassDeclaration">
@@ -69,16 +64,12 @@
 <!--<rule ref="PEAR.Functions.FunctionDeclaration"/> -->
 <rule ref="PEAR.Functions.ValidDefaultValue"/>
 <rule ref="PEAR.NamingConventions.ValidClassName"/>
-<!--<rule ref="PEAR.NamingConventions.ValidFunctionName"/> -->
 <!--<rule ref="PEAR.NamingConventions.ValidVariableName"/>-->
 <rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
     <properties>
         <property name="indent" value="2"/>
     </properties>
 </rule>
-
-
-<!--<rule ref="PEAR.WhiteSpace.ScopeIndent"/>-->
 
 <rule ref="PSR1.Classes.ClassDeclaration"/>
 <rule ref="PSR1.Files.SideEffects"/>

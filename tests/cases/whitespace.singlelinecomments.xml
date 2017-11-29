@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="whitespace.singlelinecomments">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/whitespace</file>
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2"/>
+      <property name="ignoreIndentationTokens" type="array" value="T_COMMENT"/>
+    </properties>
+  </rule>
+  <expectations>
+    <file_count>1</file_count>
+  </expectations>
+</ruleset>

@@ -66,48 +66,66 @@ class RunnerTest extends TestCase
 
 
   /**
-   * Invokes phpcs on each .xml file in the XML path (tests/cases/ by default)
-   * If .xml testcase is marked as automatically fixable this test will check whether phpcbf actually fixes all errors
+   * Fetches XML testcases from the configured path (tests/cases/ by default) and prepares them for injection by the test runner
+   *
+   * @return array list of prepared testcases
    */
-  public function testXMLCases()
+  public function fetchXMLCases(): array
   {
+    $rv=[];
     foreach(new \DirectoryIterator(self::$_xmlPath) as $ti=>$file)
     {
-      if($file->isDot() || preg_match('/^\..*\.swp$/',$file->getFilename()))
+      $filename=$file->getFilename();
+      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename))
         continue;
-      $message_prefix=$file->getFilename().': ';
-      $fullpath=self::$_xmlPath.'/'.$file->getFilename();
-      if($this->_isVerbose())
-        echo "\ntesting ",$fullpath;
+      $rv[$filename]=[$ti,$filename];
+    }
+    return $rv;
+  }
 
-      $testcase=$this->_parseTestCase($fullpath);
-      list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);
+  /**
+   * Invokes phpcs for each provided testcase
+   * If .xml testcase is marked as automatically fixable this test will check whether phpcbf actually fixes all errors
+   *
+   * @dataProvider fetchXMLCases
+   *
+   * @param int    $index    the testcase's index
+   * @param string $filename the testcase's filename
+   */
+  public function testXMLCase(int $index, string $filename)
+  {
+    $message_prefix=$filename.': ';
+    $fullpath=self::$_xmlPath.'/'.$filename;
+    if($this->_isVerbose())
+      echo "\ntesting ",$fullpath;
 
-      if($actuals['fixables'])
-      {
-        //create empty temporary directory
-        $tmp_basedir=sys_get_temp_dir();
-        $timestamp=microtime(true);
-        $dir=sprintf('%s/CodeSnifferUtils.test.%03d.%s.%06d',$tmp_basedir,$ti,date('Ymd.His',(int)$timestamp),($timestamp-(int)$timestamp)*1000000);
-        self::$_temporaryDirectories[]=$dir;
-        mkdir($dir);
+    $testcase=$this->_parseTestCase($fullpath);
+    list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);
 
-        //copy source files and directories to temp dir
-        foreach($testcase->sources as $source)
-          $this->_copyRecursive($source,$dir);
+    if($actuals['fixables'])
+    {
+      //create empty temporary directory
+      $tmp_basedir=sys_get_temp_dir();
+      $timestamp=microtime(true);
+      $dir=sprintf('%s/CodeSnifferUtils.test.%03d.%s.%06d',$tmp_basedir,$index,date('Ymd.His',(int)$timestamp),($timestamp-(int)$timestamp)*1000000);
+      self::$_temporaryDirectories[]=$dir;
+      mkdir($dir);
 
-        //run phpcbf on temp dir, this should fix all errors
-        exec(self::$_phpcbfCmd.' --standard='.$fullpath.' '.$dir,$output,$rv);
-        $this->assertEquals(1,$rv,$message_prefix.'phpcbf return value; should have fixed errors');
+      //copy source files and directories to temp dir
+      foreach($testcase->sources as $source)
+        $this->_copyRecursive($source,$dir);
 
-        //run phpcs on temp dir and see if there are 0 errors
-        $testcase->expectedErrors=array_diff_key($testcase->expectedErrors,array_flip($actuals['fixables']));
-        list($rv,)=$this->_performPHPCSTest($testcase,$message_prefix.'after automatic fixing: ',$dir.'/phpcs/tests/files',$dir);
-        if($testcase->expectedErrors)
-          $this->assertEquals(1,$rv,$message_prefix.'phpcs return value: phpcbf should have left some errors');
-        else
-          $this->assertEquals(0,$rv,$message_prefix.'phpcs return value: phpcbf should have fixed everything');
-      }
+      //run phpcbf on temp dir, this should fix all errors
+      exec(self::$_phpcbfCmd.' --standard='.$fullpath.' '.$dir,$output,$rv);
+      $this->assertEquals(1,$rv,$message_prefix.'phpcbf return value; should have fixed errors');
+
+      //run phpcs on temp dir and see if there are 0 errors
+      $testcase->expectedErrors=array_diff_key($testcase->expectedErrors,array_flip($actuals['fixables']));
+      list($rv,)=$this->_performPHPCSTest($testcase,$message_prefix.'after automatic fixing: ',$dir.'/phpcs/tests/files',$dir);
+      if($testcase->expectedErrors)
+        $this->assertEquals(1,$rv,$message_prefix.'phpcs return value: phpcbf should have left some errors');
+      else
+        $this->assertEquals(0,$rv,$message_prefix.'phpcs return value: phpcbf should have fixed everything');
     }
   }
 
@@ -162,6 +180,7 @@ class RunnerTest extends TestCase
 
     if($error_parts)
       $this->fail($message."\n\n".implode("\n",$error_parts));
+    $this->assertEmpty($error_parts); //this is just to increase the assert count so the stats show the test finished successfully
   }
 
   private function _renderErrorsListIfNotEmpty(array $errors, string $description, string $type)

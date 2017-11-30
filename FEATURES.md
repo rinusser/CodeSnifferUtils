@@ -298,7 +298,7 @@ For example:
       private $Very_invalid;  //CSU.IgnoreName - property name will be ignored
 
 
-      public function __get($key) {}  //static methods are ignored
+      public function __get($key) {}  //magic methods are ignored
 
       public function valid() {}
       public function _Nope() {} //CSU.IgnoreName - invalid but ignored

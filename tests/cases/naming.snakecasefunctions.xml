@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="naming.property">
+<ruleset name="naming.snakecasefunctions">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/naming</file>
   <rule ref="RN.Naming.SnakeCaseFunction"/>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleset name="naming.snakecasevariables">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/naming/general</file>
+  <file>../files/naming/variables</file>
+  <rule ref="RN.Naming.SnakeCaseVariable"/>
+  <expectations>
+    <file_count>3</file_count>
+    <error file="naming/general/Wrong.php" line="86">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="87">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="88">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="88">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="89">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="91">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/variables/Distinctions.php" line="6">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/variables/Distinctions.php" line="17">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+  </expectations>
+</ruleset>

@@ -335,6 +335,32 @@ For example:
       }
     }
 
+### SnakeCaseVariableSniff
+
+Variables must:
+
+* start with a lowercase letter
+* be in snake\_case
+
+Use of function/method parameters will be ignored, as will closure's "use" imports and PHP's superglobals.
+
+Only the first occurrence of an incorrectly named variable within a given scope will be reported.
+
+For example:
+
+    function($Par)
+    {
+      $Par=1;       //this is OK: it's a function parameter
+      $some_var2=2; //this is OK: it's in snake case
+
+      $x=function($P1) use ($Par) {
+        $MyVar=$P1+$Par;   //$MyVar will be reported, $P1 is an argument and $Par is being imported
+        $MyVar++;          //this won't trigger an error as $MyVar has already been reported above
+      };
+
+      echo $_SERVER['argc'];  //superglobals are ignored
+    }
+
 
 ## Spacing
 

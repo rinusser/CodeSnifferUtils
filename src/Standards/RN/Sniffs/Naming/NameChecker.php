@@ -90,18 +90,22 @@ abstract class NameChecker
    * Checks whether a name is in snake_case.
    * This method doesn't check whether a name starts with leading underscores, handle this separately.
    *
-   * @param File   $file      the phpcs file handle to check
-   * @param int    $stack_ptr the token offset to put any errors on
-   * @param string $type      the token type, for use in the error message
-   * @param string $name      the name to validate
+   * @param File        $file           the phpcs file handle to check
+   * @param int         $stack_ptr      the token offset to put any errors on
+   * @param string      $type           the token type, for use in the error message
+   * @param string      $name           the name to validate
+   * @param string|NULL $displayed_name the name to use in error messages
    * @return void
    */
-  public static function checkSnakeCase(File $file, int $stack_ptr, string $type, string $name): void
+  public static function checkSnakeCase(File $file, int $stack_ptr, string $type, string $name, ?string $displayed_name=NULL): void
   {
+    if(!$displayed_name)
+      $displayed_name=$name;
+
     if(!preg_match('/^[a-z0-9_]+$/',$name))
     {
       $error='%s "%s" must be in snake_case - only lowercase letters, numbers and underscores are allowed';
-      $file->addError($error,$stack_ptr,'InvalidCharacters',[ucfirst($type),$name]);
+      $file->addError($error,$stack_ptr,'InvalidCharacters',[ucfirst($type),$displayed_name]);
     }
   }
 }

@@ -77,3 +77,17 @@ trait WrongParameterNamingTrait
 
 function x($A, $_b, int $somePar=3) {}
 $y=function($myPar,$_find_this_please) {};
+
+
+class WrongVariableNaming
+{
+  public function asdf()
+  {
+    $xY=4;
+    $_a=2;
+    list($aA,$_b)=$_SERVER['argv'];
+    $_NOSUCHGLOBALEXISTS=2;
+
+    $y=function() { $Invalid=1; }
+  }
+}

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ruleset name="naming.snakecasefunctions">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/naming</file>
+  <file>../files/naming/general</file>
   <rule ref="RN.Naming.SnakeCaseFunction"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="naming/Wrong.php" line="61">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
-    <error file="naming/Wrong.php" line="62">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
-    <error file="naming/Wrong.php" line="63">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
-    <error file="naming/Wrong.php" line="64">CodeSnifferUtils.Naming.SnakeCaseFunction.LeadingUnderscore</error>
+    <error file="naming/general/Wrong.php" line="61">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="62">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="63">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="64">CodeSnifferUtils.Naming.SnakeCaseFunction.LeadingUnderscore</error>
   </expectations>
 </ruleset>

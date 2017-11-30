@@ -63,7 +63,7 @@ class IgnoredMethodNaming
 
 abstract class ProperParameterNaming
 {
-  abstract public static function a($come, int $get, \StdClass ...&$some);
+  abstract public static function a($come, int $get, \StdClass &...$some);
   private function _a($this_is_valid=3)
   {
     $x=function($a,$b) {};
@@ -77,3 +77,18 @@ trait ProperParameterNamingTrait
 
 function abc($a, $b_c) {};
 $y=function($x=3,$y_z=5) {};
+
+
+class ProperVariableNaming
+{
+  public function a()
+  {
+    $a_b_c3=$_SERVER['hostname'].$_GET['idx'];
+    SomeClass::$a_b_c3;
+    self::$_X=1;
+    list[$a_b,$c]=array_values($_SERVER);
+  }
+}
+
+$a_valid_variable_name_2='y';
+$$a_valid_variable_name_2(2,1);

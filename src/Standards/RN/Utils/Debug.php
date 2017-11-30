@@ -34,13 +34,13 @@ abstract class Debug
   /**
    * Dumps a list of phpcs tokens surrounding a given main token
    *
-   * @param array $tokens   the list of tokens
-   * @param int   $stackPtr the main token's offset
+   * @param array $tokens    the list of tokens
+   * @param int   $stack_ptr the main token's offset
    * @return void
    */
-  public static function dumpToken(array $tokens, int $stackPtr): void
+  public static function dumpToken(array $tokens, int $stack_ptr): void
   {
-    self::dumpTokenRange($tokens,$stackPtr-1,$stackPtr+1);
+    self::dumpTokenRange($tokens,$stack_ptr-1,$stack_ptr+1);
   }
 
   /**

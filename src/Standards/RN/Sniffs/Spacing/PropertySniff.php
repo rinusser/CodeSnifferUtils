@@ -19,11 +19,11 @@ use RN\CodeSnifferUtils\Utils\ContextAwarePrecedingEmptyLinesChecker;
 class PropertySniff extends AbstractVariableSniff
 {
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  protected function processMemberVar(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
                       T_CLOSE_CURLY_BRACKET=>[1,2],
@@ -31,14 +31,14 @@ class PropertySniff extends AbstractVariableSniff
                       T_VARIABLE=>[-1,0],
                       T_COMMENT=>[0,1],
                       T_SEMICOLON=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_VARIABLE,[T_STATIC]))->process($phpcsFile,$stackPtr,$allowed_by_type);
+    return (new ContextAwarePrecedingEmptyLinesChecker(T_VARIABLE,[T_STATIC]))->process($file,$stack_ptr,$allowed_by_type);
   }
 
-  protected function processVariable(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariable(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processVariableInString(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariableInString(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 }

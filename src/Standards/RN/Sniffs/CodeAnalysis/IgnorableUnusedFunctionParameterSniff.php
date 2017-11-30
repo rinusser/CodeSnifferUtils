@@ -19,13 +19,13 @@ use RN\CodeSnifferUtils\Utils\IgnorableUnusedFunctionParameterFileProxy;
 class IgnorableUnusedFunctionParameterSniff extends UnusedFunctionParameterSniff
 {
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return mixed see parent class
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
-    $proxy=new IgnorableUnusedFunctionParameterFileProxy($phpcsFile);
-    return parent::process($proxy,$stackPtr);
+    $proxy=new IgnorableUnusedFunctionParameterFileProxy($file);
+    return parent::process($proxy,$stack_ptr);
   }
 }

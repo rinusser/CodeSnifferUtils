@@ -145,10 +145,10 @@ This rule checks `use` statements for imported symbols from other namespaces tha
 For example:
 
     use A\B;          //B gets a warning, it isn't being used anywhere
-    use A\{C,D,E,F};  //C, E and F get a warning each; D is being used below
+    use A\{C,D,E,F};  //E and F get a warning each; C and D are used below
     use G\H as I;     //I gets a warning
 
-    class Y
+    class Y extends C
     {
       use D;
     }
@@ -211,7 +211,7 @@ The following tags can be checked:
 
 After confirming the tag content matches processing continues as usual, so make sure your expected content is valid for the tag.
 
-The content you enter needs to be valid XML, you'll e.g. need to use &lt; (instead of <) and &gt; (instead of >).
+The content you enter needs to be valid XML, you'll e.g. need to use `&lt;` (instead of <) and `&gt;` (instead of >).
 
 Invalid contents for found tags can automatically be fixed by phpcbf.
 
@@ -304,6 +304,35 @@ For example:
       public function _Nope() {} //CSU.IgnoreName - invalid but ignored
       protected function _validToo() {}
       private function _same() {}
+    }
+
+### SnakeCaseFunctionParametersSniff
+
+Function/method and closure parameters must:
+
+* start with a lowercase letter
+* be in snake\_case
+
+For example:
+
+    <?php
+    function valid($ok, $ok_too) {}
+
+    function invalid1($Not_ok) {}    //invalid: starts with an uppercase letter
+    function invalid2($_neither) {}  //invalid: starts with an underscore
+    function invalid3($norThis) {}   //invalid: isn't in snake case
+
+    class A
+    {
+      public function valid($ok)
+      {
+        $x=function($ok_too) {};
+      }
+
+      public function invalid($camelCase)  //invalid: parameter isn't in snake case
+      {
+        $y=function($wrongAgain) {};       //invalid: closure parameters are checked too
+      }
     }
 
 

@@ -28,13 +28,13 @@ class ClosingBracketSniff implements Sniff
   }
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
     $allowed_by_type=[PrecedingEmptyLinesChecker::T_ANY=>[-1,0]];
-    return (new PrecedingEmptyLinesChecker())->process($phpcsFile,$stackPtr,$allowed_by_type);
+    return (new PrecedingEmptyLinesChecker())->process($file,$stack_ptr,$allowed_by_type);
   }
 }

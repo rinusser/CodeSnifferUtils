@@ -62,3 +62,18 @@ function thisIsWrong() {}
 function asShouldThis() {}
 function Afunction() {}
 function _no_leading_underscores() {}
+
+
+class WrongParameterNaming
+{
+  public function a(int &$_somePar) {}
+  private function _b($A) {}
+}
+
+trait WrongParameterNamingTrait
+{
+  protected function _c($_a_b) {}
+}
+
+function x($A, $_b, int $somePar=3) {}
+$y=function($myPar,$_find_this_please) {};

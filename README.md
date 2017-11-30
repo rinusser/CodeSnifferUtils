@@ -10,7 +10,7 @@ FEATURES.md contains short explanations of custom rules.
 ### Locally Installed
 
 * PHP 7.1+
-* PHP\_Codesniffer (tested with 1.5.2)
+* PHP\_Codesniffer (tested with 3.1.1)
 
 Tests additionally require PHPUnit (tested with 6.4, should work with 5.4+).
 

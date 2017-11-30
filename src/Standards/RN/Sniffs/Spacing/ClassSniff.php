@@ -31,17 +31,17 @@ class ClassSniff implements Sniff
   /**
    * Gets called by phpcs to handle a file's token
    *
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
     $allowed_by_type=[T_CLOSE_CURLY_BRACKET=>[1,2],
                       T_SEMICOLON=>[1,2],
                       T_COMMENT=>[0,2],
                       T_DOC_COMMENT_CLOSE_TAG=>0,
                       T_OPEN_TAG=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_CLASS,[T_ABSTRACT]))->process($phpcsFile,$stackPtr,$allowed_by_type);
+    return (new ContextAwarePrecedingEmptyLinesChecker(T_CLASS,[T_ABSTRACT]))->process($file,$stack_ptr,$allowed_by_type);
   }
 }

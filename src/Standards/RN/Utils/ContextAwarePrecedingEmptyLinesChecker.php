@@ -31,30 +31,30 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   }
 
   /**
-   * @param File  $phpcsFile       the phpcs file handle to check
-   * @param int   $stackPtr        the phpcs context
+   * @param File  $file            the phpcs file handle to check
+   * @param int   $stack_ptr       the phpcs context
    * @param array $allowed_by_type a map of allowed previous token=>distance pairs
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $phpcsFile, int $stackPtr, array $allowed_by_type)
+  public function process(File $file, int $stack_ptr, array $allowed_by_type)
   {
-    $tokens=$phpcsFile->getTokens();
-    $effective_start=$this->_fetchEffectiveTokenStart($phpcsFile,$stackPtr);
+    $tokens=$file->getTokens();
+    $effective_start=$this->_fetchEffectiveTokenStart($file,$stack_ptr);
 
-    $prev=$phpcsFile->findPrevious(T_WHITESPACE,$effective_start-1,NULL,true);
-    if($tokens[$prev]['line']>=$tokens[$stackPtr]['line']-1)
-      $prev=$this->_skipPreviousTokens($phpcsFile,$prev);
+    $prev=$file->findPrevious(T_WHITESPACE,$effective_start-1,NULL,true);
+    if($tokens[$prev]['line']>=$tokens[$stack_ptr]['line']-1)
+      $prev=$this->_skipPreviousTokens($file,$prev);
     $preceding_line=$tokens[$prev]['line'];
 
     if(!array_key_exists($tokens[$prev]['code'],$allowed_by_type))
     {
       $error='Unhandled preceding token type "'.$tokens[$prev]['type'].'"';
-      $phpcsFile->addWarning($error,$prev,'UnhandledContext');
+      $file->addWarning($error,$prev,'UnhandledContext');
       return NULL;
     }
 
     $lines_between=$tokens[$effective_start]['line']-$preceding_line-1;
-    $expectation=$this->_fetchExpectation($allowed_by_type,$phpcsFile,$prev,$stackPtr,false,$effective_start);
+    $expectation=$this->_fetchExpectation($allowed_by_type,$file,$prev,$stack_ptr,false,$effective_start);
 
     $error_expectation=NULL;
     if(is_array($expectation))
@@ -68,9 +68,9 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
     if($error_expectation)
     {
       $prevs_name=TokenNames::getPrintableName($tokens[$prev]['code'],$tokens[$prev]['type']);
-      $currents_name=TokenNames::getPrintableName($tokens[$stackPtr]['code'],$tokens[$stackPtr]['type']);
+      $currents_name=TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']);
       $error='Expected '.$error_expectation.' between '.$prevs_name.' and '.$currents_name.', got '.$lines_between.' instead';
-      $phpcsFile->addError($error,$stackPtr,'PrecedingNewlines');
+      $file->addError($error,$stack_ptr,'PrecedingNewlines');
     }
 
     return NULL;
@@ -127,35 +127,35 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   /**
    * Callback function for PrecedingEmptyLinesChecker: skips properties' modifiers and whitespaces
    *
-   * @param File $phpcsFile the phpcs file to look through
-   * @param int  $start     the token offset to start looking at
+   * @param File $file  the phpcs file to look through
+   * @param int  $start the token offset to start looking at
    * @return int the new offset
    */
-  protected function _skipPreviousTokens(File $phpcsFile, int $start): int
+  protected function _skipPreviousTokens(File $file, int $start): int
   {
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
     if(in_array($tokens[$start]['code'],[T_OPEN_CURLY_BRACKET,T_CLOSE_CURLY_BRACKET,T_SEMICOLON]))
       return $start;
 
     $skipped_tokens=array_merge(Tokens::$scopeModifiers,[T_WHITESPACE],$this->_ignoredTokens);
-    $prev=$phpcsFile->findPrevious($skipped_tokens,$start-1,NULL,true,NULL,true);
+    $prev=$file->findPrevious($skipped_tokens,$start-1,NULL,true,NULL,true);
     return is_bool($prev)?$start:$prev;
   }
 
   /**
    * @param array    $allowed_by_type   the initial expectation map
-   * @param File     $phpcsFile         the phpcs file handle
+   * @param File     $file              the phpcs file handle
    * @param int      $previous          the previous token's offset
    * @param int      $current           the current token's offset
    * @param bool     $match_any         (unused)
    * @param int|NULL $effective_current start of current token's context, e.g. start of accompaning docblock
    * @return array a pair of integers
    */
-  protected function _fetchExpectation(array $allowed_by_type, File $phpcsFile, int $previous, int $current, bool $match_any, ?int $effective_current=NULL)
+  protected function _fetchExpectation(array $allowed_by_type, File $file, int $previous, int $current, bool $match_any, ?int $effective_current=NULL)
   {
     if($effective_current===NULL)
       $effective_current=$current;
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
 
     if($this->_expectedToken===T_CLASS) //XXX should be extracted
     {
@@ -167,20 +167,20 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
     if($tokens[$previous]['code']!==T_SEMICOLON)
       return $allowed_by_type[$tokens[$previous]['code']];
 
-    $previous_entry=$phpcsFile->findPrevious($this->_expectedToken,$previous-1,NULL,false,NULL,true);
+    $previous_entry=$file->findPrevious($this->_expectedToken,$previous-1,NULL,false,NULL,true);
     if($previous_entry===false)
       return [1,2];
 
     if($this->_expectedToken===T_VARIABLE) //XXX this code should probably be passed by method reference in constructor
     {
-      $previous_properties=$phpcsFile->getMemberProperties($previous_entry);
-      $current_properties=$phpcsFile->getMemberProperties($current);
+      $previous_properties=$file->getMemberProperties($previous_entry);
+      $current_properties=$file->getMemberProperties($current);
       return $previous_properties['is_static']==$current_properties['is_static']?[0,1]:[1,2];
     }
     elseif($this->_expectedToken===T_FUNCTION)
     {
-      $previous_properties=$phpcsFile->getMethodProperties($previous_entry);
-      $current_properties=$phpcsFile->getMethodProperties($current);
+      $previous_properties=$file->getMethodProperties($previous_entry);
+      $current_properties=$file->getMethodProperties($current);
       if($previous_properties['is_abstract']==$current_properties['is_abstract'])
         return $previous_properties['is_static']==$current_properties['is_static']?[0,2]:[1,2];
       else

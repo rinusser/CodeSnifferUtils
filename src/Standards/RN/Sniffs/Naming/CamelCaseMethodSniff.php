@@ -21,18 +21,18 @@ use PHP_CodeSniffer\Files\File;
 class CamelCaseMethodSniff extends CamelCapsMethodNameSniff
 {
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
-   * @param int  $currScope the current scope token's offset
+   * @param File $file       the phpcs file handle to check
+   * @param int  $stack_ptr  the phpcs context
+   * @param int  $curr_scope the current scope token's offset
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
+  protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
-    $name=$phpcsFile->getDeclarationName($stackPtr);
+    $name=$file->getDeclarationName($stack_ptr);
     if(!$name===NULL)
       return;
 
-    if(NameChecker::isSkipped($phpcsFile,$stackPtr))
+    if(NameChecker::isSkipped($file,$stack_ptr))
       return;
 
     if(substr($name,0,2)==='__')
@@ -42,9 +42,9 @@ class CamelCaseMethodSniff extends CamelCapsMethodNameSniff
         return;
     }
 
-    $properties=$phpcsFile->getMethodProperties($stackPtr);
+    $properties=$file->getMethodProperties($stack_ptr);
 
-    if(NameChecker::checkUnderscorePrefix($phpcsFile,$stackPtr,$properties['scope'],'method',$name,$name.'()'))
-      parent::processTokenWithinScope($phpcsFile,$stackPtr,$currScope);
+    if(NameChecker::checkUnderscorePrefix($file,$stack_ptr,$properties['scope'],'method',$name,$name.'()'))
+      parent::processTokenWithinScope($file,$stack_ptr,$curr_scope);
   }
 }

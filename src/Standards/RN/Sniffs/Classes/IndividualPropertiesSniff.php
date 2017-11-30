@@ -20,27 +20,27 @@ class IndividualPropertiesSniff extends AbstractVariableSniff
   /**
    * Processes the property tokens within the class.
    *
-   * @param File $phpcsFile The file where this token was found.
-   * @param int  $stackPtr  The position where the token was found.
+   * @param File $file      The file where this token was found.
+   * @param int  $stack_ptr The position where the token was found.
    * @return void
    */
-  protected function processMemberVar(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
-    $tokens=$phpcsFile->getTokens();
-    $prev=$phpcsFile->findPrevious([T_WHITESPACE,T_COMMENT],$stackPtr-1,NULL,true);
+    $tokens=$file->getTokens();
+    $prev=$file->findPrevious([T_WHITESPACE,T_COMMENT],$stack_ptr-1,NULL,true);
     if($tokens[$prev]['code']!==T_COMMA)
       return;
 
     $warning='Multiple properties in one statement; properties should be declared individually instead';
-    $phpcsFile->addWarning($warning,$stackPtr,'MultipleFound');
+    $file->addWarning($warning,$stack_ptr,'MultipleFound');
   }
 
 
-  protected function processVariable(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariable(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processVariableInString(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariableInString(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 }

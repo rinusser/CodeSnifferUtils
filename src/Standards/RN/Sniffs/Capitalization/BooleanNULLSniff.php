@@ -29,14 +29,14 @@ class BooleanNULLSniff implements Sniff
   }
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
-    $tokens=$phpcsFile->getTokens();
-    $actual=$tokens[$stackPtr]['content'];
+    $tokens=$file->getTokens();
+    $actual=$tokens[$stack_ptr]['content'];
     $expected=strtolower($actual);
     if($expected==='null')
       $expected=strtoupper($actual);
@@ -44,9 +44,9 @@ class BooleanNULLSniff implements Sniff
     if($actual!==$expected)
     {
       $error='true and false should be lowercase, NULL should be uppercase. Got "'.$actual.'" instead.';
-      $fix=$phpcsFile->addFixableError($error,$stackPtr,'BooleanNULLCase');
+      $fix=$file->addFixableError($error,$stack_ptr,'BooleanNULLCase');
       if($fix)
-        $phpcsFile->fixer->replaceToken($stackPtr,$expected);
+        $file->fixer->replaceToken($stack_ptr,$expected);
     }
   }
 }

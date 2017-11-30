@@ -21,31 +21,31 @@ use PHP_CodeSniffer\Files\File;
 class PropertySniff extends AbstractVariableSniff
 {
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  protected function processMemberVar(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
-    $tokens=$phpcsFile->getTokens();
-    $displayed_name=$tokens[$stackPtr]['content'];
+    $tokens=$file->getTokens();
+    $displayed_name=$tokens[$stack_ptr]['content'];
     $name=ltrim($displayed_name,'$');
 
-    $properties=$phpcsFile->getMemberProperties($stackPtr);
+    $properties=$file->getMemberProperties($stack_ptr);
     if(!$properties)
       return;
 
-    if(NameChecker::isSkipped($phpcsFile,$stackPtr))
+    if(NameChecker::isSkipped($file,$stack_ptr))
       return;
 
-    NameChecker::checkUnderscorePrefix($phpcsFile,$stackPtr,$properties['scope'],'property',$name,$displayed_name);
+    NameChecker::checkUnderscorePrefix($file,$stack_ptr,$properties['scope'],'property',$name,$displayed_name);
   }
 
-  protected function processVariable(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariable(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processVariableInString(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processVariableInString(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 }

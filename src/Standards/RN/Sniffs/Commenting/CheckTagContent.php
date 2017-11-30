@@ -25,37 +25,37 @@ trait CheckTagContent
   public $versionContent=NULL;
 
 
-  protected function _checkTagContent(File $phpcsFile, string $tagname, array $offsets): void
+  protected function _checkTagContent(File $file, string $tagname, array $offsets): void
   {
     $property_name=$tagname.'Content';
     if(!$offsets || empty($this->$property_name))
       return;
     $expectation=$this->$property_name;
-    $docblock_start=$phpcsFile->findPrevious(T_DOC_COMMENT_OPEN_TAG,$offsets[0],NULL,false);
-    $tokens=$phpcsFile->getTokens();
+    $docblock_start=$file->findPrevious(T_DOC_COMMENT_OPEN_TAG,$offsets[0],NULL,false);
+    $tokens=$file->getTokens();
     $tag_boundaries=$tokens[$docblock_start]['comment_tags'];
     $tag_boundaries[]=$tokens[$docblock_start]['comment_closer'];
     $tag_sizes=$this->_assembleTagSizes($tokens,$tag_boundaries);
 
     foreach($offsets as $offset)
     {
-      $content=$phpcsFile->getTokensAsString($offset+2,$tag_sizes[$offset]);
+      $content=$file->getTokensAsString($offset+2,$tag_sizes[$offset]);
       if($content===$expectation)
         continue;
       $error="@$tagname tag content doesn't match configured content";
-      $fix=$phpcsFile->addFixableError($error,$offset,'Wrong'.ucfirst($tagname).'Content');
+      $fix=$file->addFixableError($error,$offset,'Wrong'.ucfirst($tagname).'Content');
       if($fix)
       {
-        $phpcsFile->fixer->beginChangeset();
+        $file->fixer->beginChangeset();
 
         //replace first text after tag with expectected content
-        $phpcsFile->fixer->replaceToken($offset+2,$expectation);
+        $file->fixer->replaceToken($offset+2,$expectation);
 
         //remove the rest of the line
         for($ti=1;$ti<$tag_sizes[$offset];$ti++)
-          $phpcsFile->fixer->replaceToken($offset+2+$ti,'');
+          $file->fixer->replaceToken($offset+2+$ti,'');
 
-        $phpcsFile->fixer->endChangeset();
+        $file->fixer->endChangeset();
       }
     }
   }

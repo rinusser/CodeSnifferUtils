@@ -22,17 +22,17 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
 
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return mixed see parent class
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
-    $tokens=$phpcsFile->getTokens();
-    $prev=$phpcsFile->findPrevious(array_merge(Tokens::$scopeModifiers,[T_WHITESPACE]),$stackPtr-1,NULL,true);
+    $tokens=$file->getTokens();
+    $prev=$file->findPrevious(array_merge(Tokens::$scopeModifiers,[T_WHITESPACE]),$stack_ptr-1,NULL,true);
     if($tokens[$prev]['code']!==T_DOC_COMMENT_CLOSE_TAG)
     {
-      $properties=$phpcsFile->getMethodProperties($stackPtr);
+      $properties=$file->getMethodProperties($stack_ptr);
       if($this->minimumVisibility=='protected')
       {
         if($properties['scope']=='private')
@@ -42,15 +42,15 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
        return;
     }
 
-    return parent::process($phpcsFile,$stackPtr);
+    return parent::process($file,$stack_ptr);
   }
 
-  protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)  //CSU.IgnoreName: required by parent class
+  protected function processReturn(File $file, $stack_ptr, $comment_start)  //CSU.IgnoreName: required by parent class
   {
     //special handling for tests: don't inspect PHPUnit setup/teardown and test methods too closely, especially skip the @return tag check
-    if(preg_match('#/tests/.*Test\.php$#',$phpcsFile->getFilename()))
+    if(preg_match('#/tests/.*Test\.php$#',$file->getFilename()))
     {
-      $method_name=$phpcsFile->getDeclarationName($stackPtr);
+      $method_name=$file->getDeclarationName($stack_ptr);
 
       //PHPUnit setup/teardown methods
       if(in_array($method_name,['setUpBeforeClass','tearDownAfterClass','setUp','tearDown']))
@@ -60,6 +60,6 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
       if(substr($method_name,0,4)==='test')
         return;
     }
-    return parent::processReturn($phpcsFile,$stackPtr,$commentStart);
+    return parent::processReturn($file,$stack_ptr,$comment_start);
   }
 }

@@ -28,28 +28,23 @@ class SnakeCaseFunctionSniff extends AbstractScopeSniff
     parent::__construct(Tokens::$ooScopeTokens,[T_FUNCTION],true);
   }
 
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
+  protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
   }
 
-  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
-    $name=$phpcsFile->getDeclarationName($stackPtr);
+    $name=$file->getDeclarationName($stack_ptr);
     if(!$name)
       return;
 
     if(substr($name,0,1)==='_' && $name!=='__autoload')
     {
       $error='Function "%s" must not start with an underscore';
-      $phpcsFile->addError($error,$stackPtr,'LeadingUnderscore',[$name]);
+      $file->addError($error,$stack_ptr,'LeadingUnderscore',[$name]);
       return;
     }
 
-    if(!preg_match('/^[a-z0-9_]+$/',$name))
-    {
-      $error='Function "%s" must be in snake_case - only lowercase letters, numbers and underscores are allowed';
-      $phpcsFile->addError($error,$stackPtr,'InvalidCharacters',[$name]);
-      return;
-    }
+    NameChecker::checkSnakeCase($file,$stack_ptr,'function',$name);
   }
 }

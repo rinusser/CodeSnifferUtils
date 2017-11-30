@@ -59,3 +59,21 @@ class IgnoredMethodNaming
   public static function _thisShouldBeIgnored() {} //CSU.IgnoreName
   protected function __a_s_d_f() {} //CSU.IgnoreName
 }
+
+
+abstract class ProperParameterNaming
+{
+  abstract public static function a($come, int $get, \StdClass ...&$some);
+  private function _a($this_is_valid=3)
+  {
+    $x=function($a,$b) {};
+  }
+}
+
+trait ProperParameterNamingTrait
+{
+  private function _x($validate_me) {}
+}
+
+function abc($a, $b_c) {};
+$y=function($x=3,$y_z=5) {};

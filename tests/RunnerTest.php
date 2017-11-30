@@ -78,7 +78,7 @@ class RunnerTest extends TestCase
       $filename=$file->getFilename();
       if($file->isDot() || preg_match('/^\..*\.swp$/',$filename))
         continue;
-      $rv[$filename]=[$ti,$filename];
+      $rv[]=[$ti,$filename];
     }
     return $rv;
   }
@@ -96,8 +96,6 @@ class RunnerTest extends TestCase
   {
     $message_prefix=$filename.': ';
     $fullpath=self::$_xmlPath.'/'.$filename;
-    if($this->_isVerbose())
-      echo "\ntesting ",$fullpath;
 
     $testcase=$this->_parseTestCase($fullpath);
     list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);

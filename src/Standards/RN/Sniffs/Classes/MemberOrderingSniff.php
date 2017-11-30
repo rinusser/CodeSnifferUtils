@@ -42,20 +42,20 @@ class MemberOrderingSniff extends AbstractScopeSniff
   /**
    * Processes the function tokens within the class.
    *
-   * @param File $phpcsFile The file where this token was found.
-   * @param int  $stackPtr  The position where the token was found.
-   * @param int  $currScope (unused) The current scope opener token.
+   * @param File $file       The file where this token was found.
+   * @param int  $stack_ptr  The position where the token was found.
+   * @param int  $curr_scope (unused) The current scope opener token.
    * @return void
    */
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
+  protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
     $order=NULL;
     $name=NULL;
     $error_prefix=NULL;
     try
     {
-      switch($tokens[$stackPtr]['code'])
+      switch($tokens[$stack_ptr]['code'])
       {
         case T_CONST:
           $order=self::ORDER_CONST;
@@ -64,10 +64,10 @@ class MemberOrderingSniff extends AbstractScopeSniff
           break;
         case T_VARIABLE:
           //skip method arguments
-          if(!empty($tokens[$stackPtr]['nested_parenthesis']))
+          if(!empty($tokens[$stack_ptr]['nested_parenthesis']))
             return;
 
-          if($phpcsFile->getMemberProperties($stackPtr)['is_static'])
+          if($file->getMemberProperties($stack_ptr)['is_static'])
           {
             $order=self::ORDER_STATIC_PROPERTY;
             $name='static properties';
@@ -81,7 +81,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
           }
           break;
         case T_FUNCTION:
-          if($phpcsFile->getMethodProperties($stackPtr)['is_static'])
+          if($file->getMethodProperties($stack_ptr)['is_static'])
           {
             $order=self::ORDER_STATIC_METHOD;
             $name='static methods';
@@ -102,23 +102,23 @@ class MemberOrderingSniff extends AbstractScopeSniff
     }
 
     if($order===NULL)
-      throw new \LogicException("unhandled token: ".TokenNames::getPrintableName($tokens[$stackPtr]['code'],$tokens[$stackPtr]['type']));
+      throw new \LogicException("unhandled token: ".TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']));
 
-    $error_description=$this->_checkTokenOrdering($phpcsFile,$stackPtr,$order);
+    $error_description=$this->_checkTokenOrdering($file,$stack_ptr,$order);
 
     if($error_description)
-      $phpcsFile->addError($name.' must be declared before any '.$error_description,$stackPtr,$error_prefix.'TooLate');
+      $file->addError($name.' must be declared before any '.$error_description,$stack_ptr,$error_prefix.'TooLate');
   }
 
-  protected function _checkTokenOrdering(File $phpcsFile, int $stackPtr, int $order)
+  protected function _checkTokenOrdering(File $file, int $stack_ptr, int $order)
   {
-    if($order<self::ORDER_STATIC_PROPERTY && $this->_hasPrecedingStaticProperty($phpcsFile,$stackPtr))
+    if($order<self::ORDER_STATIC_PROPERTY && $this->_hasPrecedingStaticProperty($file,$stack_ptr))
       return 'static properties';
-    elseif($order<self::ORDER_STATIC_METHOD && $this->_hasPrecedingStaticMethod($phpcsFile,$stackPtr))
+    elseif($order<self::ORDER_STATIC_METHOD && $this->_hasPrecedingStaticMethod($file,$stack_ptr))
       return 'static methods';
-    elseif($order<self::ORDER_INSTANCE_PROPERTY && $this->_hasPrecedingInstanceProperty($phpcsFile,$stackPtr))
+    elseif($order<self::ORDER_INSTANCE_PROPERTY && $this->_hasPrecedingInstanceProperty($file,$stack_ptr))
       return 'instance properties';
-    elseif($order<self::ORDER_INSTANCE_METHOD && $this->_hasPrecedingInstanceMethod($phpcsFile,$stackPtr))
+    elseif($order<self::ORDER_INSTANCE_METHOD && $this->_hasPrecedingInstanceMethod($file,$stack_ptr))
       return 'instance methods';
 
     return NULL;
@@ -127,21 +127,21 @@ class MemberOrderingSniff extends AbstractScopeSniff
   /**
    * Required by parent class
    *
-   * @param File $phpcsFile (unused)
-   * @param int  $stackPtr  (unused)
+   * @param File $file      (unused)
+   * @param int  $stack_ptr (unused)
    * @return void
    */
-  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
   }
 
 
-  protected function _hasPrecedingMember(File $phpcsFile, $token, callable $member_check_func, bool $static, int $current): bool
+  protected function _hasPrecedingMember(File $file, $token, callable $member_check_func, bool $static, int $current): bool
   {
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
     while(true)
     {
-      $current=$phpcsFile->findPrevious([T_CLASS,$token],$current-1,NULL,false);
+      $current=$file->findPrevious([T_CLASS,$token],$current-1,NULL,false);
       if($current===false)
         break;
       if($tokens[$current]['code']==T_CLASS)
@@ -161,23 +161,23 @@ class MemberOrderingSniff extends AbstractScopeSniff
     return false;
   }
 
-  protected function _hasPrecedingStaticProperty(File $phpcsFile, int $current): bool
+  protected function _hasPrecedingStaticProperty(File $file, int $current): bool
   {
-    return $this->_hasPrecedingMember($phpcsFile,T_VARIABLE,[$phpcsFile,'getMemberProperties'],true,$current);
+    return $this->_hasPrecedingMember($file,T_VARIABLE,[$file,'getMemberProperties'],true,$current);
   }
 
-  protected function _hasPrecedingStaticMethod(File $phpcsFile, int $current): bool
+  protected function _hasPrecedingStaticMethod(File $file, int $current): bool
   {
-    return $this->_hasPrecedingMember($phpcsFile,T_FUNCTION,[$phpcsFile,'getMethodProperties'],true,$current);
+    return $this->_hasPrecedingMember($file,T_FUNCTION,[$file,'getMethodProperties'],true,$current);
   }
 
-  protected function _hasPrecedingInstanceProperty(File $phpcsFile, int $current): bool
+  protected function _hasPrecedingInstanceProperty(File $file, int $current): bool
   {
-    return $this->_hasPrecedingMember($phpcsFile,T_VARIABLE,[$phpcsFile,'getMemberProperties'],false,$current);
+    return $this->_hasPrecedingMember($file,T_VARIABLE,[$file,'getMemberProperties'],false,$current);
   }
 
-  protected function _hasPrecedingInstanceMethod(File $phpcsFile, int $current): bool
+  protected function _hasPrecedingInstanceMethod(File $file, int $current): bool
   {
-    return $this->_hasPrecedingMember($phpcsFile,T_FUNCTION,[$phpcsFile,'getMethodProperties'],false,$current);
+    return $this->_hasPrecedingMember($file,T_FUNCTION,[$file,'getMethodProperties'],false,$current);
   }
 }

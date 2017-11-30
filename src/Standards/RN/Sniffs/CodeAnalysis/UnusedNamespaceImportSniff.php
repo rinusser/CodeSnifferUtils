@@ -27,19 +27,19 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
   }
 
 
-  protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)  //CSU.IgnoreName: required by parent class
+  protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
 
-    $end=$phpcsFile->findNext(T_SEMICOLON,$stackPtr+1,NULL,false);
+    $end=$file->findNext(T_SEMICOLON,$stack_ptr+1,NULL,false);
     if(!$end)
     {
       $warning='Could not parse "use" statement: expected semicolon somewhere after it';
-      $phpcsFile->addWarning($warning,$stackPtr,'NoSemicolonFound');
+      $file->addWarning($warning,$stack_ptr,'NoSemicolonFound');
       return;
     }
 
-    $str=trim($phpcsFile->getTokensAsString($stackPtr+1,$end-$stackPtr-1));
+    $str=trim($file->getTokensAsString($stack_ptr+1,$end-$stack_ptr-1));
 
     //skip lambdas
     if(strpos($str,'(')!==false)
@@ -48,28 +48,28 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
     if(!preg_match('/^([^\\\\]*\\\\)*{?([^\\\\]+ +as +)?([^\\\\}]+)}?$/',$str,$matches))
     {
       $warning='Could not parse "use" statement: unexpected format';
-      $phpcsFile->addWarning($warning,$stackPtr,'UnexpectedFormat');
+      $file->addWarning($warning,$stack_ptr,'UnexpectedFormat');
       return;
     }
 
     $imported=array_map('trim',explode(',',$matches[3]));
 
     foreach($imported as $import)
-      $this->_checkUsage($phpcsFile,$stackPtr,$import);
+      $this->_checkUsage($file,$stack_ptr,$import);
   }
 
-  protected function _checkUsage(File $phpcsFile, int $import_offset, string $name)
+  protected function _checkUsage(File $file, int $import_offset, string $name)
   {
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
     $start=$import_offset;
     while(true)
     {
-      $candidate=$phpcsFile->findNext(T_STRING,$phpcsFile->findEndOfStatement($start),NULL,false,$name);
+      $candidate=$file->findNext(T_STRING,$file->findEndOfStatement($start),NULL,false,$name);
       if($candidate===false)
-        return $this->_warnUnused($phpcsFile,$import_offset,$name);
+        return $this->_warnUnused($file,$import_offset,$name);
 
-      $statement_start=$phpcsFile->findStartOfStatement($candidate,[T_COMMA]);
-      $is_namespace_import=$tokens[$statement_start]['code']===T_USE && !$phpcsFile->hasCondition($statement_start,[T_CLASS,T_INTERFACE,T_TRAIT]);
+      $statement_start=$file->findStartOfStatement($candidate,[T_COMMA]);
+      $is_namespace_import=$tokens[$statement_start]['code']===T_USE && !$file->hasCondition($statement_start,[T_CLASS,T_INTERFACE,T_TRAIT]);
       if($is_namespace_import || $tokens[$candidate-1]['code']===T_NS_SEPARATOR)
       {
         $start=$candidate;
@@ -80,14 +80,14 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
     }
   }
 
-  protected function _warnUnused(File $phpcsFile, int $import_offset, string $name)
+  protected function _warnUnused(File $file, int $import_offset, string $name)
   {
     $warning='Namespace import "'.$name.'" seems unused in file';
-    $phpcsFile->addWarning($warning,$import_offset,'Unused');
+    $file->addWarning($warning,$import_offset,'Unused');
   }
 
 
-  protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)  //CSU.IgnoreName: required by parent class
+  protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
   }
 }

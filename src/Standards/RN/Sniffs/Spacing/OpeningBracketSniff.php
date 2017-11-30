@@ -28,20 +28,20 @@ class OpeningBracketSniff implements Sniff
   }
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
-    $tokens=$phpcsFile->getTokens();
-    $next=$phpcsFile->findNext(T_WHITESPACE,$stackPtr+1,NULL,true);
-    $lines_between=$tokens[$next]['line']-$tokens[$stackPtr]['line']-1;
+    $tokens=$file->getTokens();
+    $next=$file->findNext(T_WHITESPACE,$stack_ptr+1,NULL,true);
+    $lines_between=$tokens[$next]['line']-$tokens[$stack_ptr]['line']-1;
     if($lines_between>0)
     {
-      $currents_name=TokenNames::getPrintableName($tokens[$stackPtr]['code'],$tokens[$stackPtr]['type']);
+      $currents_name=TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']);
       $error='Expected 0 empty lines after '.$currents_name.', got '.$lines_between.' instead';
-      $phpcsFile->addError($error,$stackPtr,'SucceedingNewlines');
+      $file->addError($error,$stack_ptr,'SucceedingNewlines');
     }
     return NULL;
   }

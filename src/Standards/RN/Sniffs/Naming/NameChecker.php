@@ -20,16 +20,16 @@ abstract class NameChecker
    * Determines whether the naming checks should be ignored for this symbol
    * Currently this is being done with a special  //CSU.IgnoreName  comment in the same line
    *
-   * @param File $phpcsFile the phpcs file to check
-   * @param int  $stackPtr  the token offset to check
+   * @param File $file      the phpcs file to check
+   * @param int  $stack_ptr the token offset to check
    * @return bool whether the token is skipped
    */
-  public static function isSkipped(File $phpcsFile, int $stackPtr): bool
+  public static function isSkipped(File $file, int $stack_ptr): bool
   {
-    $tokens=$phpcsFile->getTokens();
-    $start_line=$tokens[$stackPtr]['line'];
+    $tokens=$file->getTokens();
+    $start_line=$tokens[$stack_ptr]['line'];
 
-    for($offset=$stackPtr+1;;$offset++)
+    for($offset=$stack_ptr+1;;$offset++)
     {
       if(!isset($tokens[$offset]) || $tokens[$offset]['line']!=$start_line)
         break;
@@ -45,15 +45,15 @@ abstract class NameChecker
    *  - private/protected properties must start with an underscore
    *  - after the leading underscore (or not), properties must start with a lowercase letter and not contain any other underscores
    *
-   * @param File   $phpcsFile      the phpcs file handle being checked
-   * @param int    $stackPtr       the token offset to apply any errors to
+   * @param File   $file           the phpcs file handle being checked
+   * @param int    $stack_ptr      the token offset to apply any errors to
    * @param string $visibility     the class member's visibility
    * @param string $type           the symbol type to use in error messages, e.g. "property"
    * @param string $name           the class member's visibility
    * @param string $displayed_name the name to display in error messages
    * @return bool whether the class member is valid: true if it is, false if errors have been found
    */
-  public static function checkUnderscorePrefix(File $phpcsFile, int $stackPtr, string $visibility, string $type, string $name, string $displayed_name): bool
+  public static function checkUnderscorePrefix(File $file, int $stack_ptr, string $visibility, string $type, string $name, string $displayed_name): bool
   {
     $has_leading_underscore=$name[0]==='_';
     $should_have_leading_underscore=$visibility!=='public';
@@ -62,7 +62,7 @@ abstract class NameChecker
     {
       $error=ucfirst($visibility).' %s "%s" should '.($should_have_leading_underscore?'':'not ').'start with an underscore';
       $code=$should_have_leading_underscore?'NonPublicUnderscoreMissing':'PublicHasUnderscore';
-      $phpcsFile->addError($error,$stackPtr,$code,[$type,$displayed_name]);
+      $file->addError($error,$stack_ptr,$code,[$type,$displayed_name]);
       return false;
     }
 
@@ -72,17 +72,36 @@ abstract class NameChecker
     if(!ctype_lower($name[0]))
     {
       $error='%s "%s" should start with a lowercase character';
-      $phpcsFile->addError($error,$stackPtr,'InvalidStart',[ucfirst($type),$displayed_name]);
+      $file->addError($error,$stack_ptr,'InvalidStart',[ucfirst($type),$displayed_name]);
       return false;
     }
 
     if(strpos($name,'_')!==false)
     {
       $error='%s "%s" should not contain underscores after the start of the name';
-      $phpcsFile->addError($error,$stackPtr,'UnderscoreAfterStart',[ucfirst($type),$displayed_name]);
+      $file->addError($error,$stack_ptr,'UnderscoreAfterStart',[ucfirst($type),$displayed_name]);
       return false;
     }
 
     return true;
+  }
+
+  /**
+   * Checks whether a name is in snake_case.
+   * This method doesn't check whether a name starts with leading underscores, handle this separately.
+   *
+   * @param File   $file      the phpcs file handle to check
+   * @param int    $stack_ptr the token offset to put any errors on
+   * @param string $type      the token type, for use in the error message
+   * @param string $name      the name to validate
+   * @return void
+   */
+  public static function checkSnakeCase(File $file, int $stack_ptr, string $type, string $name): void
+  {
+    if(!preg_match('/^[a-z0-9_]+$/',$name))
+    {
+      $error='%s "%s" must be in snake_case - only lowercase letters, numbers and underscores are allowed';
+      $file->addError($error,$stack_ptr,'InvalidCharacters',[ucfirst($type),$name]);
+    }
   }
 }

@@ -29,18 +29,18 @@ class DeclareStrictSniff implements Sniff
   }
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return int the total number of tokens in the file, so phpcs continues other processing sniffs
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
-    $tokens = $phpcsFile->getTokens();
+    $tokens = $file->getTokens();
     if($tokens[1]['code']!==T_DECLARE)
     {
       $error='Every PHP file should declare strict_types';
-      $phpcsFile->addWarning($error,$stackPtr,'DeclareStrictMissing');
+      $file->addWarning($error,$stack_ptr,'DeclareStrictMissing');
     }
-    return $phpcsFile->numTokens;
+    return $file->numTokens;
   }
 }

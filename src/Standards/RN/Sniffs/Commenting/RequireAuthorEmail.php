@@ -19,11 +19,11 @@ trait RequireAuthorEmail
 {
   public $requireAuthorEmail=true;
 
-  protected function _processAuthorWrapper(File $phpcsFile, array $tags): array
+  protected function _processAuthorWrapper(File $file, array $tags): array
   {
     $unhandled=[];
 
-    $tokens=$phpcsFile->getTokens();
+    $tokens=$file->getTokens();
     foreach($tags as $tag)
     {
       if($tokens[($tag+2)]['code']!==T_DOC_COMMENT_STRING)
@@ -39,7 +39,7 @@ trait RequireAuthorEmail
       if(!preg_match('/^[a-z]+[a-z0-9.\' -]+ *$/i',$content))
       {
         $error='Content of the @author tag must be in the form "Display Name"';
-        $phpcsFile->addError($error,$tag,'InvalidAuthorName');
+        $file->addError($error,$tag,'InvalidAuthorName');
       }
     }
 

@@ -28,59 +28,59 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
   public $requiredTags=NULL;
 
   /**
-   * @param File $phpcsFile the phpcs file handle to check
-   * @param int  $stackPtr  the phpcs context
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the phpcs context
    * @return mixed see parent class
    */
-  public function process(File $phpcsFile, $stackPtr)
+  public function process(File $file, $stack_ptr)
   {
     require_once('CommentSniffConfigurator.php');
     \RN\CodeSnifferUtils\Sniffs\Commenting\CommentSniffConfigurator::parseRequiredTags($this->requiredTags,$this->tags);
-    return parent::process($phpcsFile,$stackPtr);
+    return parent::process($file,$stack_ptr);
   }
 
 
-  protected function processCategory($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processCategory($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'category',$tags);
-    parent::processCategory($phpcsFile,$tags);
+    $this->_checkTagContent($file,'category',$tags);
+    parent::processCategory($file,$tags);
   }
 
-  protected function processPackage($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processPackage($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'package',$tags);
-    parent::processPackage($phpcsFile,$tags);
+    $this->_checkTagContent($file,'package',$tags);
+    parent::processPackage($file,$tags);
   }
 
-  protected function processSubpackage($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processSubpackage($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'subpackage',$tags);
-    parent::processSubpackage($phpcsFile,$tags);
+    $this->_checkTagContent($file,'subpackage',$tags);
+    parent::processSubpackage($file,$tags);
   }
 
-  protected function processAuthor($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processAuthor($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'author',$tags);
-    $unhandled=$this->_processAuthorWrapper($phpcsFile,$tags);
+    $this->_checkTagContent($file,'author',$tags);
+    $unhandled=$this->_processAuthorWrapper($file,$tags);
     if($unhandled)
-      parent::processAuthor($phpcsFile,$unhandled);
+      parent::processAuthor($file,$unhandled);
   }
 
-  protected function processCopyright($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processCopyright($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'copyright',$tags);
-    parent::processCopyright($phpcsFile,$tags);
+    $this->_checkTagContent($file,'copyright',$tags);
+    parent::processCopyright($file,$tags);
   }
 
-  protected function processLicense($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processLicense($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'license',$tags);
-    parent::processLicense($phpcsFile,$tags);
+    $this->_checkTagContent($file,'license',$tags);
+    parent::processLicense($file,$tags);
   }
 
-  protected function processVersion($phpcsFile, array $tags)  //CSU.IgnoreName: required by parent class
+  protected function processVersion($file, array $tags)  //CSU.IgnoreName: required by parent class
   {
-    $this->_checkTagContent($phpcsFile,'version',$tags);
-    parent::processVersion($phpcsFile,$tags);
+    $this->_checkTagContent($file,'version',$tags);
+    parent::processVersion($file,$tags);
   }
 }

@@ -136,9 +136,47 @@ class RunnerTest extends TestCase
 
     $actuals=$this->_parseOutput($output);
     $this->assertEquals($testcase->expectedFileCount,$actuals['file_count'],$message_prefix.'parsed file count');
-    $this->assertEquals($testcase->expectedErrors,$actuals['errors'],$message_prefix.'errors');
+    $this->_assertErrorList($testcase->expectedErrors,$actuals['errors'],$message_prefix.'errors');
 
     return [$rv,$actuals];
+  }
+
+  protected function _assertErrorList(array $expected, array $actual, string $message): void
+  {
+    //remove identical items found in $expected and $actual, but only once each to allow for duplicates in either
+    foreach($expected as $te=>$item)
+    {
+      foreach($actual as $tc=>$candidate)
+      {
+        if($item===$candidate)
+        {
+          unset($expected[$te]);
+          unset($actual[$tc]);
+          break;
+        }
+      }
+    }
+
+    $error_parts=array_filter([$this->_renderErrorsListIfNotEmpty($expected,'are missing',      '-'),
+                               $this->_renderErrorsListIfNotEmpty($actual,  'weren\'t expected','+')]);
+
+    if($error_parts)
+      $this->fail($message."\n\n".implode("\n",$error_parts));
+  }
+
+  private function _renderErrorsListIfNotEmpty(array $errors, string $description, string $type)
+  {
+    if(!$errors)
+      return false;
+    return "These errors $description:\n".$this->_generateErrorsDiffOutput($errors,$type);
+  }
+
+  private function _generateErrorsDiffOutput(array $errors, string $type): string
+  {
+    $rvs=[];
+    foreach($errors as $error)
+      $rvs[]=" $type file: $error[file]\n $type type: $error[line]\n $type source: $error[source]\n";
+    return implode("\n",$rvs);
   }
 
   private function _assertIsPHPCSValidationReturnValue(int $rv, ?string $output=NULL)

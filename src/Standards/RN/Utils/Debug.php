@@ -34,13 +34,17 @@ abstract class Debug
   /**
    * Dumps a list of phpcs tokens surrounding a given main token
    *
-   * @param array $tokens    the list of tokens
-   * @param int   $stack_ptr the main token's offset
+   * @param array       $tokens    the list of tokens
+   * @param int         $stack_ptr the main token's offset
+   * @param int         $radius    how many tokens to output on either side in addition
+   * @param string|NULL $title     an optional title to print
    * @return void
    */
-  public static function dumpToken(array $tokens, int $stack_ptr): void
+  public static function dumpToken(array $tokens, int $stack_ptr, int $radius=1, ?string $title=NULL): void
   {
-    self::dumpTokenRange($tokens,$stack_ptr-1,$stack_ptr+1);
+    if($title)
+      fprintf(STDERR,"\n%s:",$title);
+    self::dumpTokenRange($tokens,$stack_ptr-$radius,$stack_ptr+$radius);
   }
 
   /**
@@ -57,6 +61,6 @@ abstract class Debug
       $output=$what->__toString();
     else
       $output=(string)$what;
-    fprintf(STDERR,"%s","\n".$what."\n");
+    fprintf(STDERR,"\n%s\n",$what);
   }
 }

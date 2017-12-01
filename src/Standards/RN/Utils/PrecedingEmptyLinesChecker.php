@@ -92,7 +92,8 @@ class PrecedingEmptyLinesChecker
   protected function _skipPreviousTokens(File $file, int $start): int
   {
     $tokens=$file->getTokens();
-    if($tokens[$start]['code']==T_SEMICOLON)
+    $start=$this->_skipSingleLineCodeComment($file,$start);
+    if($tokens[$start]['code']===T_SEMICOLON)
     {
       $prev_start=$file->findPrevious(Tokens::$scopeOpeners,$start-1,NULL,false,NULL,true);
       if($prev_start===false)
@@ -104,5 +105,22 @@ class PrecedingEmptyLinesChecker
       $start=$prev_start;
     }
     return $start;
+  }
+
+  /**
+   * Advances the current token pointer if it currently points to a single-line comment on executed code
+   *
+   * @param File $file  the phpcs file handle to look in
+   * @param int  $start the current token pointer
+   * @return int the new token pointer
+   */
+  protected function _skipSingleLineCodeComment(File $file, int $start): int
+  {
+    $tokens=$file->getTokens();
+    if($tokens[$start]['code']!==T_COMMENT)
+      return $start;
+
+    $prev=FileUtils::findPreviousOnLineExcept($file,[T_COMMENT,T_WHITESPACE],$start);
+    return $prev===false?$start:$prev;
   }
 }

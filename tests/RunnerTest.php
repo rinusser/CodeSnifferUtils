@@ -150,7 +150,12 @@ class RunnerTest extends TestCase
     if($this->_isDebug())
       echo $printable_output;
 
+    foreach($output as $row)
+      if(strpos($row,',Internal.Exception,')!==false)
+        $this->fail('phpcs reported an error');
+
     $actuals=$this->_parseOutput($output);
+
     $this->assertEquals($testcase->expectedFileCount,$actuals['file_count'],$message_prefix.'parsed file count');
     $this->_assertErrorList($testcase->expectedErrors,$actuals['errors'],$message_prefix.'errors');
 
@@ -192,7 +197,7 @@ class RunnerTest extends TestCase
   {
     $rvs=[];
     foreach($errors as $error)
-      $rvs[]=" $type file: $error[file]\n $type type: $error[line]\n $type source: $error[source]\n";
+      $rvs[]=" $type file: $error[file]\n $type line: $error[line]\n $type source: $error[source]\n";
     return implode("\n",$rvs);
   }
 

@@ -44,6 +44,8 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
     $prev=$file->findPrevious(T_WHITESPACE,$effective_start-1,NULL,true);
     if($tokens[$prev]['line']>=$tokens[$stack_ptr]['line']-1)
       $prev=$this->_skipPreviousTokens($file,$prev);
+    $prev=$this->_skipSingleLineCodeComment($file,$prev);
+
     $preceding_line=$tokens[$prev]['line'];
 
     if(!array_key_exists($tokens[$prev]['code'],$allowed_by_type))
@@ -93,6 +95,9 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
       if($tokens[$prev]['code']!==T_COMMENT)
         return $start;
 
+      if($file->findFirstOnLine([T_WHITESPACE,T_COMMENT],$prev,true)!==false)
+        return $start;
+
       $start=$prev;
     }
 
@@ -118,7 +123,12 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
       if($tokens[$preceding_offset]['code']===T_DOC_COMMENT_CLOSE_TAG)
         $offset=$tokens[$preceding_offset]['comment_opener'];
       elseif($tokens[$preceding_offset]['code']===T_COMMENT)
-        $offset=$this->_skipPreviousConsecutiveComments($file,$preceding_offset);
+      {
+        if($file->findFirstOnLine([T_WHITESPACE,T_COMMENT],$preceding_offset-1,true)!==false)
+          $offset=$file->findNext(array_diff($skipped_tokens,[T_COMMENT]),$preceding_offset+1,NULL,true);
+        else
+          $offset=$this->_skipPreviousConsecutiveComments($file,$preceding_offset);
+      }
     }
     return $offset;
   }

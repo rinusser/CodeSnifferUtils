@@ -9,5 +9,6 @@
     <error file="classes/general/Wrong.php" line="27">RN.Classes.MemberOrdering.StaticPropertyTooLate</error>
     <error file="classes/general/Wrong.php" line="40">RN.Classes.MemberOrdering.InstancePropertyTooLate</error>
     <error file="classes/general/Wrong.php" line="48">RN.Classes.MemberOrdering.StaticMethodTooLate</error>
+    <error file="classes/general/Wrong.php" line="65">RN.Classes.MemberOrdering.ConstructorTooLate</error>
   </expectations>
 </ruleset>

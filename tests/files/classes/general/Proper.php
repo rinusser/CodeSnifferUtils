@@ -34,6 +34,11 @@ abstract class CorrectOrder
   protected $_instanceProperty2;
 
 
+  public function __construct()
+  {
+  }
+
+
   public function instanceMethod1()
   {
   }

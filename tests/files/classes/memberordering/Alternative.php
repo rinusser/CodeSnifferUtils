@@ -11,6 +11,8 @@ abstract class Alternative
   public static function staticMethod1() {}
   public static function staticMethod2() {}
 
+  public function __construct() {}
+
   protected static $_staticProperty1;
   protected static $_staticProperty2;
 

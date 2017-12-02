@@ -8,7 +8,9 @@ abstract class DefaultOrder
 
   public static function staticMethod1() {}
 
-  abstract public function instanceMethod1();
-
   private $_instanceProperty1;
+
+  private function __construct() {}
+
+  abstract public function instanceMethod1();
 }

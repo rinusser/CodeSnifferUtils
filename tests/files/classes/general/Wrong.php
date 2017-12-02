@@ -55,3 +55,14 @@ class MultiplePropertiesInOneStatement
   public $a, $b, $c, //some comment
          $d;
 }
+
+class WrongConstructorOrder
+{
+  public function asdf()
+  {
+  }
+
+  public function __construct()
+  {
+  }
+}

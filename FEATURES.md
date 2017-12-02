@@ -76,7 +76,8 @@ Class members are checked for a given order. The default order is this:
 2. static properties (e.g. `public static $staticProperty;`)
 3. static methods (e.g. `public static function staticMethod() {...}`)
 4. instance properties (e.g. `public $property;`)
-5. instance methods (e.g. `public function method() {...}`)
+5. constructor (e.g. `public function __construct() {...}`)
+6. instance methods (e.g. `public function method() {...}`)
 
 For example:
 
@@ -92,6 +93,10 @@ For example:
 
       public $property;
 
+      public function __construct()
+      {
+      }
+
       public function method()
       {
       }
@@ -106,9 +111,13 @@ another member with a higher number:
         <property name="staticPropertyOrder" value="2"/>
         <property name="staticMethodOrder" value="3"/>
         <property name="instancePropertyOrder" value="4"/>
-        <property name="instanceMethodOrder" value="5"/>
+        <property name="constructorOrder" value="5"/>
+        <property name="instanceMethodOrder" value="6"/>
       </properties>
     </rule>
+
+Only PHP5 constructors (`__construct()`) will be recognized, PHP4 constructors will be treated as regular methods. The RN
+standard includes a separate rule that will throw errors on old style constructors asking to rename them to `__construct`.
 
 If two (or more) class member types share the same order they can be mixed freely relative to each other, e.g. having
 equal `instancePropertyOrder` and `instanceMethodOrder` would allow for this:

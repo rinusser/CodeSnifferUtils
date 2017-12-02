@@ -2,7 +2,8 @@
 
 PHP\_CodeSniffer rules implementing personal preferences. Can be used locally or installed as a Docker container. Utilizes other rules shipped with PHP\_CodeSniffer but also contains custom code.
 
-FEATURES.md contains short explanations of custom rules.
+FEATURES.md contains short explanations of custom rules. The source files in `src` adhere to this standard, check those
+files for exhaustive examples.
 
 
 # Requirements

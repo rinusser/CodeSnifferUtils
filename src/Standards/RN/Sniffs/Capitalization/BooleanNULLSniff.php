@@ -7,7 +7,8 @@ declare(strict_types=1);
  * @license GPLv3 (see http://www.gnu.org/licenses/)
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Capitalization;
+//namespace RN\CodeSnifferUtils\Sniffs\Capitalization;
+namespace PHP_CodeSniffer\Standards\RN\Sniffs\Capitalization; //phpcs property injection doesn't work otherwise
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
@@ -17,6 +18,15 @@ use PHP_CodeSniffer\Files\File;
  */
 class BooleanNULLSniff implements Sniff
 {
+  public const UPPER='upper';
+  public const UCFIRST='ucfirst';
+  public const LOWER='lower';
+
+
+  public $booleanCase=self::LOWER;
+  public $nullCase=self::UPPER;
+
+
   /**
    * Returns list of phpcs hooks this sniff should be triggered on
    * Called by phpcs automatically.
@@ -25,6 +35,9 @@ class BooleanNULLSniff implements Sniff
    */
   public function register()
   {
+    $this->_validateCaseProperty($this->booleanCase,'booleanCase');
+    $this->_validateCaseProperty($this->nullCase,'nullCase');
+
     return [T_TRUE,T_FALSE,T_NULL];
   }
 
@@ -39,14 +52,45 @@ class BooleanNULLSniff implements Sniff
     $actual=$tokens[$stack_ptr]['content'];
     $expected=strtolower($actual);
     if($expected==='null')
-      $expected=strtoupper($actual);
+    {
+      $type='Null';
+      $expected=$this->_convertCase($expected,$this->nullCase);
+    }
+    else
+    {
+      $type='Boolean';
+      $expected=$this->_convertCase($expected,$this->booleanCase);
+    }
 
     if($actual!==$expected)
     {
-      $error='true and false should be lowercase, NULL should be uppercase. Got "'.$actual.'" instead.';
-      $fix=$file->addFixableError($error,$stack_ptr,'BooleanNULLCase');
+      $error='Invalid boolean/null value: expected "%s", got "%s" instead.';
+      $fix=$file->addFixableError($error,$stack_ptr,$type.'Case',[$expected,$actual]);
       if($fix)
         $file->fixer->replaceToken($stack_ptr,$expected);
     }
+  }
+
+  private function _convertCase(string $value, string $case): string
+  {
+    switch($case)
+    {
+      case self::UPPER:
+        return strtoupper($value);
+      case self::UCFIRST:
+        return ucfirst($value);
+      case self::LOWER:
+        return $value;
+      default:
+        throw new \LogicException('unhandled case');
+    }
+  }
+
+  private function _validateCaseProperty($value, string $name): void
+  {
+    $allowed=[self::UPPER,self::UCFIRST,self::LOWER];
+    if(is_string($value) && in_array($value,$allowed))
+      return;
+    throw new \InvalidArgumentException('invalid setting for property '.$name.': expected one of '.implode('|',$allowed).', got "'.$value.'" instead');
   }
 }

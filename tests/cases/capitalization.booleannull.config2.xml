@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="capitalization.booleannull.config2">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/capitalization/booleannull</file>
+  <rule ref="RN.Capitalization.BooleanNULL">
+    <properties>
+      <property name="booleanCase" value="upper"/>
+      <property name="nullCase" value="lower"/>
+    </properties>
+  </rule>
+  <expectations>
+    <file_count>6</file_count>
+    <error file="capitalization/booleannull/LowerBoolean.php" line="2">RN.Capitalization.BooleanNULL.BooleanCase</error>
+    <error file="capitalization/booleannull/LowerBoolean.php" line="3">RN.Capitalization.BooleanNULL.BooleanCase</error>
+    <error file="capitalization/booleannull/UcfirstBoolean.php" line="2">RN.Capitalization.BooleanNULL.BooleanCase</error>
+    <error file="capitalization/booleannull/UcfirstBoolean.php" line="3">RN.Capitalization.BooleanNULL.BooleanCase</error>
+    <error file="capitalization/booleannull/UcfirstNULL.php" line="2">RN.Capitalization.BooleanNULL.NullCase</error>
+    <error file="capitalization/booleannull/UpperNULL.php" line="2">RN.Capitalization.BooleanNULL.NullCase</error>
+  </expectations>
+</ruleset>

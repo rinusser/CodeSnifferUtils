@@ -21,9 +21,22 @@ Some of these rules extend PHP\_CodeSniffer's built-in sniffs.
 
 ### BooleanNULLSniff
 
-Booleans `true` and `false` must be lowercase, `NULL` must be uppercase.
+Checks boolean and NULL cases. The expected cases can be configured, by default they're lowercase for `true` and `false`,
+uppercase for `NULL` (similar to C/C++).
 
-Examples:
+Booleans and NULLs are configured separately:
+
+    <rule ref="RN.Capitalization.BooleanNULL">
+      <properties>
+        <property name="booleanCase" value="ucfirst"/>
+        <property name="nullCase" value="upper"/>
+      </properties>
+    </rule>
+
+Valid settings are "lower" for lowercase (e.g. `null`), "ucfirst" to capitalize the first letter (e.g. `Null`) and "upper"
+for uppercase (e.g. `NULL`).
+
+Examples for default settings:
 
     $a=[true,false];  //this is OK
 
@@ -36,9 +49,7 @@ Examples:
     $e=Null; //no good
     $f=null; //nope
 
-This is similar to C/C++.
-
-This can be automatically fixed by phpcbf.
+Unexpected boolean/NULL cases found by this sniff can be automatically fixed by phpcbf.
 
 
 ## Classes

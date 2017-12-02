@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <ruleset name="classes.individualproperties">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/classes</file>
+  <file>../files/classes/general</file>
   <rule ref="RN.Classes.IndividualProperties"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="classes/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
-    <error file="classes/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
-    <error file="classes/Wrong.php" line="56">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="56">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
   </expectations>
 </ruleset>

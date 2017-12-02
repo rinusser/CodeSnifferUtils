@@ -70,7 +70,7 @@ This currently isn't automatically fixable by phpcbf.
 
 ### MemberOrderingSniff
 
-Class members must be in this order:
+Class members are checked for a given order. The default order is this:
 
 1. constants (e.g. `const A=1;`)
 2. static properties (e.g. `public static $staticProperty;`)
@@ -95,6 +95,31 @@ For example:
       public function method()
       {
       }
+    }
+
+The expected order can be configured by assigning a number to each member type: a class member may not be located after
+another member with a higher number:
+
+    <rule ref="RN.Classes.MemberOrdering">
+      <properties>
+        <property name="constOrder" value="1"/>
+        <property name="staticPropertyOrder" value="2"/>
+        <property name="staticMethodOrder" value="3"/>
+        <property name="instancePropertyOrder" value="4"/>
+        <property name="instanceMethodOrder" value="5"/>
+      </properties>
+    </rule>
+
+If two (or more) class member types share the same order they can be mixed freely relative to each other, e.g. having
+equal `instancePropertyOrder` and `instanceMethodOrder` would allow for this:
+
+    abstract class SameOrder
+    {
+      private $_prop1;
+      abstract public function getProp1();
+
+      private $_prop2;
+      abstract public function getProp2();
     }
 
 This rule currently isn't automatically fixable by phpcbf, you'll need to fix the code manually.

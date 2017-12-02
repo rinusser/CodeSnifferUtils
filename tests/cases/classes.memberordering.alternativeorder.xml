@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="classes.memberordering.alternativeorder">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/classes/memberordering</file>
+  <rule ref="RN.Classes.MemberOrdering">
+    <properties>
+      <property name="instanceMethodOrder" value="-20"/>
+      <property name="instancePropertyOrder" value="-1"/>
+      <property name="staticMethodOrder" value="0"/>
+      <property name="staticPropertyOrder" value="1"/>
+      <property name="constOrder" value="10"/>
+    </properties>
+  </rule>
+  <expectations>
+    <file_count>3</file_count>
+    <error file="classes/memberordering/Default.php" line="7">RN.Classes.MemberOrdering.StaticPropertyTooLate</error>
+    <error file="classes/memberordering/Default.php" line="9">RN.Classes.MemberOrdering.StaticMethodTooLate</error>
+    <error file="classes/memberordering/Default.php" line="11">RN.Classes.MemberOrdering.InstanceMethodTooLate</error>
+    <error file="classes/memberordering/Default.php" line="13">RN.Classes.MemberOrdering.InstancePropertyTooLate</error>
+    <error file="classes/memberordering/Multiple.php" line="14">RN.Classes.MemberOrdering.StaticMethodTooLate</error>
+  </expectations>
+</ruleset>

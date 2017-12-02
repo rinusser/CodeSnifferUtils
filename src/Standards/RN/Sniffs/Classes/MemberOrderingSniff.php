@@ -7,7 +7,8 @@ declare(strict_types=1);
  * @license GPLv3 (see http://www.gnu.org/licenses/)
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Classes;
+//namespace RN\CodeSnifferUtils\Sniffs\Classes;
+namespace PHP_CodeSniffer\RN\Sniffs\Classes; //for phpcs property injection
 
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
@@ -15,7 +16,7 @@ use PHP_CodeSniffer\Exceptions\TokenizerException;
 use RN\CodeSnifferUtils\Utils\TokenNames;
 
 /**
- * Ensures class members are ordered correctly:
+ * Ensures class members are ordered correctly, by default:
  *   1. consts
  *   2. static properties
  *   3. static methods
@@ -24,11 +25,11 @@ use RN\CodeSnifferUtils\Utils\TokenNames;
  */
 class MemberOrderingSniff extends AbstractScopeSniff
 {
-  const ORDER_CONST=10;
-  const ORDER_STATIC_PROPERTY=20;
-  const ORDER_STATIC_METHOD=30;
-  const ORDER_INSTANCE_PROPERTY=40;
-  const ORDER_INSTANCE_METHOD=50;
+  public $constOrder=10;
+  public $staticPropertyOrder=20;
+  public $staticMethodOrder=30;
+  public $instancePropertyOrder=40;
+  public $instanceMethodOrder=50;
 
 
   /**
@@ -37,6 +38,18 @@ class MemberOrderingSniff extends AbstractScopeSniff
   public function __construct()
   {
     parent::__construct([T_CLASS],[T_CONST,T_VARIABLE,T_FUNCTION]);
+  }
+
+  protected function _validateOrderProperties()
+  {
+    foreach(get_object_vars($this) as $tk=>$tv)
+    {
+      if(substr($tk,-5)!=='Order')
+        continue;
+      if(is_int($tv) || is_string($tv) && is_numeric($tv))
+        continue;
+      throw new \InvalidArgumentException("property '$tk' must a number, got '$tv' instead");
+    }
   }
 
   /**
@@ -49,6 +62,8 @@ class MemberOrderingSniff extends AbstractScopeSniff
    */
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
+    $this->_validateOrderProperties(); //there's no hook in AbstractScopeSniff that allows for doing this just once per instance
+
     $tokens=$file->getTokens();
     $order=NULL;
     $name=NULL;
@@ -58,7 +73,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
       switch($tokens[$stack_ptr]['code'])
       {
         case T_CONST:
-          $order=self::ORDER_CONST;
+          $order=$this->constOrder;
           $name='constants';
           $error_prefix='Const';
           break;
@@ -69,13 +84,13 @@ class MemberOrderingSniff extends AbstractScopeSniff
 
           if($file->getMemberProperties($stack_ptr)['is_static'])
           {
-            $order=self::ORDER_STATIC_PROPERTY;
+            $order=$this->staticPropertyOrder;
             $name='static properties';
             $error_prefix='StaticProperty';
           }
           else
           {
-            $order=self::ORDER_INSTANCE_PROPERTY;
+            $order=$this->instancePropertyOrder;
             $name='instance properties';
             $error_prefix='InstanceProperty';
           }
@@ -83,13 +98,13 @@ class MemberOrderingSniff extends AbstractScopeSniff
         case T_FUNCTION:
           if($file->getMethodProperties($stack_ptr)['is_static'])
           {
-            $order=self::ORDER_STATIC_METHOD;
+            $order=$this->staticMethodOrder;
             $name='static methods';
             $error_prefix='StaticMethod';
           }
           else
           {
-            $order=self::ORDER_INSTANCE_METHOD;
+            $order=$this->instanceMethodOrder;
             $name='instance methods';
             $error_prefix='InstanceMethod';
           }
@@ -110,16 +125,19 @@ class MemberOrderingSniff extends AbstractScopeSniff
       $file->addError($name.' must be declared before any '.$error_description,$stack_ptr,$error_prefix.'TooLate');
   }
 
-  protected function _checkTokenOrdering(File $file, int $stack_ptr, int $order)
+  protected function _checkTokenOrdering(File $file, int $stack_ptr, $order)
   {
-    if($order<self::ORDER_STATIC_PROPERTY && $this->_hasPrecedingStaticProperty($file,$stack_ptr))
-      return 'static properties';
-    elseif($order<self::ORDER_STATIC_METHOD && $this->_hasPrecedingStaticMethod($file,$stack_ptr))
-      return 'static methods';
-    elseif($order<self::ORDER_INSTANCE_PROPERTY && $this->_hasPrecedingInstanceProperty($file,$stack_ptr))
-      return 'instance properties';
-    elseif($order<self::ORDER_INSTANCE_METHOD && $this->_hasPrecedingInstanceMethod($file,$stack_ptr))
-      return 'instance methods';
+    $checks=[[$this->constOrder,           'constants',          [$this,'_hasPrecedingConst']],
+             [$this->staticPropertyOrder,  'static properties',  [$this,'_hasPrecedingStaticProperty']],
+             [$this->staticMethodOrder,    'static methods',     [$this,'_hasPrecedingStaticMethod']],
+             [$this->instancePropertyOrder,'instance properties',[$this,'_hasPrecedingInstanceProperty']],
+             [$this->instanceMethodOrder,  'instance methods',   [$this,'_hasPrecedingInstanceMethod']]];
+
+    array_multisort($checks,array_column($checks,0));
+
+    foreach($checks as [$threshold,$description,$checker])
+      if($order<$threshold && $checker($file,$stack_ptr))
+        return $description;
 
     return NULL;
   }
@@ -136,7 +154,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
   }
 
 
-  protected function _hasPrecedingMember(File $file, $token, callable $member_check_func, bool $static, int $current): bool
+  protected function _hasPrecedingMember(File $file, $token, ?callable $member_check_func, bool $static, int $current): bool
   {
     $tokens=$file->getTokens();
     while(true)
@@ -150,15 +168,20 @@ class MemberOrderingSniff extends AbstractScopeSniff
         continue;
       try
       {
-        if($member_check_func($current)['is_static']==$static)
+        if(!$member_check_func || $member_check_func($current)['is_static']==$static)
           return true;
       }
       catch(TokenizerException $e)
       {
-        1; //ignore: token wasn't a class member
+        continue; //ignore: token wasn't a class member
       }
     }
     return false;
+  }
+
+  protected function _hasPrecedingConst(File $file, int $current): bool
+  {
+    return $this->_hasPrecedingMember($file,T_CONST,NULL,true,$current);
   }
 
   protected function _hasPrecedingStaticProperty(File $file, int $current): bool

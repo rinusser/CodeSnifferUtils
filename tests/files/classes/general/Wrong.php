@@ -18,7 +18,7 @@ abstract class WrongOrder
 
   protected static $_staticProperty2;
 
-
+  use Trait1;
 
   public static function staticMethod1()
   {

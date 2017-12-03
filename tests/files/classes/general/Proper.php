@@ -15,6 +15,13 @@ abstract class CorrectOrder
 
   const C3=2;
 
+  use Trait1;
+  use Trait2, Trait3 {
+    Trait2::a insteadof Trait3;
+    Trait3::a as b;
+  }
+  use Trait4;
+
   protected static $_staticProperty1;
   protected static $_staticProperty2;
 

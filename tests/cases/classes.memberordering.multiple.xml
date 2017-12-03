@@ -8,6 +8,7 @@
       <property name="instancePropertyOrder" value="-1"/>
       <property name="staticMethodOrder" value="1"/>
       <property name="staticPropertyOrder" value="1"/>
+      <property name="traitUseOrder" value="5"/>
       <property name="constOrder" value="10"/>
       <property name="constructorOrder" value="11"/>
     </properties>

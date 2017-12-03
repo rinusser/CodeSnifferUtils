@@ -6,6 +6,7 @@
   <expectations>
     <file_count>2</file_count>
     <error file="classes/general/Wrong.php" line="17">RN.Classes.MemberOrdering.ConstTooLate</error>
+    <error file="classes/general/Wrong.php" line="21">RN.Classes.MemberOrdering.TraitUseTooLate</error>
     <error file="classes/general/Wrong.php" line="27">RN.Classes.MemberOrdering.StaticPropertyTooLate</error>
     <error file="classes/general/Wrong.php" line="40">RN.Classes.MemberOrdering.InstancePropertyTooLate</error>
     <error file="classes/general/Wrong.php" line="48">RN.Classes.MemberOrdering.StaticMethodTooLate</error>

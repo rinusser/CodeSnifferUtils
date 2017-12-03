@@ -73,17 +73,20 @@ This currently isn't automatically fixable by phpcbf.
 Class members are checked for a given order. The default order is this:
 
 1. constants (e.g. `const A=1;`)
-2. static properties (e.g. `public static $staticProperty;`)
-3. static methods (e.g. `public static function staticMethod() {...}`)
-4. instance properties (e.g. `public $property;`)
-5. constructor (e.g. `public function __construct() {...}`)
-6. instance methods (e.g. `public function method() {...}`)
+2. trait uses (e.g. `use SomeTrait;`)
+3. static properties (e.g. `public static $staticProperty;`)
+4. static methods (e.g. `public static function staticMethod() {...}`)
+5. instance properties (e.g. `public $property;`)
+6. constructor (e.g. `public function __construct() {...}`)
+7. instance methods (e.g. `public function method() {...}`)
 
 For example:
 
     class X
     {
       const A=1;
+
+      use SomeTrait;
 
       public static $staticProperty;
 
@@ -108,11 +111,12 @@ another member with a higher number:
     <rule ref="RN.Classes.MemberOrdering">
       <properties>
         <property name="constOrder" value="1"/>
-        <property name="staticPropertyOrder" value="2"/>
-        <property name="staticMethodOrder" value="3"/>
-        <property name="instancePropertyOrder" value="4"/>
-        <property name="constructorOrder" value="5"/>
-        <property name="instanceMethodOrder" value="6"/>
+        <property name="traitUseOrder" value="2"/>
+        <property name="staticPropertyOrder" value="3"/>
+        <property name="staticMethodOrder" value="4"/>
+        <property name="instancePropertyOrder" value="5"/>
+        <property name="constructorOrder" value="6"/>
+        <property name="instanceMethodOrder" value="7"/>
       </properties>
     </rule>
 

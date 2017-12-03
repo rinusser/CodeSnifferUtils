@@ -11,12 +11,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures function parameters are snake_case and start with a lowercase letter
  */
 class SnakeCaseFunctionParametersSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Registers tokens to listen for: functions and closures
    * @return NULL
@@ -35,6 +38,9 @@ class SnakeCaseFunctionParametersSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $parameters=$file->getMethodParameters($stack_ptr);
     foreach($parameters as $parameter)
     {

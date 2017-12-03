@@ -76,7 +76,7 @@ class RunnerTest extends TestCase
     foreach(new \DirectoryIterator(self::$_xmlPath) as $ti=>$file)
     {
       $filename=$file->getFilename();
-      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename))
+      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename) || $filename[0]==='_')
         continue;
       $rv[]=[$ti,$filename];
     }
@@ -125,6 +125,21 @@ class RunnerTest extends TestCase
       else
         $this->assertEquals(0,$rv,$message_prefix.'phpcs return value: phpcbf should have fixed everything');
     }
+  }
+
+  /**
+   * Tests if disabling annotations works
+   */
+  public function testDisabling()
+  {
+    $filename='_all.disabling.xml';
+    $message_prefix=$filename;
+    $fullpath=self::$_xmlPath.'/'.$filename;
+
+    $testcase=$this->_parseTestCase($fullpath);
+    $this->_performPHPCSTest($testcase,$message_prefix.' ignoring annotations: ',self::PHPCS_BASEPATH,'--ignore-annotations');
+    $testcase->expectedErrors=[];
+    $this->_performPHPCSTest($testcase,$message_prefix.' including annotations: ');
   }
 
   protected function _performPHPCSTest(XMLTestCase $testcase, string $message_prefix, string $basepath=self::PHPCS_BASEPATH, string $additional_args=''): array

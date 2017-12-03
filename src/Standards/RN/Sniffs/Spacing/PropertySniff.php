@@ -12,12 +12,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\ContextAwarePrecedingEmptyLinesChecker;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures property declarations are preceded by the proper amount of newlines
  */
 class PropertySniff extends AbstractVariableSniff
 {
+  use PerFileSniffConfig;
+
   /**
    * @param File $file      the phpcs file handle to check
    * @param int  $stack_ptr the phpcs context
@@ -25,6 +28,9 @@ class PropertySniff extends AbstractVariableSniff
    */
   protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
                       T_CLOSE_CURLY_BRACKET=>[1,2],
                       T_COMMA=>[-1,0],

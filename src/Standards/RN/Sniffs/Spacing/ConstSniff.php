@@ -12,12 +12,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\ContextAwarePrecedingEmptyLinesChecker;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures class constants are preceded by the proper amount of newlines
  */
 class ConstSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Registers this sniff's triggers
    * @return array
@@ -34,6 +37,9 @@ class ConstSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $allowed_by_type=[T_OPEN_CURLY_BRACKET=>0,
                       T_OPEN_TAG=>[0,1],
                       T_CLOSE_TAG=>[0,2],

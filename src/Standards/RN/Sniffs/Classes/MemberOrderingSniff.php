@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use RN\CodeSnifferUtils\Utils\TokenNames;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures class members are ordered correctly, by default:
@@ -25,6 +26,8 @@ use RN\CodeSnifferUtils\Utils\TokenNames;
  */
 class MemberOrderingSniff extends AbstractScopeSniff
 {
+  use PerFileSniffConfig;
+
   public $constOrder=10;
   public $traitUseOrder=15;
   public $staticPropertyOrder=20;
@@ -64,38 +67,15 @@ class MemberOrderingSniff extends AbstractScopeSniff
    */
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $this->_validateOrderProperties(); //there's no hook in AbstractScopeSniff that allows for doing this just once per instance
 
     $tokens=$file->getTokens();
-    $order=NULL;
-    $name=NULL;
-    $error_prefix=NULL;
     try
     {
-      switch($tokens[$stack_ptr]['code'])
-      {
-        case T_CONST:
-          $order=$this->constOrder;
-          $name='constants';
-          $error_prefix='Const';
-          break;
-        case T_VARIABLE:
-          //skip method arguments
-          if(!empty($tokens[$stack_ptr]['nested_parenthesis']))
-            return;
-          [$order,$name,$error_prefix]=$this->_getVariableProcessParameters($file,$stack_ptr);
-          break;
-        case T_FUNCTION:
-          [$order,$name,$error_prefix]=$this->_getFunctionProcessParameters($file,$stack_ptr);
-          break;
-        case T_USE:
-          if(!$this->_isTraitImport($file)($stack_ptr))
-            return;
-          $order=$this->traitUseOrder;
-          $name='trait uses';
-          $error_prefix='TraitUse';
-          break;
-      }
+      [$order,$name,$error_prefix]=$this->_getProcessParameters($file,$stack_ptr);
     }
     catch(TokenizerException $e)
     {
@@ -103,13 +83,50 @@ class MemberOrderingSniff extends AbstractScopeSniff
     }
 
     if($order===NULL)
-      throw new \LogicException("unhandled token: ".TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']));
+      return;
 
     $error_description=$this->_checkTokenOrdering($file,$stack_ptr,$order);
 
     if($error_description)
       $file->addError($name.' must be declared before any '.$error_description,$stack_ptr,$error_prefix.'TooLate');
   }
+
+  private function _getProcessParameters(File $file, int $stack_ptr): array
+  {
+    $tokens=$file->getTokens();
+    $order=NULL;
+
+    switch($tokens[$stack_ptr]['code'])
+    {
+      case T_CONST:
+        $order=$this->constOrder;
+        $name='constants';
+        $error_prefix='Const';
+        break;
+      case T_VARIABLE:
+        //skip method arguments
+        if(!empty($tokens[$stack_ptr]['nested_parenthesis']))
+          return [NULL,NULL,NULL];
+        [$order,$name,$error_prefix]=$this->_getVariableProcessParameters($file,$stack_ptr);
+        break;
+      case T_FUNCTION:
+        [$order,$name,$error_prefix]=$this->_getFunctionProcessParameters($file,$stack_ptr);
+        break;
+      case T_USE:
+        if(!$this->_isTraitImport($file)($stack_ptr))
+          return [NULL,NULL,NULL];
+        $order=$this->traitUseOrder;
+        $name='trait uses';
+        $error_prefix='TraitUse';
+        break;
+    }
+
+    if($order===NULL)
+      throw new \LogicException("unhandled token: ".TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']));
+
+    return [$order,$name,$error_prefix];
+  }
+
 
   private function _getVariableProcessParameters(File $file, int $stack_ptr): array
   {

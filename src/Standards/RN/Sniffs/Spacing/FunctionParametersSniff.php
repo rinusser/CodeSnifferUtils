@@ -12,12 +12,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\TokenNames;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures function/method parameters are spaced properly
  */
 class FunctionParametersSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Gets called by phpcs to register what tokens to trigger on
    *
@@ -37,6 +40,9 @@ class FunctionParametersSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens=$file->getTokens();
     if(empty($tokens[$stack_ptr]['parenthesis_opener']) || empty($tokens[$stack_ptr]['parenthesis_closer']))
     {

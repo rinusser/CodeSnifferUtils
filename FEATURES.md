@@ -12,6 +12,22 @@ Custom rules output warnings and errors according to these general guidelines:
 * code analysis sniffs generally issue warnings - in severe cases errors
 * if there's an internal error, e.g. if an unexpected case is encountered, a warning is issued
 
+## File Exceptions
+
+There are cases where individual files in an application have widespread violations of particular code style rules, for
+example when it's necessary to implement interfaces or extend classes with different naming rules. In such cases it's
+possible to add rule exceptions for individual files in the files' docblocks, e.g. (the "Sniff" suffix is optional):
+
+    <?php
+    /**
+     * @codingStandardsIgnoreRule RN.Capitalization.BooleanNULL
+     */
+
+This will ignore the Capitalization.BooleanNULL rule for that one file.
+
+Technically _any_ docblock will do, but to avoid confusion about the exception's scope it's suggested that you stick to
+the file docblock.
+
 
 # Sniffs
 

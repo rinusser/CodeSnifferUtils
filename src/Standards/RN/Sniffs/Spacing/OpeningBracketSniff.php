@@ -12,12 +12,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\TokenNames;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures opening curly brackets are succeded by the proper amount of newlines: none.
  */
 class OpeningBracketSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Registers this sniff's triggers
    * @return array
@@ -34,6 +37,9 @@ class OpeningBracketSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens=$file->getTokens();
     $next=$file->findNext(T_WHITESPACE,$stack_ptr+1,NULL,true);
     $lines_between=$tokens[$next]['line']-$tokens[$stack_ptr]['line']-1;

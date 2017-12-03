@@ -37,4 +37,22 @@ abstract class FileUtils
     }
     return false;
   }
+
+  /**
+   * Finds and returns tokens on the same line as a given boundary token, excluding that boundary
+   *
+   * @param File $file     the phpcs file handle
+   * @param int  $boundary the token to search after
+   * @return array the list of tokens on same line
+   */
+  public static function getTokensOnLineAfter(File $file, int $boundary): array
+  {
+    $rv=[];
+    $tokens=$file->getTokens();
+    $line=$tokens[$boundary]['line'];
+    $current=$boundary+1;
+    while($tokens[$current]['line']==$line)
+      $rv[]=$tokens[$current++];
+    return $rv;
+  }
 }

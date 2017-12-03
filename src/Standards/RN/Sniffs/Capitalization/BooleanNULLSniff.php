@@ -12,6 +12,7 @@ namespace PHP_CodeSniffer\Standards\RN\Sniffs\Capitalization; //phpcs property i
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures true and false are lowercase, NULL is uppercase
@@ -21,6 +22,10 @@ class BooleanNULLSniff implements Sniff
   public const UPPER='upper';
   public const UCFIRST='ucfirst';
   public const LOWER='lower';
+
+
+  //import per-file config
+  use PerFileSniffConfig;
 
 
   public $booleanCase=self::LOWER;
@@ -48,6 +53,9 @@ class BooleanNULLSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens=$file->getTokens();
     $actual=$tokens[$stack_ptr]['content'];
     $expected=strtolower($actual);

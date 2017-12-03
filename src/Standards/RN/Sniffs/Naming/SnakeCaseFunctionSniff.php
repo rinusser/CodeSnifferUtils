@@ -12,6 +12,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures functions outside classes are named properly:
@@ -20,6 +21,8 @@ use PHP_CodeSniffer\Util\Tokens;
  */
 class SnakeCaseFunctionSniff extends AbstractScopeSniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Constructor, registers tokens to listen for: functions within/outside classes
    */
@@ -34,6 +37,9 @@ class SnakeCaseFunctionSniff extends AbstractScopeSniff
 
   protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $name=$file->getDeclarationName($stack_ptr);
     if(!$name)
       return;

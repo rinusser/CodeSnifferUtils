@@ -1,0 +1,52 @@
+<?php
+declare(strict_types=1);
+/**
+ * requires PHP version 7.0+
+ * @author Richard Nusser
+ * @copyright 2017 Richard Nusser
+ * @license GPLv3 (see http://www.gnu.org/licenses/)
+ */
+
+namespace RN\CodeSnifferUtils\Utils;
+
+/**
+ * Disables access to undeclared class properties
+ */
+trait NoImplicitProperties
+{
+  /**
+   * @param string $key the property name accessed
+   * @return void never returns
+   * @throws LogicException always
+   */
+  public function __isset($key)
+  {
+    $this->_throwImplicitPropertiesException($key);
+  }
+
+  /**
+   * @param string $key the property name accessed
+   * @return void never returns
+   * @throws LogicException always
+   */
+  public function __get($key)
+  {
+    $this->_throwImplicitPropertiesException($key);
+  }
+
+  /**
+   * @param string $key   the property name accessed
+   * @param mixed  $value (unused) the value tried to set
+   * @return void never returns
+   * @throws LogicException always
+   */
+  public function __set($key, $value)
+  {
+    $this->_throwImplicitPropertiesException($key);
+  }
+
+  private function _throwImplicitPropertiesException(string $key)
+  {
+    throw new \LogicException('invalid access to undeclared property "'.$key.'"');
+  }
+}

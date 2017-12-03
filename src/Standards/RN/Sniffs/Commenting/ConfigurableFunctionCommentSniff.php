@@ -12,12 +12,16 @@ namespace PHP_CodeSniffer\Standards\RN\Sniffs\Commenting; //XXX phpcs's property
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * This is pretty much PEAR.Commenting.FunctionComment, just with minimum visibility configuration
  */
 class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
 {
+  use PerFileSniffConfig;
+
+
   public $minimumVisibility='private';
 
 
@@ -28,6 +32,9 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens=$file->getTokens();
     $prev=$file->findPrevious(array_merge(Tokens::$scopeModifiers,[T_WHITESPACE]),$stack_ptr-1,NULL,true);
     if($tokens[$prev]['code']!==T_DOC_COMMENT_CLOSE_TAG)

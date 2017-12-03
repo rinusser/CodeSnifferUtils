@@ -12,12 +12,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PrecedingEmptyLinesChecker;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures namespace declaration is preceded by the proper amount of newlines
  */
 class NamespaceSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Returns list of phpcs hooks this sniff should be triggered on
    * Called by phpcs automatically.
@@ -36,6 +39,9 @@ class NamespaceSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $allowed_by_type=[T_OPEN_TAG=>0,
                       T_DECLARE=>0,
                       T_DOC_COMMENT_CLOSE_TAG=>1,

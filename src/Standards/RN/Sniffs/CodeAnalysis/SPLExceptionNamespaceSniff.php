@@ -11,6 +11,7 @@ namespace RN\CodeSnifferUtils\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * This checks for built-in SPL exception referenced in wrong namespace
@@ -23,6 +24,8 @@ class SPLExceptionNamespaceSniff implements Sniff
                                 'OutOfRangeException','OverflowException','RangeException','RuntimeException',
                                 'UnderflowException','UnexpectedValueException'];
 
+  //import per-file config
+  use PerFileSniffConfig;
 
   /**
    * Called by phpcs, this returns the list of tokens to listen for
@@ -40,6 +43,9 @@ class SPLExceptionNamespaceSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $file_namespace=$this->_findFileNamespace($file);
 
     //if the entire file is in the root namespace there's not much point in checking: any namespace references are considered to be intentional

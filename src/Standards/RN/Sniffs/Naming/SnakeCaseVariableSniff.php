@@ -12,6 +12,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures variables are named properly:
@@ -22,12 +23,15 @@ class SnakeCaseVariableSniff extends AbstractVariableSniff
 {
   public const SUPERGLOBALS=['$_SERVER','$_GET','$_POST','$_REQUEST','$_SESSION','$_ENV','$_COOKIE','$_FILES','$GLOBALS','HTTP_RAW_POST_DATA'];
 
+  //import per-file config
+  use PerFileSniffConfig;
+
   protected function processVariable(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     $tokens=$file->getTokens();
     $displayed_name=$tokens[$stack_ptr]['content'];
 
-    if(in_array($displayed_name,self::SUPERGLOBALS) || $this->_isStaticAccess($file,$stack_ptr))
+    if($this->_isDisabledInFile($file) || in_array($displayed_name,self::SUPERGLOBALS) || $this->_isStaticAccess($file,$stack_ptr))
       return;
 
     $name=ltrim($displayed_name,'$');

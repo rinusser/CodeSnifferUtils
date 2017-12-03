@@ -11,12 +11,15 @@ namespace RN\CodeSnifferUtils\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * This checks for unused namespace imports
  */
 class UnusedNamespaceImportSniff extends AbstractScopeSniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Called by phpcs, this returns the list of tokens to listen for
    * @return array
@@ -29,6 +32,9 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
 
   protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens=$file->getTokens();
 
     $end=$file->findNext(T_SEMICOLON,$stack_ptr+1,NULL,false);

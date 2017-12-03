@@ -11,12 +11,15 @@ namespace RN\CodeSnifferUtils\Sniffs\Files;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * Ensures PHP files declare strict typing
  */
 class DeclareStrictSniff implements Sniff
 {
+  use PerFileSniffConfig;
+
   /**
    * Returns list of phpcs hooks this sniff should be triggered on
    * Called by phpcs automatically.
@@ -35,6 +38,9 @@ class DeclareStrictSniff implements Sniff
    */
   public function process(File $file, $stack_ptr)
   {
+    if($this->_isDisabledInFile($file))
+      return;
+
     $tokens = $file->getTokens();
     if($tokens[1]['code']!==T_DECLARE)
     {

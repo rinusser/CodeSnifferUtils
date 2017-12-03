@@ -13,6 +13,8 @@ use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Sniffs\Commenting\RequireAuthorEmail;
 use RN\CodeSnifferUtils\Sniffs\Commenting\CheckTagContent;
+use RN\CodeSnifferUtils\Sniffs\Commenting\CommentSniffConfigurator;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 
 /**
  * This is based on PEAR.Commenting.ClassComment, adds configurable features
@@ -25,6 +27,9 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
   //include expected content properties and content checker
   use CheckTagContent;
 
+  //include config handling
+  use PerFileSniffConfig;
+
   public $requiredTags=NULL;
 
   /**
@@ -34,8 +39,10 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
    */
   public function process(File $file, $stack_ptr)
   {
-    require_once('CommentSniffConfigurator.php');
-    \RN\CodeSnifferUtils\Sniffs\Commenting\CommentSniffConfigurator::parseRequiredTags($this->requiredTags,$this->tags);
+    if($this->_isDisabledInFile($file))
+      return;
+
+    CommentSniffConfigurator::parseRequiredTags($this->requiredTags,$this->tags);
     return parent::process($file,$stack_ptr);
   }
 

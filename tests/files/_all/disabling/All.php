@@ -56,3 +56,19 @@ function Asdf($B)
   return 1;
 }
 
+class ShouldBeAbstract
+{
+  public static $x;
+}
+
+
+/**
+ * use this docblock to register any additional rule exceptions without changing expected line numbers
+ *
+ * @codingStandardsIgnoreRule RN.CodeAnalysis.StaticOnlyAbstractClassSniff
+ *
+ * @return void
+ */
+function keep_at_end()
+{
+}

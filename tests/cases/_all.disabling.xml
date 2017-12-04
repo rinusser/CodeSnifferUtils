@@ -37,5 +37,7 @@
     <error file="_all/disabling/All.php" line="53">CodeSnifferUtils.Naming.SnakeCaseFunction.InvalidCharacters</error>
     <error file="_all/disabling/All.php" line="53">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
     <error file="_all/disabling/All.php" line="55">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="_all/disabling/All.php" line="59">RN.Commenting.ConfigurableClassComment.Missing</error>
+    <error file="_all/disabling/All.php" line="59">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
   </expectations>
 </ruleset>

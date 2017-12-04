@@ -203,6 +203,32 @@ This rule checks for references to PHP's built-in SPL exceptions when used in na
 The main reason to use this rule is because it's easy to forget the namespace reference when writing exception handlers.
 This will catch those references before they result in runtime "class not found" errors.
 
+### StaticOnlyAbstractClassSniff
+
+This rule checks whether classes (not extending other classes) containing static members only are abstract. Class
+constants are ignored, but instance properties, instance methods and trait imports drop the abstract requirement.
+
+For example:
+
+    abstract class AbstractClass  //this is OK, it's already static
+    {
+      public static $staticProperty;
+      public static function staticMethod() {}
+    }
+
+    class TraitImport             //this is OK: the class imports a trait that might bring instance members
+    {
+      use SomeTrait;
+      public static $staticProperty;
+    }
+
+    class Extending extends X     //this is OK: the parent might bring instance members
+    {
+      public static function staticMethod() {}
+    }
+
+This rule won't be fixed by phpcbf automatically as the class may be instantiated somewhere, breaking that code.
+
 ### UnusedNamespaceImportSniff
 
 This rule checks `use` statements for imported symbols from other namespaces that aren't being used in the file.

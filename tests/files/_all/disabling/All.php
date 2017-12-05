@@ -66,6 +66,7 @@ class ShouldBeAbstract
  * use this docblock to register any additional rule exceptions without changing expected line numbers
  *
  * @codingStandardsIgnoreRule RN.CodeAnalysis.StaticOnlyAbstractClassSniff
+ * @codingStandardsIgnoreRule RN.Classes.ExplicitConstVisibility
  *
  * @return void
  */

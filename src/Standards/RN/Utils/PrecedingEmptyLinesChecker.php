@@ -17,7 +17,7 @@ use PHP_CodeSniffer\Util\Tokens;
  */
 class PrecedingEmptyLinesChecker
 {
-  const T_ANY='_any';
+  public const T_ANY='_any';
 
 
   /**

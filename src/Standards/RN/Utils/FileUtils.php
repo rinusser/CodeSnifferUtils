@@ -55,4 +55,37 @@ abstract class FileUtils
       $rv[]=$tokens[$current++];
     return $rv;
   }
+
+  /**
+   * Finds a class constant's properties
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the const's token offset
+   * @return array the constant's properties
+   */
+  public static function getConstProperties(File $file, int $stack_ptr): array
+  {
+    $rv['scope']='public';
+    $rv['scope_specified']=false;
+    $tokens=$file->getTokens();
+
+    while($stack_ptr-->=0)
+    {
+      switch($tokens[$stack_ptr]['code'])
+      {
+        case T_PUBLIC:
+        case T_PROTECTED:
+        case T_PRIVATE:
+          $rv['scope']=$tokens[$stack_ptr]['content'];
+          $rv['scope_specified']=true;
+          break;
+        case T_WHITESPACE:
+          continue;
+        default:
+          break 2;
+      }
+    }
+
+    return $rv;
+  }
 }

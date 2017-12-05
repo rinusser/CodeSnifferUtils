@@ -25,6 +25,7 @@
     <error file="_all/disabling/All.php" line="20">RN.Capitalization.BooleanNULL.BooleanCase</error>
     <error file="_all/disabling/All.php" line="20">RN.Classes.MemberOrdering.ConstTooLate</error>
     <error file="_all/disabling/All.php" line="20">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
+    <error file="_all/disabling/All.php" line="20">CodeSnifferUtils.Classes.ExplicitConstVisibility.ImplicitVisibility</error>
     <error file="_all/disabling/All.php" line="24">RN.Commenting.ConfigurableFunctionComment.Missing</error>
     <error file="_all/disabling/All.php" line="24">CodeSnifferUtils.Naming.CamelCaseMethod.PublicHasUnderscore</error>
     <error file="_all/disabling/All.php" line="24">CodeSnifferUtils.Spacing.FunctionParameters.WrongSpaceAfterOpeningParenthesis</error>

@@ -70,6 +70,24 @@ Unexpected boolean/NULL cases found by this sniff can be automatically fixed by 
 
 ## Classes
 
+### ExplicitConstVisibilitySniff
+
+Class constants should have an explicit visibility set:
+
+    class A
+    {
+      //these are OK: they have an explicit visibility set
+      public const K=1;
+      protected const L=2;
+      private const M=3;
+
+      //this will fail if the PHP version is >=7.1
+      const X=4;
+    }
+
+This sniff won't issue errors if the effective PHP version (after phpcs configuration) isn't at least 7.1. Found errors
+won't be fixed automatically as it's unclear what visibility should be set.
+
 ### IndividualPropertiesSniff
 
 Class properties should be declared individually:

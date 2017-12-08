@@ -20,10 +20,12 @@ use RN\CodeSnifferUtils\Utils\ClassMemberChecker;
 /**
  * Ensures class members are ordered correctly, by default:
  *   1. consts
- *   2. static properties
- *   3. static methods
- *   4. instance properties
- *   5. instance methods
+ *   2. trait uses
+ *   3. static properties
+ *   4. static methods
+ *   5. instance properties
+ *   6. constructor
+ *   7. instance methods
  */
 class MemberOrderingSniff extends AbstractScopeSniff
 {
@@ -70,7 +72,7 @@ class MemberOrderingSniff extends AbstractScopeSniff
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $this->_validateOrderProperties(); //there's no hook in AbstractScopeSniff that allows for doing this just once per instance
 

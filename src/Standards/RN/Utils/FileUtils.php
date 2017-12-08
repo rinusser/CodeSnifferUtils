@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Config;
 
 /**
@@ -17,6 +18,8 @@ use PHP_CodeSniffer\Config;
  */
 abstract class FileUtils
 {
+  public const ROOT_NAMESPACE='\\';
+
   private static $_phpVersion;
 
   /**
@@ -107,5 +110,119 @@ abstract class FileUtils
     }
 
     return $rv;
+  }
+
+  /**
+   * Determines whether a variable is being used in a static property access
+   * For example:
+   *
+   *   SomeClass::$var=4;  //this is variable in a static access
+   *   $someObj->$var=4;   //this isn't
+   *
+   * @param File $file   the phpcs file handle to check in
+   * @param int  $offset the variable's token offset to check
+   * @return bool true if it's a static property access, false otherwise
+   */
+  public static function isStaticPropertyAccess(File $file, int $offset): bool
+  {
+    $prev=$file->findPrevious(Tokens::$emptyTokens,$offset-1,NULL,true);
+    return $prev!==false && $file->getTokens()[$prev]['code']===T_DOUBLE_COLON;
+  }
+
+  /**
+   * Returns a list of a closure's imported variable names, if any
+   * For example:
+   *
+   *   function() {}        //has no imports, results in empty array
+   *   function() use ($x)  //imports 1 variable, results in ['$x']
+   *
+   * @param File $file   the phpcs file handle to check in
+   * @param int  $offset the closure's token offset
+   * @return array the list of imported variables - empty array if there aren't any
+   */
+  public static function getClosureImports(File $file, int $offset): array
+  {
+    $tokens=$file->getTokens();
+    $start=$tokens[$offset]['parenthesis_closer']+1;
+    $str=$file->getTokensAsString($start,$tokens[$offset]['scope_opener']-$start);
+    if(!preg_match('/use *\((.+)\)/',$str,$matches))
+      return [];
+
+    $rv=[];
+    foreach(explode(',',$matches[1]) as $parameter)
+      $rv[]=trim($parameter);
+
+    return $rv;
+  }
+
+  /**
+   * Determines a file's declared namespace
+   *
+   * @param File $file the phpcs file handle
+   * @return string the file's namespace - will return self::ROOT_NAMESPACE if none set
+   */
+  public static function getFileNamespace(File $file): string
+  {
+    $ns=$file->findNext(T_NAMESPACE,0,NULL,false);
+    if($ns===false)
+      return self::ROOT_NAMESPACE;
+
+    $ns_end=$file->findNext(T_SEMICOLON,$ns,NULL,false);
+    $namespace=trim($file->getTokensAsString($ns+1,$ns_end-$ns-1));
+    return $namespace;
+  }
+
+  /**
+   * Determines the list of namespace imports
+   * For example:
+   *
+   *   use A\B;
+   *   use C;
+   *
+   * will result in ['B','C']
+   *
+   * //XXX add support for  use A\{D,E}  and  use  X as Y
+   *
+   * @param File $file the phpcs file handle
+   * @return array the list of imported symbols
+   */
+  public static function getNamespaceImports(File $file): array
+  {
+    $rv=[];
+    $tokens=$file->getTokens();
+    $current=0;
+    while(true)
+    {
+      $current=$file->findNext(T_USE,$current+1,NULL,false);
+      if($current===false)
+        break;
+      if($tokens[$current]['column']!=1)
+        continue;
+      $end=$file->findNext(T_SEMICOLON,$current+1,NULL,false);
+      $use=trim($file->getTokensAsString($current+1,$end-$current-1));
+      if(preg_match('/^\\\\?([^\\\\]+)$/',$use,$matches))
+        $rv[]=$matches[1];
+    }
+    return $rv;
+  }
+
+  /**
+   * Determines the list of caught exceptions in a catch block
+   * For example:
+   *
+   *   try {} catch (AnException $e) {}  //will return ['AnException']
+   *   try {} catch (A|B|C $e) {}        //will return ['A','B','C']
+   *
+   * @param File $file      the phpcs file to handle
+   * @param int  $stack_ptr the "catch" token offset
+   * @return array the list of caught exceptions (as strings)
+   */
+  public static function getCaughtExceptions(File $file, int $stack_ptr): array
+  {
+    $tokens=$file->getTokens();
+    $start=$tokens[$stack_ptr]['parenthesis_opener']+1;
+    $caught=$file->getTokensAsString($start,$tokens[$stack_ptr]['parenthesis_closer']-$start);
+    $caught=substr($caught,0,strpos($caught,'$'));
+    return array_map('trim',explode('|',$caught));
   }
 }

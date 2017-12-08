@@ -11,8 +11,8 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\FileUtils;
 
 /**
  * Ensures variables are named properly:
@@ -21,7 +21,7 @@ use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
  */
 class SnakeCaseVariableSniff extends AbstractVariableSniff
 {
-  public const SUPERGLOBALS=['$_SERVER','$_GET','$_POST','$_REQUEST','$_SESSION','$_ENV','$_COOKIE','$_FILES','$GLOBALS','HTTP_RAW_POST_DATA'];
+  public const SUPERGLOBALS=['$_SERVER','$_GET','$_POST','$_REQUEST','$_SESSION','$_ENV','$_COOKIE','$_FILES','$GLOBALS','$HTTP_RAW_POST_DATA'];
 
   //import per-file config
   use PerFileSniffConfig;
@@ -31,7 +31,7 @@ class SnakeCaseVariableSniff extends AbstractVariableSniff
     $tokens=$file->getTokens();
     $displayed_name=$tokens[$stack_ptr]['content'];
 
-    if($this->_isDisabledInFile($file) || in_array($displayed_name,self::SUPERGLOBALS) || $this->_isStaticAccess($file,$stack_ptr))
+    if($this->_isDisabledInFile($file) || in_array($displayed_name,self::SUPERGLOBALS) || FileUtils::isStaticPropertyAccess($file,$stack_ptr))
       return;
 
     $name=ltrim($displayed_name,'$');
@@ -44,7 +44,7 @@ class SnakeCaseVariableSniff extends AbstractVariableSniff
       if($prev===false)
         break;
 
-      if($tokens[$prev]['code']===T_CLOSURE && $this->_hasVariableInClosuresImports($file,$tokens,$prev,$displayed_name))
+      if($tokens[$prev]['code']===T_CLOSURE && in_array($displayed_name,FileUtils::getClosureImports($file,$prev)))
         return;
 
       $is_in_parameters=$tokens[$prev]['parenthesis_opener']<$stack_ptr && $tokens[$prev]['parenthesis_closer']>$stack_ptr;
@@ -88,26 +88,6 @@ class SnakeCaseVariableSniff extends AbstractVariableSniff
     foreach($function_parameters as $parameter)
       if($parameter['name']===$name)
         return true;
-    return false;
-  }
-
-  private function _isStaticAccess(File $file, int $offset): bool
-  {
-    $prev=$file->findPrevious(Tokens::$emptyTokens,$offset-1,NULL,true);
-    return $prev!==false && $file->getTokens()[$prev]['code']===T_DOUBLE_COLON;
-  }
-
-  private function _hasVariableInClosuresImports(File $file, array $tokens, int $offset, string $name): bool
-  {
-    $start=$tokens[$offset]['parenthesis_closer']+1;
-    $str=$file->getTokensAsString($start,$tokens[$offset]['scope_opener']-$start);
-    if(!preg_match('/use *\((.+)\)/',$str,$matches))
-      return false;
-
-    foreach(explode(',',$matches[1]) as $parameter)
-      if(trim($parameter)==$name)
-        return true;
-
     return false;
   }
 

@@ -12,13 +12,13 @@ namespace RN\CodeSnifferUtils\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\FileUtils;
 
 /**
  * This checks for built-in SPL exception referenced in wrong namespace
  */
 class SPLExceptionNamespaceSniff implements Sniff
 {
-  private const ROOT_NS='\\';
   private const SPL_EXCEPTIONS=['Exception','BadFunctionCallException','BadMethodCallException','DomainException',
                                 'InvalidArgumentException','LengthException','LogicException','OutOfBoundsException',
                                 'OutOfRangeException','OverflowException','RangeException','RuntimeException',
@@ -44,23 +44,20 @@ class SPLExceptionNamespaceSniff implements Sniff
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
-    $file_namespace=$this->_findFileNamespace($file);
+    $file_namespace=FileUtils::getFileNamespace($file);
 
     //if the entire file is in the root namespace there's not much point in checking: any namespace references are considered to be intentional
-    if($file_namespace===self::ROOT_NS)
+    if($file_namespace===FileUtils::ROOT_NAMESPACE)
       return;
 
-    $imported=$this->_findRootNSImports($file);
+    $imported=FileUtils::getNamespaceImports($file);
     $tokens=$file->getTokens();
 
     if($tokens[$stack_ptr]['code']===T_CATCH)
     {
-      $start=$tokens[$stack_ptr]['parenthesis_opener']+1;
-      $caught=$file->getTokensAsString($start,$tokens[$stack_ptr]['parenthesis_closer']-$start);
-      $caught=substr($caught,0,strpos($caught,'$'));
-      $exceptions=array_map('trim',explode('|',$caught));
+      $exceptions=FileUtils::getCaughtExceptions($file,$stack_ptr);
       foreach($exceptions as $exception)
       {
         if($exception[0]==='\\' || !in_array($exception,self::SPL_EXCEPTIONS))
@@ -98,36 +95,5 @@ class SPLExceptionNamespaceSniff implements Sniff
       return;
     $warning='Possible wrong namespace reference to "'.$class.'", did you mean "\\'.$class.'"?';
     $file->addWarning($warning,$stack_ptr,'WrongNamespace');
-  }
-
-  protected function _findFileNamespace(File $file): string
-  {
-    $ns=$file->findNext(T_NAMESPACE,0,NULL,false);
-    if($ns===false)
-      return self::ROOT_NS;
-
-    $ns_end=$file->findNext(T_SEMICOLON,$ns,NULL,false);
-    $namespace=trim($file->getTokensAsString($ns+1,$ns_end-$ns-1));
-    return $namespace;
-  }
-
-  protected function _findRootNSImports(File $file): array
-  {
-    $rv=[];
-    $tokens=$file->getTokens();
-    $current=0;
-    while(true)
-    {
-      $current=$file->findNext(T_USE,$current+1,NULL,false);
-      if($current===false)
-        break;
-      if($tokens[$current]['column']!=1)
-        continue;
-      $end=$file->findNext(T_SEMICOLON,$current+1,NULL,false);
-      $use=trim($file->getTokensAsString($current+1,$end-$current-1));
-      if(preg_match('/^\\\\?([^\\\\]+)$/',$use,$matches))
-        $rv[]=$matches[1];
-    }
-    return $rv;
   }
 }

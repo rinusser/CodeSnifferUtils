@@ -10,12 +10,32 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Config;
 
 /**
  * Class supplying phpcs file helpers
  */
 abstract class FileUtils
 {
+  private static $_phpVersion;
+
+  /**
+   * Fetches the effective PHP version analyzed files are being tested for
+   *
+   * @return int|string the PHP version: 7.1.2 will be returned as 70102
+   */
+  public static function getTargetPHPVersion()
+  {
+    if(self::$_phpVersion===NULL)
+    {
+      $version=Config::getConfigData('php_version');
+      if($version===NULL)
+        $version=PHP_VERSION_ID;
+      self::$_phpVersion=$version;
+    }
+    return self::$_phpVersion;
+  }
+
   /**
    * Finds tokens on the same line not in list of token types
    *

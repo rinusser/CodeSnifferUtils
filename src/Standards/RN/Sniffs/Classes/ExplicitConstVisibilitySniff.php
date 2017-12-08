@@ -11,7 +11,6 @@ namespace RN\CodeSnifferUtils\Sniffs\Classes;
 
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Config;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\FileUtils;
 
@@ -22,8 +21,6 @@ class ExplicitConstVisibilitySniff extends AbstractScopeSniff
 {
   use PerFileSniffConfig;
 
-  private $_phpVersion;
-
 
   /**
    * Registers class parts to trigger on
@@ -31,10 +28,6 @@ class ExplicitConstVisibilitySniff extends AbstractScopeSniff
   public function __construct()
   {
     parent::__construct([T_CLASS],[T_CONST]);
-
-    $this->_phpVersion=Config::getConfigData('php_version');
-    if($this->_phpVersion===NULL)
-      $this->_phpVersion=PHP_VERSION_ID;
   }
 
 
@@ -48,8 +41,8 @@ class ExplicitConstVisibilitySniff extends AbstractScopeSniff
    */
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
-    if($this->_isDisabledInFile($file) || $this->_phpVersion<70100)
-      return;
+    if($this->_isDisabledInFile($file) || FileUtils::getTargetPHPVersion()<70100)
+      return $file->numTokens;
 
     $properties=FileUtils::getConstProperties($file,$stack_ptr);
     if($properties['scope_specified'])

@@ -6,7 +6,7 @@
   <rule ref="RN.Capitalization.BooleanNULL"/>
   <expectations>
     <file_count>1</file_count>
-    <error file="internal/PartiallyFixable.php" line="1">CodeSnifferUtils.Files.DeclareStrict.DeclareStrictMissing</error>
+    <error file="internal/PartiallyFixable.php" line="1">CodeSnifferUtils.Files.DeclareStrict.Missing</error>
     <error file="internal/PartiallyFixable.php" line="2">RN.Capitalization.BooleanNULL.BooleanCase</error>
   </expectations>
 </ruleset>

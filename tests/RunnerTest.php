@@ -65,6 +65,19 @@ class RunnerTest extends TestCase
   }
 
 
+  protected function _fetchXMLCasesInternal(callable $filter): array
+  {
+    $rv=[];
+    foreach(new \DirectoryIterator(self::$_xmlPath) as $ti=>$file)
+    {
+      $filename=$file->getFilename();
+      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename) || !$filter($filename))
+        continue;
+      $rv[]=[$ti,$filename];
+    }
+    return $rv;
+  }
+
   /**
    * Fetches XML testcases from the configured path (tests/cases/ by default) and prepares them for injection by the test runner
    *
@@ -72,15 +85,9 @@ class RunnerTest extends TestCase
    */
   public function fetchXMLCases(): array
   {
-    $rv=[];
-    foreach(new \DirectoryIterator(self::$_xmlPath) as $ti=>$file)
-    {
-      $filename=$file->getFilename();
-      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename) || $filename[0]==='_')
-        continue;
-      $rv[]=[$ti,$filename];
-    }
-    return $rv;
+    return $this->_fetchXMLCasesInternal(function($filename) {
+      return $filename[0]!=='_';
+    });
   }
 
   /**
@@ -130,12 +137,29 @@ class RunnerTest extends TestCase
     }
   }
 
+
+  /**
+   * Fetches disabling XML testcases from the configured path (tests/cases/ by default) and prepares them for injection by the test runner
+   *
+   * @return array list of disabling testcases
+   */
+  public function fetchDisablingCases()
+  {
+    return $this->_fetchXMLCasesInternal(function($filename) {
+      return $filename[0]==='_';
+    });
+  }
+
   /**
    * Tests if disabling annotations works
+   *
+   * @dataProvider fetchDisablingCases
+   *
+   * @param int    $index    (unused) the testcase's index
+   * @param string $filename the testcase's filename
    */
-  public function testDisabling()
+  public function testDisablingCase(int $index, string $filename)
   {
-    $filename='_all.disabling.xml';
     $message_prefix=$filename;
     $fullpath=self::$_xmlPath.'/'.$filename;
 

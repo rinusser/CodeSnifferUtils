@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="_all.disabling">
   <autoload>../../src/autoloader.php</autoload>
-  <file>../files/_all/disabling</file>
+  <file>../files/_all/disabling/All.php</file>
   <rule ref="RN.Capitalization"/>
   <rule ref="RN.Classes"/>
   <rule ref="RN.CodeAnalysis"/>
@@ -40,5 +40,6 @@
     <error file="_all/disabling/All.php" line="55">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
     <error file="_all/disabling/All.php" line="59">RN.Commenting.ConfigurableClassComment.Missing</error>
     <error file="_all/disabling/All.php" line="59">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
+    <error file="_all/disabling/All.php" line="59">CodeSnifferUtils.Classes.ClassDeclaration.MultipleClasses</error>
   </expectations>
 </ruleset>

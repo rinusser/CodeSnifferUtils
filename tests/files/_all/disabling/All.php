@@ -67,6 +67,7 @@ class ShouldBeAbstract
  *
  * @codingStandardsIgnoreRule RN.CodeAnalysis.StaticOnlyAbstractClassSniff
  * @codingStandardsIgnoreRule RN.Classes.ExplicitConstVisibility
+ * @codingStandardsIgnoreRule RN.Classes.ClassDeclaration
  *
  * @return void
  */

@@ -70,6 +70,12 @@ Unexpected boolean/NULL cases found by this sniff can be automatically fixed by 
 
 ## Classes
 
+### ClassDeclarationSniff
+
+This extends PSR1.Classes.ClassDeclaration - all it does is adding the option to disable the sniff in individual files.
+
+This can be used to add exceptions for files that need to reside in the root namespace because of external requirements.
+
 ### ExplicitConstVisibilitySniff
 
 Class constants should have an explicit visibility set:

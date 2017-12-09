@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="commenting.all.fixedtagcontent.valid">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/commenting/fixedtagcontent</file>
+  <rule ref="RN.Commenting.ConfigurableFileComment">
+    <properties>
+      <property name="requiredTags" value="author,copyright,license"/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="authorContent" value="Richard Nusser"/>
+      <property name="copyrightContent" value="2017  Richard Nusser"/>
+      <property name="licenseContent" value="asdf 1234"/>
+    </properties>
+  </rule>
+
+  <rule ref="RN.Commenting.ConfigurableClassComment">
+    <properties>
+      <property name="requiredTags" value="link,since"/>
+      <property name="requireAuthorEmail" value="no"/>
+      <property name="linkContent" value="http://127.0.0.1/"/>
+      <property name="sinceContent" value="never"/>
+    </properties>
+  </rule>
+
+  <expectations>
+    <file_count>2</file_count>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingAuthorTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingCopyrightTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingLicenseTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingLinkTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.InsertableMissingLinkTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
+  </expectations>
+</ruleset>

@@ -40,12 +40,19 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     CommentSniffConfigurator::parseRequiredTags($this->requiredTags,$this->tags);
-    return parent::process($file,$stack_ptr);
+    $rv=parent::process($file,$stack_ptr);
+    $this->_insertFixables($file,$this->_fixables);
+    return $rv;
   }
 
+  protected function processTags($file, $stack_ptr, $comment_start)  //CSU.IgnoreName: required by parent class
+  {
+    $this->_processInsertableTags($file,$comment_start,$this->tags,'class');
+    return parent::processTags($file,$stack_ptr,$comment_start);
+  }
 
   protected function processCategory($file, array $tags)  //CSU.IgnoreName: required by parent class
   {

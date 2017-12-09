@@ -24,6 +24,8 @@ trait CheckTagContent
   public $licenseContent=NULL;
   public $versionContent=NULL;
 
+  protected $_fixables=[];
+
 
   protected function _checkTagContent(File $file, string $tagname, array $offsets): void
   {
@@ -89,5 +91,59 @@ trait CheckTagContent
         $rv[$start]--;
     }
     return $rv;
+  }
+
+  protected function _processInsertableTags(File $file, int $comment_start, array &$tags, string $type): void
+  {
+    $tokens=$file->getTokens();
+    $docblock=$tokens[$comment_start];
+    $fixables=[];
+
+    foreach($tags as $tag=>$options)
+    {
+      $expected_content=$this->{ltrim($tag,'@').'Content'}??NULL;
+      if(!$options['required'] || $expected_content===NULL)
+        continue;
+
+      foreach($docblock['comment_tags'] as $offset)
+        if($tokens[$offset]['content']===$tag)
+          continue 2;
+
+      $error='Missing '.$tag.' in '.$type.' comment';
+      if($file->addFixableError($error,$docblock['comment_closer'],'InsertableMissing'.ucfirst(ltrim($tag,'@')).'Tag'))
+        $fixables[]=[$comment_start,$tag,$expected_content];
+      $tags[$tag]['required']=false;
+    }
+    $this->_fixables=array_reverse($fixables);
+  }
+
+  protected function _insertFixables(File $file, array $fixables): void
+  {
+    if(!$fixables)
+      return;
+    $tokens=$file->getTokens();
+    $file->fixer->beginChangeset();
+    foreach($fixables as $fixable)
+    {
+      [$comment_start,$tag,$expected_content]=$fixable;
+      $insert_before=$this->_calculateInsertTagFollower($file,$comment_start,$tag);
+      $line_start=$file->findFirstOnLine([],$insert_before,true);
+      $prefix=' ';
+      $file->fixer->addContentBefore($line_start,"$prefix* $tag $expected_content\n");
+    }
+    $file->fixer->endChangeset();
+  }
+
+  private function _calculateInsertTagFollower(File $file, int $comment_start, string $tag): int
+  {
+    $tokens=$file->getTokens();
+    $expected_order=array_keys($this->tags);
+    $pos=array_search($tag,$expected_order);
+    if($pos!==false)
+      foreach(array_slice($expected_order,$pos+1) as $candidate)
+        foreach($tokens[$comment_start]['comment_tags'] as $offset)
+          if($tokens[$offset]['content']===$candidate)
+            return $offset;
+    return $tokens[$comment_start]['comment_closer'];
   }
 }

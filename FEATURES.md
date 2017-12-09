@@ -292,6 +292,8 @@ or pass an arbitrary list of required tags (you can optionally prefix the tags w
 
 If you leave out the "requiredTags" property PEAR.Commenting.ClassComment's and PEAR.Commenting.FileComment's defaults will be used.
 
+Missing tags can only be inserted automatically by phpcbf if there's an expected content configured for the tag.
+
 #### Author Email Configuration
 
 By default the extended sniff requires the `Display Name <user@example.com>` @author tag format.

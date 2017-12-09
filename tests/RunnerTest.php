@@ -115,7 +115,10 @@ class RunnerTest extends TestCase
 
       //run phpcbf on temp dir, this should fix all errors
       exec(self::$_phpcbfCmd.' --standard='.$fullpath.' '.$dir,$output,$rv);
-      $this->assertEquals(1,$rv,$message_prefix.'phpcbf return value; should have fixed errors');
+      $message=$message_prefix.'phpcbf return value; should have fixed errors';
+      if($this->_isDebug())
+        $message.="\n".var_export($output,true);
+      $this->assertEquals(1,$rv,$message);
 
       //run phpcs on temp dir and see if there are 0 errors
       $testcase->expectedErrors=array_diff_key($testcase->expectedErrors,array_flip($actuals['fixables']));

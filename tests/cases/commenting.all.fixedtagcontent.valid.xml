@@ -9,7 +9,7 @@
       <property name="authorContent" value="Richard Nusser"/>
       <property name="copyrightContent" value="2017  Richard Nusser"/>
       <property name="licenseContent" value="asdf 1234"/>
-      <property name="linkContent" value="about:blank"/>
+      <property name="linkContent" value="invalid.link"/>
       <property name="sinceContent" value="1.23.567b-890"/>
     </properties>
   </rule>
@@ -21,7 +21,7 @@
       <property name="authorContent" value="No one"/>
       <property name="copyrightContent" value="2017 Richard  Nusser"/>
       <property name="licenseContent" value="proprietary 9999"/>
-      <property name="linkContent" value="http://127.0.0.1/"/>
+      <property name="linkContent" value="wrong.on.purple"/>
       <property name="sinceContent" value="never"/>
     </properties>
   </rule>

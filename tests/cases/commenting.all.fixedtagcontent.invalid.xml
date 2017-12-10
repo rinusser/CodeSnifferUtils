@@ -9,6 +9,7 @@
       <property name="authorContent" value="No one"/>
       <property name="copyrightContent" value="2017 Richard  Nusser"/>
       <property name="licenseContent" value="proprietary 9999"/>
+      <property name="linkContent" value="anything"/>
     </properties>
   </rule>
 
@@ -19,6 +20,7 @@
       <property name="authorContent" value="Richard Nusser"/>
       <property name="copyrightContent" value="2017  Richard Nusser"/>
       <property name="licenseContent" value="asdf 1234"/>
+      <property name="linkContent" value="something"/>
     </properties>
   </rule>
 
@@ -27,8 +29,10 @@
     <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="8">RN.Commenting.ConfigurableFileComment.WrongLicenseContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="9">RN.Commenting.ConfigurableFileComment.WrongLinkContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="16">RN.Commenting.ConfigurableClassComment.WrongAuthorContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="17">RN.Commenting.ConfigurableClassComment.WrongCopyrightContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="18">RN.Commenting.ConfigurableClassComment.WrongLicenseContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.WrongLinkContent</error>
   </expectations>
 </ruleset>

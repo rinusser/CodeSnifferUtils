@@ -14,9 +14,9 @@
 
   <rule ref="RN.Commenting.ConfigurableClassComment">
     <properties>
-      <property name="requiredTags" value="link,since"/>
+      <property name="requiredTags" value="category,since"/>
       <property name="requireAuthorEmail" value="no"/>
-      <property name="linkContent" value="http://127.0.0.1/"/>
+      <property name="categoryContent" value="Abcd"/>
       <property name="sinceContent" value="never"/>
     </properties>
   </rule>
@@ -26,9 +26,9 @@
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingAuthorTag</error>
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingCopyrightTag</error>
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingLicenseTag</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingLinkTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingCategoryTag</error>
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.InsertableMissingLinkTag</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ConfigurableClassComment.InsertableMissingCategoryTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
   </expectations>
 </ruleset>

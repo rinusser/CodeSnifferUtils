@@ -5,6 +5,8 @@ PHP\_CodeSniffer rules implementing personal preferences. Can be used locally or
 FEATURES.md contains short explanations of custom rules. The source files in `src` adhere to this standard, check those
 files for exhaustive examples.
 
+This application is hosted on [GitHub](https://github.com/rinusser/CodeSnifferUtils).
+
 
 # Requirements
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
  * @author Richard Nusser
  * @copyright 2017 Richard Nusser
  * @license GPLv3 (see http://www.gnu.org/licenses/)
+ * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
 namespace PHP_CodeSniffer\Standards\RN\Sniffs\Commenting; //XXX phpcs's property injection doesn't work for sniffs in foreign namespaces

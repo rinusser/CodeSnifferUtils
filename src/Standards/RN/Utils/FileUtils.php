@@ -91,6 +91,7 @@ abstract class FileUtils
     $rv['scope']='public';
     $rv['scope_specified']=false;
     $tokens=$file->getTokens();
+    self::_assertTokenIs($tokens[$stack_ptr],T_CONST,'T_CONST');
 
     while($stack_ptr-->=0)
     {
@@ -125,8 +126,10 @@ abstract class FileUtils
    */
   public static function isStaticPropertyAccess(File $file, int $offset): bool
   {
+    $tokens=$file->getTokens();
+    self::_assertTokenIs($tokens[$offset],T_VARIABLE,'T_VARIABLE');
     $prev=$file->findPrevious(Tokens::$emptyTokens,$offset-1,NULL,true);
-    return $prev!==false && $file->getTokens()[$prev]['code']===T_DOUBLE_COLON;
+    return $prev!==false && $tokens[$prev]['code']===T_DOUBLE_COLON;
   }
 
   /**
@@ -143,6 +146,7 @@ abstract class FileUtils
   public static function getClosureImports(File $file, int $offset): array
   {
     $tokens=$file->getTokens();
+    self::_assertTokenIs($tokens[$offset],T_CLOSURE,'T_CLOSURE');
     $start=$tokens[$offset]['parenthesis_closer']+1;
     $str=$file->getTokensAsString($start,$tokens[$offset]['scope_opener']-$start);
     if(!preg_match('/use *\((.+)\)/',$str,$matches))
@@ -178,10 +182,10 @@ abstract class FileUtils
    *
    *   use A\B;
    *   use C;
+   *   use D\E as F;
+   *   use G\{H,I};
    *
-   * will result in ['B','C']
-   *
-   * //XXX add support for  use A\{D,E}  and  use  X as Y
+   * will result in ['B','C','F','H','I']
    *
    * @param File $file the phpcs file handle
    * @return array the list of imported symbols
@@ -200,8 +204,18 @@ abstract class FileUtils
         continue;
       $end=$file->findNext(T_SEMICOLON,$current+1,NULL,false);
       $use=trim($file->getTokensAsString($current+1,$end-$current-1));
-      if(preg_match('/^\\\\?([^\\\\]+)$/',$use,$matches))
-        $rv[]=$matches[1];
+      if(preg_match('/\\\\?{?([^\\\\}]+)}?$/',$use,$matches))
+      {
+        if(strpos($matches[1],' as ')!==false)
+        {
+          $parts=explode(' ',$matches[1]);
+          $rv[]=array_pop($parts);
+        }
+        elseif(strpos($matches[1],',')!==false)
+          $rv=array_merge($rv,array_map('trim',explode(',',$matches[1])));
+        else
+          $rv[]=$matches[1];
+      }
     }
     return $rv;
   }
@@ -211,7 +225,7 @@ abstract class FileUtils
    * For example:
    *
    *   try {} catch (AnException $e) {}  //will return ['AnException']
-   *   try {} catch (A|B|C $e) {}        //will return ['A','B','C']
+   *   try {} catch (A|B|C\D $e) {}      //will return ['A','B','C\D']
    *
    * @param File $file      the phpcs file to handle
    * @param int  $stack_ptr the "catch" token offset
@@ -220,9 +234,17 @@ abstract class FileUtils
   public static function getCaughtExceptions(File $file, int $stack_ptr): array
   {
     $tokens=$file->getTokens();
-    $start=$tokens[$stack_ptr]['parenthesis_opener']+1;
-    $caught=$file->getTokensAsString($start,$tokens[$stack_ptr]['parenthesis_closer']-$start);
+    $catch=$tokens[$stack_ptr];
+    self::_assertTokenIs($catch,T_CATCH,'T_CATCH');
+    $start=$catch['parenthesis_opener']+1;
+    $caught=$file->getTokensAsString($start,$catch['parenthesis_closer']-$start);
     $caught=substr($caught,0,strpos($caught,'$'));
     return array_map('trim',explode('|',$caught));
+  }
+
+  protected static function _assertTokenIs(array $token, $code, string $type): void
+  {
+    if($token['code']!==$code)
+      throw new \InvalidArgumentException('expected '.$type.', got '.$token['type'].' instead.');
   }
 }

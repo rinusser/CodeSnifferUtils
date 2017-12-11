@@ -13,7 +13,7 @@ use X\Y\UnusedNamespace;
 class Violations
 {
 
-  public $_a, $b;
+  public $_a , $b ;
 
 
 
@@ -68,6 +68,7 @@ class ShouldBeAbstract
  * @codingStandardsIgnoreRule RN.CodeAnalysis.StaticOnlyAbstractClassSniff
  * @codingStandardsIgnoreRule RN.Classes.ExplicitConstVisibility
  * @codingStandardsIgnoreRule RN.Classes.ClassDeclaration
+ * @codingStandardsIgnoreRule RN.Spacing.Separator
  *
  * @return void
  */

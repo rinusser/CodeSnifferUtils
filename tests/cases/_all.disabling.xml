@@ -22,6 +22,8 @@
     <error file="_all/disabling/All.php" line="16">CodeSnifferUtils.Naming.Property.PublicHasUnderscore</error>
     <error file="_all/disabling/All.php" line="16">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="16">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
+    <error file="_all/disabling/All.php" line="16">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="_all/disabling/All.php" line="16">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
     <error file="_all/disabling/All.php" line="20">RN.Capitalization.BooleanNULL.BooleanCase</error>
     <error file="_all/disabling/All.php" line="20">RN.Classes.MemberOrdering.ConstTooLate</error>
     <error file="_all/disabling/All.php" line="20">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>

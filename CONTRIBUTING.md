@@ -45,7 +45,7 @@ testing purposes. The phpcs.xml configuration file skips these files already.
 
 ### Tests
 
-Each custom sniff is covered by tests. Test cases are in tests/cases (as phpcs configuration files with a custom
+Each custom sniff is covered by tests. Test cases are in tests/cases/ (as phpcs configuration files with a custom
 \<expectations\> block), the tested files are in tests/files.
 
 ### Validation
@@ -54,6 +54,11 @@ Each commit into the `master` branch conforms to this ruleset and passes all tes
 to validate the current version:
 
     ./build.sh && ./phpunit.sh && (phpcs; phpcslive)
+
+### Documentation
+
+Each custom sniff is documented in FEATURES.md. The sniff's documentation shows commented code examples, explains what
+the sniff does, how it can be configured and whether found errors are fixable with phpcbf.
 
 ### Licensing
 

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset name="spacing.namespace">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/spacing/separator</file>
+  <rule ref="RN.Spacing.Separator"/>
+  <expectations>
+    <file_count>2</file_count>
+    <error file="spacing/separator/TooMuchSpace.php" line="2">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="2">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="4">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="4">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="6">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="6">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="7">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="7">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="7">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="8">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="13">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="13">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="13">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="15">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="15">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="15">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="17">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="17">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="18">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="20">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="22">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="22">CodeSnifferUtils.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="24">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="24">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="25">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="25">CodeSnifferUtils.Spacing.Separator.SpaceBeforeComma</error>
+  </expectations>
+</ruleset>

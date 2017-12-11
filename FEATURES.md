@@ -721,3 +721,19 @@ Note that this sniff only applies to functions as they're being defined, e.g.:
 but not to function calls, e.g.:
 
     asdf(1,2);
+
+### SeparatorSniff
+
+Commas and semicolons must not follow any whitespaces.
+
+Example:
+
+    function f($a, $b)  //this is OK
+    {
+      $x=4;             //this is OK
+
+      $y=[1 , 2];       //invalid: space before comma
+      $z=3 ;            //invalid: space before semicolon
+    }
+
+This currently isn't automatically fixable by phpcs. This sniff will also handle spacing *after* separators later.

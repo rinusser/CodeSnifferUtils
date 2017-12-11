@@ -12,6 +12,7 @@ namespace RN\CodeSnifferUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Base sniff for checking preceding newlines.
@@ -21,9 +22,15 @@ class PrecedingEmptyLinesChecker
   public const T_ANY='_any';
 
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * @param File  $file            the phpcs file handle to check
-   * @param int   $stack_ptr       the phpcs context
+   * Process a file's token - should be called by other sniffs' process() methods
+   *
+   * @param File  $file            the phpcs file handle
+   * @param int   $stack_ptr       the token offset to be processed
    * @param array $allowed_by_type a map of allowed previous token=>distance pairs
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
@@ -76,6 +83,8 @@ class PrecedingEmptyLinesChecker
 
 
   /**
+   * Fetch the expected distance to the previous token
+   *
    * @param array $allowed_by_type a list of token type=>distance values
    * @param File  $file            the current phpcs file
    * @param int   $previous        the previous token to check distance to

@@ -16,6 +16,8 @@ namespace RN\CodeSnifferUtils\Utils;
 trait NoImplicitProperties
 {
   /**
+   * Gets called by PHP when an unknown property is tested for existance, e.g. isset()
+   *
    * @param string $key the property name accessed
    * @return void never returns
    * @throws LogicException always
@@ -26,6 +28,8 @@ trait NoImplicitProperties
   }
 
   /**
+   * Gets called by PHP when an unknown property is read from
+   *
    * @param string $key the property name accessed
    * @return void never returns
    * @throws LogicException always
@@ -36,6 +40,8 @@ trait NoImplicitProperties
   }
 
   /**
+   * Gets called by PHP when an unknown property is written to
+   *
    * @param string $key   the property name accessed
    * @param mixed  $value (unused) the value tried to set
    * @return void never returns

@@ -15,11 +15,7 @@
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableFunctionComment">
-    <properties>
-      <property name="requiredTags" value=""/>
-    </properties>
-  </rule>
+  <rule ref="RN.Commenting.ConfigurableFunctionComment"/>
 
   <expectations>
     <file_count>3</file_count>

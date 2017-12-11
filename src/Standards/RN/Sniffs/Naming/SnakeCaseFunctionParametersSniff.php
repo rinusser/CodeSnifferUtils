@@ -13,6 +13,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures function parameters are snake_case and start with a lowercase letter
@@ -21,9 +22,14 @@ class SnakeCaseFunctionParametersSniff implements Sniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Registers tokens to listen for: functions and closures
-   * @return NULL
+   * Gets called by phpcs to return a list of tokens types to wait for
+   *
+   * @return array the list of token types
    */
   public function register()
   {
@@ -31,16 +37,16 @@ class SnakeCaseFunctionParametersSniff implements Sniff
   }
 
   /**
-   * Processes found tokens
+   * Gets called by phpcs to handle a file's token
    *
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the function's token offset
-   * @return NULL
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $parameters=$file->getMethodParameters($stack_ptr);
     foreach($parameters as $parameter)

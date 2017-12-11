@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This is pretty much PEAR.Commenting.FunctionComment, just with minimum visibility configuration
@@ -22,19 +23,24 @@ class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
 
   public $minimumVisibility='private';
 
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return mixed see parent class
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
     $prev=$file->findPrevious(array_merge(Tokens::$scopeModifiers,[T_WHITESPACE]),$stack_ptr-1,NULL,true);

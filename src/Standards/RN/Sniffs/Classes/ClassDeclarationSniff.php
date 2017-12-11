@@ -11,8 +11,9 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Sniffs\Classes;
 
 use PHP_CodeSniffer\Files\File;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff as PSR1ClassDeclarationSniff;
+use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This equals PSR1.Classes.ClassDeclaration, but can be disabled for individual files
@@ -21,11 +22,16 @@ class ClassDeclarationSniff extends PSR1ClassDeclarationSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Process a token
+   * Gets called by phpcs to handle a file's token
+   *
    * @param File $file      the phpcs file handle
-   * @param int  $stack_ptr the token offset to process
-   * @return mixed see parent class
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {

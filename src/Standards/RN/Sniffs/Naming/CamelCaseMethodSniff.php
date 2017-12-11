@@ -13,6 +13,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures class methods are named properly:
@@ -24,7 +25,13 @@ class CamelCaseMethodSniff extends CamelCapsMethodNameSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
+   * Gets called by parent class, processes tokens
+   *
    * @param File $file       the phpcs file handle to check
    * @param int  $stack_ptr  the phpcs context
    * @param int  $curr_scope the current scope token's offset
@@ -33,7 +40,7 @@ class CamelCaseMethodSniff extends CamelCapsMethodNameSniff
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $name=$file->getDeclarationName($stack_ptr);
     if(!$name===NULL)

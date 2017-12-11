@@ -13,6 +13,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Naming;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures properties are named properly:
@@ -24,7 +25,13 @@ class PropertySniff extends AbstractVariableSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
+   * Gets called by parent class, processes class properties
+   *
    * @param File $file      the phpcs file handle to check
    * @param int  $stack_ptr the phpcs context
    * @return NULL to indicate phpcs should continue processing rest of file normally
@@ -32,7 +39,7 @@ class PropertySniff extends AbstractVariableSniff
   protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
     $displayed_name=$tokens[$stack_ptr]['content'];

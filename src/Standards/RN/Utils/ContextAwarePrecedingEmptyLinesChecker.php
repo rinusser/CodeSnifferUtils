@@ -12,14 +12,20 @@ namespace RN\CodeSnifferUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Sniff for checking preceding newlines, can check surroundings
  */
 class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
 {
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   protected $_expectedToken;
   protected $_ignoredTokens;
+
 
   /**
    * @param mixed $expected_token the type of token to look for when checking if multiple similar tokens are adjacent
@@ -32,8 +38,10 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   }
 
   /**
-   * @param File  $file            the phpcs file handle to check
-   * @param int   $stack_ptr       the phpcs context
+   * Process a file's token - should be called by other sniffs' process() methods
+   *
+   * @param File  $file            the phpcs file handle
+   * @param int   $stack_ptr       the token offset to be processed
    * @param array $allowed_by_type a map of allowed previous token=>distance pairs
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
@@ -106,6 +114,8 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   }
 
   /**
+   * Advances the current token pointer to the actual start of the statement to compare against
+   *
    * @param File $file   the phpcsfile to look through
    * @param int  $offset the token offset to start from
    * @return int the token line to measure against
@@ -154,6 +164,8 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   }
 
   /**
+   * Determines the actual distance to assert
+   *
    * @param array    $allowed_by_type   the initial expectation map
    * @param File     $file              the phpcs file handle
    * @param int      $previous          the previous token's offset

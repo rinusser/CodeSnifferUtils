@@ -16,6 +16,7 @@ use RN\CodeSnifferUtils\Sniffs\Commenting\RequireAuthorEmail;
 use RN\CodeSnifferUtils\Sniffs\Commenting\CheckTagContent;
 use RN\CodeSnifferUtils\Sniffs\Commenting\CommentSniffConfigurator;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This is based on PEAR.Commenting.ClassComment, adds configurable features
@@ -31,12 +32,20 @@ class ConfigurableClassCommentSniff extends ClassCommentSniff
   //include config handling
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   public $requiredTags=NULL;
+  protected $currentFile;  //CSU.IgnoreName: required by parent class
+
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return mixed see parent class
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {

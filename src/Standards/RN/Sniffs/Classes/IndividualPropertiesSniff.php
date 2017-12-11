@@ -13,6 +13,7 @@ namespace RN\CodeSnifferUtils\Sniffs\Classes;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures class properties are declared individually
@@ -20,6 +21,10 @@ use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 class IndividualPropertiesSniff extends AbstractVariableSniff
 {
   use PerFileSniffConfig;
+
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
 
   /**
    * Processes the property tokens within the class.
@@ -31,7 +36,7 @@ class IndividualPropertiesSniff extends AbstractVariableSniff
   protected function processMemberVar(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
     $prev=$file->findPrevious([T_WHITESPACE,T_COMMENT],$stack_ptr-1,NULL,true);

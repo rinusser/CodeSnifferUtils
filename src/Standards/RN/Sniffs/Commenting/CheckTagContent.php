@@ -25,6 +25,9 @@ trait CheckTagContent
   public $licenseContent=NULL;
   public $versionContent=NULL;
   public $linkContent=NULL;
+  public $seeContent=NULL;
+  public $sinceContent=NULL;
+  public $deprecatedContent=NULL;
 
   protected $_fixables=[];
 

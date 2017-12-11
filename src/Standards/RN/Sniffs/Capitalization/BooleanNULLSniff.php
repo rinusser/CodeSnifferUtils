@@ -14,6 +14,7 @@ namespace PHP_CodeSniffer\Standards\RN\Sniffs\Capitalization; //phpcs property i
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures true and false are lowercase, NULL is uppercase
@@ -28,16 +29,18 @@ class BooleanNULLSniff implements Sniff
   //import per-file config
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
 
   public $booleanCase=self::LOWER;
   public $nullCase=self::UPPER;
 
 
   /**
-   * Returns list of phpcs hooks this sniff should be triggered on
-   * Called by phpcs automatically.
+   * Gets called by phpcs to return a list of tokens types to wait for
    *
-   * @return array
+   * @return array the list of token types
    */
   public function register()
   {
@@ -48,14 +51,16 @@ class BooleanNULLSniff implements Sniff
   }
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return NULL to indicate phpcs should continue processing rest of file normally
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
     $actual=$tokens[$stack_ptr]['content'];

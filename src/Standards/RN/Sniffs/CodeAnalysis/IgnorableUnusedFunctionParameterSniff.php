@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParamete
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\IgnorableUnusedFunctionParameterFileProxy;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This is based on Generic.CodeAnalysis.UnusedFunctionParameterSniff, but minds knowingly unused function parameters
@@ -22,15 +23,21 @@ class IgnorableUnusedFunctionParameterSniff extends UnusedFunctionParameterSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return mixed see parent class
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $proxy=new IgnorableUnusedFunctionParameterFileProxy($file);
     return parent::process($proxy,$stack_ptr);

@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\ClassMemberChecker;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures classes containing only static members are abstract
@@ -23,10 +24,14 @@ class StaticOnlyAbstractClassSniff implements Sniff
   use PerFileSniffConfig;
   use ClassMemberChecker;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Registers class parts to trigger on
+   * Gets called by phpcs to return a list of tokens types to wait for
    *
-   * @return array the list of tokens
+   * @return array the list of token types
    */
   public function register()
   {
@@ -34,16 +39,16 @@ class StaticOnlyAbstractClassSniff implements Sniff
   }
 
   /**
-   * Processes the function tokens within the class.
+   * Gets called by phpcs to handle a file's token
    *
-   * @param File $file      The file where this token was found.
-   * @param int  $stack_ptr The position where the token was found.
-   * @return void
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
 

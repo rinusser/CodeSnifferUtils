@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures functions outside classes are named properly:
@@ -24,6 +25,10 @@ class SnakeCaseFunctionSniff extends AbstractScopeSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
    * Constructor, registers tokens to listen for: functions within/outside classes
    */
@@ -32,6 +37,7 @@ class SnakeCaseFunctionSniff extends AbstractScopeSniff
     parent::__construct(Tokens::$ooScopeTokens,[T_FUNCTION],true);
   }
 
+
   protected function processTokenWithinScope(File $file, $stack_ptr, $curr_scope)  //CSU.IgnoreName: required by parent class
   {
   }
@@ -39,7 +45,7 @@ class SnakeCaseFunctionSniff extends AbstractScopeSniff
   protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $name=$file->getDeclarationName($stack_ptr);
     if(!$name)

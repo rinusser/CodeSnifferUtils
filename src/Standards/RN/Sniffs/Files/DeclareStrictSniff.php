@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\FileUtils;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures PHP files declare strict typing
@@ -23,11 +24,14 @@ class DeclareStrictSniff implements Sniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Returns list of phpcs hooks this sniff should be triggered on
-   * Called by phpcs automatically.
+   * Gets called by phpcs to return a list of tokens types to wait for
    *
-   * @return array
+   * @return array the list of token types
    */
   public function register()
   {
@@ -35,9 +39,11 @@ class DeclareStrictSniff implements Sniff
   }
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return int the total number of tokens in the file, so phpcs continues other processing sniffs
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {

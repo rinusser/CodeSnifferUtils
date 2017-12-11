@@ -13,6 +13,7 @@ namespace RN\CodeSnifferUtils\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This checks for unused namespace imports
@@ -21,8 +22,13 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
    * Called by phpcs, this returns the list of tokens to listen for
+   *
    * @return array
    */
   public function __construct()
@@ -34,7 +40,7 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
   protected function processTokenOutsideScope(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $tokens=$file->getTokens();
 

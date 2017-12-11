@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\FileUtils;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * This checks for built-in SPL exception referenced in wrong namespace
@@ -28,9 +29,14 @@ class SPLExceptionNamespaceSniff implements Sniff
   //import per-file config
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Called by phpcs, this returns the list of tokens to listen for
-   * @return array
+   * Gets called by phpcs to return a list of tokens types to wait for
+   *
+   * @return array the list of token types
    */
   public function register()
   {
@@ -38,9 +44,11 @@ class SPLExceptionNamespaceSniff implements Sniff
   }
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return void
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {

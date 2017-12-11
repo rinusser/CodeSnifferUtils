@@ -17,6 +17,7 @@ use PHP_CodeSniffer\Exceptions\TokenizerException;
 use RN\CodeSnifferUtils\Utils\TokenNames;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\ClassMemberChecker;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures class members are ordered correctly, by default:
@@ -32,6 +33,10 @@ class MemberOrderingSniff extends AbstractScopeSniff
 {
   use PerFileSniffConfig;
   use ClassMemberChecker;
+
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
 
   public $constOrder=10;
   public $traitUseOrder=15;

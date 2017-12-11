@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PrecedingEmptyLinesChecker;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures closing curly brackets are preceded by the proper amount of newlines: none.
@@ -22,9 +23,14 @@ class ClosingBracketSniff implements Sniff
 {
   use PerFileSniffConfig;
 
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   /**
-   * Registers this sniff's triggers
-   * @return array
+   * Gets called by phpcs to return a list of tokens types to wait for
+   *
+   * @return array the list of token types
    */
   public function register()
   {
@@ -32,14 +38,16 @@ class ClosingBracketSniff implements Sniff
   }
 
   /**
-   * @param File $file      the phpcs file handle to check
-   * @param int  $stack_ptr the phpcs context
-   * @return NULL to indicate phpcs should continue processing rest of file normally
+   * Gets called by phpcs to handle a file's token
+   *
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
+   * @return int|NULL an indicator for phpcs whether to process the rest of the file normally
    */
   public function process(File $file, $stack_ptr)
   {
     if($this->_isDisabledInFile($file))
-      return;
+      return $file->numTokens;
 
     $allowed_by_type=[PrecedingEmptyLinesChecker::T_ANY=>[-1,0]];
     return (new PrecedingEmptyLinesChecker())->process($file,$stack_ptr,$allowed_by_type);

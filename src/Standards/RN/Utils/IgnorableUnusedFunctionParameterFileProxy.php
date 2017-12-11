@@ -11,15 +11,23 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Interceptor for unused function parameter sniff: removes parameters marked as unused from expected parameter list
  */
 class IgnorableUnusedFunctionParameterFileProxy extends File
 {
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
+
+
   private $_target;
 
+
   /**
+   * Constructor for class, requires target object to forward calls to
+   *
    * @param File $target the File object to forward calls to
    */
   public function __construct(File $target)
@@ -27,7 +35,10 @@ class IgnorableUnusedFunctionParameterFileProxy extends File
     $this->_target=$target;
   }
 
+
   /**
+   * Works like File::getMethodParameters() but will skip those marked as unused
+   *
    * @param int $stack_ptr the phpcs context
    * @return array list of method parameters, minus supposedly unused ones
    */
@@ -58,6 +69,8 @@ class IgnorableUnusedFunctionParameterFileProxy extends File
   }
 
   /**
+   * see File::getTokens()
+   *
    * @return array
    */
   public function getTokens()
@@ -66,6 +79,8 @@ class IgnorableUnusedFunctionParameterFileProxy extends File
   }
 
   /**
+   * see File::addWarning()
+   *
    * @param mixed $warning   see File
    * @param mixed $stack_ptr see File
    * @param mixed $code      see File
@@ -80,6 +95,8 @@ class IgnorableUnusedFunctionParameterFileProxy extends File
   }
 
   /**
+   * see File::findNext()
+   *
    * @param mixed $types   see File
    * @param mixed $start   see File
    * @param mixed $end     see File

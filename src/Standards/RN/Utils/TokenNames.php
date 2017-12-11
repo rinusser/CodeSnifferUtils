@@ -36,6 +36,7 @@ abstract class TokenNames
 
   /**
    * Uses phpcs token code and token type to find a token name suitable for user output
+   *
    * @param mixed       $code the token code
    * @param string|NULL $type the token type
    * @return string the token name

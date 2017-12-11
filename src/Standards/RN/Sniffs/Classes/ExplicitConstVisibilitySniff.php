@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\FileUtils;
+use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**
  * Ensures class constants have an explicit visibility set
@@ -21,6 +22,9 @@ use RN\CodeSnifferUtils\Utils\FileUtils;
 class ExplicitConstVisibilitySniff extends AbstractScopeSniff
 {
   use PerFileSniffConfig;
+
+  //disallow access to undeclared properties
+  use NoImplicitProperties;
 
 
   /**

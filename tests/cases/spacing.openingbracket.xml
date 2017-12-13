@@ -3,6 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.OpeningBracket"/>
+  <rule ref="RN.Spacing.ClosureOpeningBracket"/>
   <expectations>
     <file_count>5</file_count>
     <error file="spacing/general/TooMuchSpace.php" line="23">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
@@ -17,6 +18,8 @@
     <error file="spacing/general/TooMuchSpace.php" line="140">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="186">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="193">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="264">CodeSnifferUtils.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="267">CodeSnifferUtils.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
     <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="15">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
   </expectations>
 </ruleset>

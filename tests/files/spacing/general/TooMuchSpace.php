@@ -258,3 +258,11 @@ class ClassWithMultiplePropertiesPerLine
          $e,
          $f;
 }
+
+
+$one_line_closure=function()
+{};
+
+$multi_line_closure=function()
+{
+};

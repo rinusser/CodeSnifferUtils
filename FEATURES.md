@@ -633,6 +633,23 @@ Example:
       }  //no empty line below!
     }
 
+### ClosureOpeningBracketSniff
+
+Closure's opening curly brackets (`{`) must be on the same line as the `function` keyword:
+
+    $x=function() {};   //this is OK
+
+    $y=function() {     //this is OK
+      return 1;
+    };
+
+    $z=function()       //this is invalid, there shouldn't be a newline
+    {
+    };
+
+Violations are automatically fixable by phpcbf, as long as there aren't any comments between the closure and the opening
+bracket and the preceding part of the closure is in a single line.
+
 ### ConstSniff
 
 Class constants must:

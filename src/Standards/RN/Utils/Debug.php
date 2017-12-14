@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Utils;
 
+use PHP_CodeSniffer\Files\File;
+
 /**
  * Class supplying debugging features. Do not use in production code.
  */
@@ -18,18 +20,58 @@ abstract class Debug
   /**
    * Dumps a range of tokens from list, given by start and end indices
    *
-   * @param array $tokens the list of tokens
-   * @param int   $start  the first token index to output
-   * @param int   $end    the last token index to output
+   * @param array       $tokens the list of tokens
+   * @param int         $start  the first token index to output
+   * @param int         $end    the last token index to output
+   * @param string|NULL $title  an optional title to print
    * @return void
    */
-  public static function dumpTokenRange(array $tokens, int $start, int $end): void
+  public static function dumpTokenRange(array $tokens, int $start, int $end, ?string $title=NULL): void
   {
     $stringifier=function($x) {
       return preg_replace("/\n */",'',var_export($x,true));
     };
     $rows=array_map($stringifier,array_slice($tokens,$start,$end-$start+1));
-    fprintf(STDERR,"%s","\n  ".implode("\n  ",$rows)."\n");
+    if($title)
+      fprintf(STDERR,"\n%s",$title);
+    fprintf(STDERR,"\n  %s\n",implode("\n  ",$rows));
+  }
+
+  /**
+   * Dumps file details
+   *
+   * @param File $file the file to dump
+   * @return void
+   */
+  public static function dumpFile(File $file): void
+  {
+    self::dumpTokenRange($file->getTokens(),0,$file->numTokens,$file->getFilename());
+  }
+
+  /**
+   * Dumps tokens on a given line
+   *
+   * @param array       $tokens the tokens to search
+   * @param int         $line   the line number to dump
+   * @param string|NULL $title  (optional) a description to output
+   * @return void
+   */
+  public static function dumpTokensOnLine(array $tokens, int $line, ?string $title=NULL): void
+  {
+    $start=-1;
+    $end=count($tokens);
+    foreach($tokens as $ti=>$token)
+    {
+      if($start<0 && $token['line']==$line)
+        $start=$ti;
+      if($token['line']>$line)
+      {
+        $end=$ti-1;
+        break;
+      }
+    }
+    if($start>=0)
+      self::dumpTokenRange($tokens,$start,$end,$title);
   }
 
   /**

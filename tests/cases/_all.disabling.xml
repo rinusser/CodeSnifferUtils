@@ -43,5 +43,7 @@
     <error file="_all/disabling/All.php" line="59">RN.Commenting.ConfigurableClassComment.Missing</error>
     <error file="_all/disabling/All.php" line="59">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
     <error file="_all/disabling/All.php" line="59">CodeSnifferUtils.Classes.ClassDeclaration.MultipleClasses</error>
+    <error file="_all/disabling/All.php" line="65">CodeSnifferUtils.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
+    <error file="_all/disabling/All.php" line="68">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
   </expectations>
 </ruleset>

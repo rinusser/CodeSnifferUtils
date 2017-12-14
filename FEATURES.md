@@ -739,6 +739,24 @@ but not to function calls, e.g.:
 
     asdf(1,2);
 
+### FunctionCallParametersSniff
+
+Function calls' parameters must not be surrounded by whitespaces, e.g.:
+
+    f(1, 2);  //"1" is valid, "2" is invalid because there's a whitespace before
+    f( 3 ,4); //"3" is invalid because it's surrounded by whitespace, 4 is valid
+    f(5 );    //5 is invalid because there's a whitespace after
+
+    f(1,      //"1" is valid
+      2);     //"2" is valid too, as long as there are no whitespaces after the above comma
+
+Additionally, empty parameter lists must not contain whitespaces:
+
+    f();      //this is valid
+    f( );     //this isn't
+
+Errors found by this sniff currently aren't fixable automatically.
+
 ### SeparatorSniff
 
 Commas and semicolons must not follow any whitespaces.

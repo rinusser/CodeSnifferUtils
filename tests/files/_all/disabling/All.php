@@ -61,6 +61,12 @@ class ShouldBeAbstract
   public static $x;
 }
 
+$misplaced_bracket=function()
+{};
+
+
+wrong_call_parameter_spacing( 1 );
+
 
 /**
  * use this docblock to register any additional rule exceptions without changing expected line numbers
@@ -69,6 +75,8 @@ class ShouldBeAbstract
  * @codingStandardsIgnoreRule RN.Classes.ExplicitConstVisibility
  * @codingStandardsIgnoreRule RN.Classes.ClassDeclaration
  * @codingStandardsIgnoreRule RN.Spacing.Separator
+ * @codingStandardsIgnoreRule RN.Spacing.ClosureOpeningBracket
+ * @codingStandardsIgnoreRule RN.Spacing.FunctionCallParameters
  *
  * @return void
  */

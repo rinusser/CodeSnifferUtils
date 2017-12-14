@@ -54,6 +54,6 @@ class FunctionSniff implements Sniff
                       T_OPEN_TAG=>[0,1],
                       T_CLOSE_TAG=>[0,2],
                       T_SEMICOLON=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_FUNCTION,[T_ABSTRACT,T_STATIC]))->process($file,$stack_ptr,$allowed_by_type);
+    return (new ContextAwarePrecedingEmptyLinesChecker(T_FUNCTION,[T_ABSTRACT,T_STATIC,T_FINAL]))->process($file,$stack_ptr,$allowed_by_type);
   }
 }

@@ -6,20 +6,20 @@
   <rule ref="RN.Spacing.ClosureOpeningBracket"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/general/TooMuchSpace.php" line="23">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="39">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="48">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="56">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="66">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="73">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="87">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="104">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="118">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="140">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="186">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="193">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="264">CodeSnifferUtils.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="267">CodeSnifferUtils.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="15">CodeSnifferUtils.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="23">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="39">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="48">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="56">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="66">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="73">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="87">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="104">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="118">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="140">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="186">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="193">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="264">RN.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="267">RN.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="15">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
   </expectations>
 </ruleset>

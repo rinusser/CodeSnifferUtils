@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 spl_autoload_register(function($class) {
   $app_namespace='RN\\CodeSnifferUtils\\';
-  $base_directory=__DIR__.'/Standards/RN/';
+  $base_directory=__DIR__.'/';
   $prefix_length=strlen($app_namespace);
   if(substr($class,0,$prefix_length)!=$app_namespace)
     return;

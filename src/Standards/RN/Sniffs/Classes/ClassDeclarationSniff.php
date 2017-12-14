@@ -8,11 +8,11 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Classes;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Classes;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff as PSR1ClassDeclarationSniff;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**

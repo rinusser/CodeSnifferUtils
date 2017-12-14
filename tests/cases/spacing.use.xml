@@ -5,11 +5,11 @@
   <rule ref="RN.Spacing.Use"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/general/TooLittleSpace.php" line="7">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="13">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="15">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="9">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="11">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="17">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="7">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="13">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="15">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="9">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="11">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="17">RN.Spacing.Use.PrecedingNewlines</error>
   </expectations>
 </ruleset>

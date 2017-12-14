@@ -5,15 +5,15 @@
   <rule ref="RN.Spacing.Const"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/general/TooLittleSpace.php" line="17">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="58">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="62">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="69">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="78">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="83">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="92">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="99">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="212">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="246">CodeSnifferUtils.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="17">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="58">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="62">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="69">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="78">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="83">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="92">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="99">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="212">RN.Spacing.Const.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="246">RN.Spacing.Const.PrecedingNewlines</error>
   </expectations>
 </ruleset>

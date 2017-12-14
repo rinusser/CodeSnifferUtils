@@ -8,9 +8,10 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Utils;
+namespace RN\CodeSnifferUtils\Config;
 
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Files\FileUtils;
 
 /**
  * Individual file configuration for sniffs
@@ -44,7 +45,7 @@ trait PerFileSniffConfig
   {
     if(in_array('--ignore-annotations',$_SERVER['argv']))
       return false;
-    $name=str_replace(['RN\CodeSnifferUtils\Sniffs','PHP_CodeSniffer\Standards\RN\Sniffs','PHP_CodeSniffer\RN\Sniffs'],'RN',get_called_class());
+    $name=str_replace(['RN\CodeSnifferUtils\Standards\RN\Sniffs','PHP_CodeSniffer\Standards\RN\Sniffs','PHP_CodeSniffer\RN\Sniffs'],'RN',get_called_class());
     $name=str_replace('\\','.',$name);
     if(substr($name,-5)==='Sniff')
       $othername=substr($name,0,-5);

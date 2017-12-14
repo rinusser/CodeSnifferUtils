@@ -5,14 +5,14 @@
   <rule ref="RN.Naming.CamelCaseMethod"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="naming/general/Wrong.php" line="45">CodeSnifferUtils.Naming.CamelCaseMethod.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="46">CodeSnifferUtils.Naming.CamelCaseMethod.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="47">CodeSnifferUtils.Naming.CamelCaseMethod.UnderscoreAfterStart</error>
-    <error file="naming/general/Wrong.php" line="49">CodeSnifferUtils.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="50">CodeSnifferUtils.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="51">CodeSnifferUtils.Naming.CamelCaseMethod.UnderscoreAfterStart</error>
-    <error file="naming/general/Wrong.php" line="56">CodeSnifferUtils.Naming.CamelCaseMethod.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="57">CodeSnifferUtils.Naming.CamelCaseMethod.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="58">CodeSnifferUtils.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="45">RN.Naming.CamelCaseMethod.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="46">RN.Naming.CamelCaseMethod.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="47">RN.Naming.CamelCaseMethod.UnderscoreAfterStart</error>
+    <error file="naming/general/Wrong.php" line="49">RN.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="50">RN.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="51">RN.Naming.CamelCaseMethod.UnderscoreAfterStart</error>
+    <error file="naming/general/Wrong.php" line="56">RN.Naming.CamelCaseMethod.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="57">RN.Naming.CamelCaseMethod.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="58">RN.Naming.CamelCaseMethod.NonPublicUnderscoreMissing</error>
   </expectations>
 </ruleset>

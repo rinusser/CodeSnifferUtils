@@ -8,13 +8,13 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Files;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Files;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
-use RN\CodeSnifferUtils\Utils\FileUtils;
+use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Files\FileUtils;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**

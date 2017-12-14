@@ -5,8 +5,8 @@
   <rule ref="RN.Spacing.Namespace"/>
   <expectations>
     <file_count>5</file_count>
-    <error file="spacing/general/TooLittleSpace.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpace.php" line="10">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
-    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="6">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooLittleSpace.php" line="6">RN.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpace.php" line="10">RN.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/general/TooMuchSpaceWithoutComments.php" line="6">RN.Spacing.Namespace.PrecedingNewlines</error>
   </expectations>
 </ruleset>

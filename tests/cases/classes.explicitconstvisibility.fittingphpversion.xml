@@ -6,6 +6,6 @@
   <config name="php_version" value="70100"/>
   <expectations>
     <file_count>1</file_count>
-    <error file="classes/explicitconstvisibility/Cases.php" line="8">CodeSnifferUtils.Classes.ExplicitConstVisibility.ImplicitVisibility</error>
+    <error file="classes/explicitconstvisibility/Cases.php" line="8">RN.Classes.ExplicitConstVisibility.ImplicitVisibility</error>
   </expectations>
 </ruleset>

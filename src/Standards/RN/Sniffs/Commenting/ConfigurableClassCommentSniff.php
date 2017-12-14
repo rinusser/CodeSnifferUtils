@@ -8,14 +8,11 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace PHP_CodeSniffer\Standards\RN\Sniffs\Commenting; //XXX phpcs's property injection doesn't work for sniffs in foreign namespaces
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff;
 use PHP_CodeSniffer\Files\File;
-use RN\CodeSnifferUtils\Sniffs\Commenting\RequireAuthorEmail;
-use RN\CodeSnifferUtils\Sniffs\Commenting\CheckTagContent;
-use RN\CodeSnifferUtils\Sniffs\Commenting\CommentSniffConfigurator;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**

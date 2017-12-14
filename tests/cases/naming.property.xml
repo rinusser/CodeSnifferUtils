@@ -5,23 +5,23 @@
   <rule ref="RN.Naming.Property"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="naming/general/Wrong.php" line="5">CodeSnifferUtils.Naming.Property.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="6">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="8">CodeSnifferUtils.Naming.Property.UnderscoreAfterStart</error>
-    <error file="naming/general/Wrong.php" line="9">CodeSnifferUtils.Naming.Property.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="10">CodeSnifferUtils.Naming.Property.UnderscoreAfterStart</error>
-    <error file="naming/general/Wrong.php" line="12">CodeSnifferUtils.Naming.Property.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="13">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="16">CodeSnifferUtils.Naming.Property.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="17">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="21">CodeSnifferUtils.Naming.Property.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="22">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="26">CodeSnifferUtils.Naming.Property.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="27">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="30">CodeSnifferUtils.Naming.Property.NonPublicUnderscoreMissing</error>
-    <error file="naming/general/Wrong.php" line="31">CodeSnifferUtils.Naming.Property.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="33">CodeSnifferUtils.Naming.Property.UnderscoreAfterStart</error>
-    <error file="naming/general/Wrong.php" line="38">CodeSnifferUtils.Naming.Property.PublicHasUnderscore</error>
-    <error file="naming/general/Wrong.php" line="39">CodeSnifferUtils.Naming.Property.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="5">RN.Naming.Property.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="6">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="8">RN.Naming.Property.UnderscoreAfterStart</error>
+    <error file="naming/general/Wrong.php" line="9">RN.Naming.Property.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="10">RN.Naming.Property.UnderscoreAfterStart</error>
+    <error file="naming/general/Wrong.php" line="12">RN.Naming.Property.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="13">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="16">RN.Naming.Property.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="17">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="21">RN.Naming.Property.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="22">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="26">RN.Naming.Property.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="27">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="30">RN.Naming.Property.NonPublicUnderscoreMissing</error>
+    <error file="naming/general/Wrong.php" line="31">RN.Naming.Property.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="33">RN.Naming.Property.UnderscoreAfterStart</error>
+    <error file="naming/general/Wrong.php" line="38">RN.Naming.Property.PublicHasUnderscore</error>
+    <error file="naming/general/Wrong.php" line="39">RN.Naming.Property.NonPublicUnderscoreMissing</error>
   </expectations>
 </ruleset>

@@ -8,15 +8,14 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-//namespace RN\CodeSnifferUtils\Sniffs\Classes;
-namespace PHP_CodeSniffer\RN\Sniffs\Classes; //for phpcs property injection
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Classes;
 
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use RN\CodeSnifferUtils\Utils\TokenNames;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
-use RN\CodeSnifferUtils\Utils\ClassMemberChecker;
+use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Checkers\ClassMemberChecker;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**

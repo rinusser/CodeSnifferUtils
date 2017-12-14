@@ -8,10 +8,10 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Spacing;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Spacing;
 
 use PHP_CodeSniffer\Files\File;
-use RN\CodeSnifferUtils\Utils\AbstractFunctionCallSniff;
+use RN\CodeSnifferUtils\Sniffs\AbstractFunctionCallSniff;
 
 /**
  * Ensures function call parameters are spaced properly

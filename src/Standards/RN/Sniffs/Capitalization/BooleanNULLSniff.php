@@ -8,12 +8,11 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-//namespace RN\CodeSnifferUtils\Sniffs\Capitalization;
-namespace PHP_CodeSniffer\Standards\RN\Sniffs\Capitalization; //phpcs property injection doesn't work otherwise
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Capitalization;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-use RN\CodeSnifferUtils\Utils\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 
 /**

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Commenting;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Files\File;
-use RN\CodeSnifferUtils\Utils\PropertyCast;
+use RN\CodeSnifferUtils\Config\PropertyCast;
 
 /**
  * Can make email address in author tag optional

@@ -5,9 +5,9 @@
   <rule ref="RN.Spacing"/>
   <expectations>
     <file_count>1</file_count>
-    <error file="spacing/commentedcode/CommentedCode.php" line="3">CodeSnifferUtils.Spacing.Namespace.PrecedingNewlines</error>
-    <error file="spacing/commentedcode/CommentedCode.php" line="4">CodeSnifferUtils.Spacing.Use.PrecedingNewlines</error>
-    <error file="spacing/commentedcode/CommentedCode.php" line="10">CodeSnifferUtils.Spacing.Class.PrecedingNewlines</error>
-    <error file="spacing/commentedcode/CommentedCode.php" line="20">CodeSnifferUtils.Spacing.Property.PrecedingNewlines</error>
+    <error file="spacing/commentedcode/CommentedCode.php" line="3">RN.Spacing.Namespace.PrecedingNewlines</error>
+    <error file="spacing/commentedcode/CommentedCode.php" line="4">RN.Spacing.Use.PrecedingNewlines</error>
+    <error file="spacing/commentedcode/CommentedCode.php" line="10">RN.Spacing.Class.PrecedingNewlines</error>
+    <error file="spacing/commentedcode/CommentedCode.php" line="20">RN.Spacing.Property.PrecedingNewlines</error>
   </expectations>
 </ruleset>

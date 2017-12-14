@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Utils;
+namespace RN\CodeSnifferUtils\Checkers;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Exceptions\TokenizerException;

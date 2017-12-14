@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Naming;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Naming;
 
 use PHP_CodeSniffer\Files\File;
 

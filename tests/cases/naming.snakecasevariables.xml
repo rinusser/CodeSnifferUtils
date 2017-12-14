@@ -6,13 +6,13 @@
   <rule ref="RN.Naming.SnakeCaseVariable"/>
   <expectations>
     <file_count>3</file_count>
-    <error file="naming/general/Wrong.php" line="86">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
-    <error file="naming/general/Wrong.php" line="87">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="88">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
-    <error file="naming/general/Wrong.php" line="88">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="89">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="91">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
-    <error file="naming/variables/Distinctions.php" line="6">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidCharacters</error>
-    <error file="naming/variables/Distinctions.php" line="17">CodeSnifferUtils.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="86">RN.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="87">RN.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="88">RN.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="88">RN.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="89">RN.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="91">RN.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="naming/variables/Distinctions.php" line="6">RN.Naming.SnakeCaseVariable.InvalidCharacters</error>
+    <error file="naming/variables/Distinctions.php" line="17">RN.Naming.SnakeCaseVariable.InvalidStart</error>
   </expectations>
 </ruleset>

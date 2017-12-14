@@ -5,8 +5,8 @@
   <rule ref="RN.Classes.IndividualProperties"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="classes/general/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
-    <error file="classes/general/Wrong.php" line="55">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
-    <error file="classes/general/Wrong.php" line="56">CodeSnifferUtils.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="55">RN.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="55">RN.Classes.IndividualProperties.MultipleFound</error>
+    <error file="classes/general/Wrong.php" line="56">RN.Classes.IndividualProperties.MultipleFound</error>
   </expectations>
 </ruleset>

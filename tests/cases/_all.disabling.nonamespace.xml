@@ -5,6 +5,6 @@
   <rule ref="RN.Classes.ClassDeclaration"/>
   <expectations>
     <file_count>1</file_count>
-    <error file="_all/disabling/NoNamespace.php" line="6">CodeSnifferUtils.Classes.ClassDeclaration.MissingNamespace</error>
+    <error file="_all/disabling/NoNamespace.php" line="6">RN.Classes.ClassDeclaration.MissingNamespace</error>
   </expectations>
 </ruleset>

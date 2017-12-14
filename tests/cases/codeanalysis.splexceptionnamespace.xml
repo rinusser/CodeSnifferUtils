@@ -5,9 +5,9 @@
   <rule ref="RN.CodeAnalysis.SPLExceptionNamespace"/>
   <expectations>
     <file_count>3</file_count>
-    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="5">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
-    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
-    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="12">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
-    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="12">CodeSnifferUtils.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
+    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="5">RN.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
+    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="9">RN.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
+    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="12">RN.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
+    <error file="codeanalysis/splexceptionnamespace/Wrong.php" line="12">RN.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
   </expectations>
 </ruleset>

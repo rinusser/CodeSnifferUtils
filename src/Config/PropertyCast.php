@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Utils;
+namespace RN\CodeSnifferUtils\Config;
 
 /**
  * Converts property strings (as set in XML configuration files) to PHP types

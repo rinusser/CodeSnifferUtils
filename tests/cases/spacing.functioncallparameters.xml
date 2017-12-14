@@ -5,28 +5,28 @@
   <rule ref="RN.Spacing.FunctionCallParameters"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="6">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="19">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="19">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="20">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="20">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="24">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="25">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="26">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="26">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="34">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceInstead</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="35">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="38">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceBefore</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="39">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAfter</error>
-    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="40">CodeSnifferUtils.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="3">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="6">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="19">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="19">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="20">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="20">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="24">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="25">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="26">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="26">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="27">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="32">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="34">RN.Spacing.FunctionCallParameters.SpaceInstead</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="35">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="38">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="39">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="40">RN.Spacing.FunctionCallParameters.SpaceAround</error>
   </expectations>
 </ruleset>

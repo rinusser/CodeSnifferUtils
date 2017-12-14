@@ -5,9 +5,9 @@
   <rule ref="RN.CodeAnalysis.IgnorableUnusedFunctionParameter"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="codeanalysis/unusedparameters/Wrong.php" line="3">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
-    <error file="codeanalysis/unusedparameters/Wrong.php" line="21">CodeSnifferUtils.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="3">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="9">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
+    <error file="codeanalysis/unusedparameters/Wrong.php" line="21">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
   </expectations>
 </ruleset>

@@ -5,11 +5,11 @@
   <rule ref="RN.CodeAnalysis.UnusedNamespaceImport"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="3">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="4">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
-    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="6">CodeSnifferUtils.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="3">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="4">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="5">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
+    <error file="codeanalysis/unusednamespaceimport/Invalid.php" line="6">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
   </expectations>
 </ruleset>

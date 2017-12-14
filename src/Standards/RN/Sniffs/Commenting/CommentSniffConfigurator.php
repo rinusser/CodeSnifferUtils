@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Sniffs\Commenting;
+namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Commenting;
 
 /**
  * Helper class to parse and handle sniffs' property strings

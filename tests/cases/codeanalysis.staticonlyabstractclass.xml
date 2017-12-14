@@ -5,8 +5,8 @@
   <rule ref="RN.CodeAnalysis.StaticOnlyAbstractClass"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="3">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
-    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="8">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
-    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="13">CodeSnifferUtils.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
+    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="3">RN.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
+    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="8">RN.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
+    <error file="codeanalysis/staticonlyabstractclass/Wrong.php" line="13">RN.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
   </expectations>
 </ruleset>

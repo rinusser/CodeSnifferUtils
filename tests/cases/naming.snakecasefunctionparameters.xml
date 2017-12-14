@@ -5,13 +5,13 @@
   <rule ref="RN.Naming.SnakeCaseFunctionParameters"/>
   <expectations>
     <file_count>2</file_count>
-    <error file="naming/general/Wrong.php" line="69">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="70">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="75">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="78">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="78">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
-    <error file="naming/general/Wrong.php" line="78">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidCharacters</error>
-    <error file="naming/general/Wrong.php" line="79">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidCharacters</error>
-    <error file="naming/general/Wrong.php" line="79">CodeSnifferUtils.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="69">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="70">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="75">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="78">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="78">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
+    <error file="naming/general/Wrong.php" line="78">RN.Naming.SnakeCaseFunctionParameters.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="79">RN.Naming.SnakeCaseFunctionParameters.InvalidCharacters</error>
+    <error file="naming/general/Wrong.php" line="79">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
   </expectations>
 </ruleset>

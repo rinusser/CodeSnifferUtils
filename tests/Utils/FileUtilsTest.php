@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Ruleset;
-use RN\CodeSnifferUtils\Utils\FileUtils;
+use RN\CodeSnifferUtils\Files\FileUtils;
 
 /**
  * Test cases for FileUtils

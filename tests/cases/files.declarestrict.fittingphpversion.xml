@@ -6,10 +6,10 @@
   <config name="php_version" value="70000"/>
   <expectations>
     <file_count>9</file_count>
-    <error file="files/declarestrict/Missing.php" line="1">CodeSnifferUtils.Files.DeclareStrict.Missing</error>
-    <error file="files/declarestrict/OtherDeclaration.php" line="1">CodeSnifferUtils.Files.DeclareStrict.Missing</error>
-    <error file="files/declarestrict/TooEarly.php" line="1">CodeSnifferUtils.Files.DeclareStrict.Misplaced</error>
-    <error file="files/declarestrict/TooLate.php" line="3">CodeSnifferUtils.Files.DeclareStrict.Misplaced</error>
-    <error file="files/declarestrict/Disabling.php" line="1">CodeSnifferUtils.Files.DeclareStrict.Missing</error>
+    <error file="files/declarestrict/Missing.php" line="1">RN.Files.DeclareStrict.Missing</error>
+    <error file="files/declarestrict/OtherDeclaration.php" line="1">RN.Files.DeclareStrict.Missing</error>
+    <error file="files/declarestrict/TooEarly.php" line="1">RN.Files.DeclareStrict.Misplaced</error>
+    <error file="files/declarestrict/TooLate.php" line="3">RN.Files.DeclareStrict.Misplaced</error>
+    <error file="files/declarestrict/Disabling.php" line="1">RN.Files.DeclareStrict.Missing</error>
   </expectations>
 </ruleset>

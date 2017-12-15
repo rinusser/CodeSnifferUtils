@@ -199,6 +199,28 @@ Start the docblock's parameter description with `(unused)` to mark unused parame
       echo $used;
     }
 
+### MaximumPHPVersionSniff
+
+This sniff ensures PHP files don't exceed a configured maximum PHP version. This version can be set with:
+
+    <rule ref="RN.CodeAnalysis.MaximumPHPVersion">
+      <properties>
+        <property name="maximumVersion" value="7.1"/>
+      </properties>
+    </rule>
+
+By default there is no maximum version set.
+
+For example, using the above configuration the following code will trigger a warning:
+
+    function asdf(object $x)  //the "object" type hint was introduced in PHP 7.2, but 7.1 was configured as maximum
+    {
+    }
+
+The PHP version checks are in `src/Checkers/FileVersion/`, only the language versions implemented there will be
+recognized. The implementations aren't exhaustive, e.g. currently they don't check for new built-in functions added in
+a given PHP version.
+
 ### SPLExceptionNamespaceSniff
 
 This rule checks for references to PHP's built-in SPL exceptions when used in namespaced code, e.g.:

@@ -10,18 +10,16 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Tests\Utils;
 
-use PHPUnit\Framework\TestCase;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Config;
-use PHP_CodeSniffer\Ruleset;
 use RN\CodeSnifferUtils\Files\FileUtils;
+use RN\CodeSnifferUtils\Tests\PHPCSTestCase;
 
 /**
  * Test cases for FileUtils
  */
-class FileUtilsTest extends TestCase
+class FileUtilsTest extends PHPCSTestCase
 {
-  private const BASEPATH='/phpcs/tests/files/_all/fileutils/';
+  protected const BASEPATH='/phpcs/tests/files/_all/fileutils/';
 
 
   /**
@@ -29,24 +27,8 @@ class FileUtilsTest extends TestCase
    */
   public static function setUpBeforeClass()
   {
-    require_once(__DIR__.'/../../src/autoloader.php');
     require(__DIR__.'/../../vendor/squizlabs/php_codesniffer/autoload.php');
     spl_autoload_register('\PHP_CodeSniffer\Autoload::load');
-  }
-
-  private function _loadFile(string $filename): File
-  {
-    $fullpath=self::BASEPATH.$filename;
-    $config=new Config(['.']);
-    $ruleset=new Ruleset($config);
-
-    $content=file_get_contents($fullpath);
-
-    $file=new File($filename,$ruleset,$config);
-    $file->setContent($content);
-    $file->parse();
-
-    return $file;
   }
 
   private function _runCases(string $filename, $token, array $cases, callable $checker, string $fail_message): void

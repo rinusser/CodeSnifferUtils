@@ -68,6 +68,9 @@ $misplaced_bracket=function()
 wrong_call_parameter_spacing( 1 );
 
 
+$too_new_feature=function(object $x) {};
+
+
 /**
  * use this docblock to register any additional rule exceptions without changing expected line numbers
  *
@@ -77,6 +80,7 @@ wrong_call_parameter_spacing( 1 );
  * @codingStandardsIgnoreRule RN.Spacing.Separator
  * @codingStandardsIgnoreRule RN.Spacing.ClosureOpeningBracket
  * @codingStandardsIgnoreRule RN.Spacing.FunctionCallParameters
+ * @codingStandardsIgnoreRule RN.CodeAnalysis.MaximumPHPVersion
  *
  * @return void
  */

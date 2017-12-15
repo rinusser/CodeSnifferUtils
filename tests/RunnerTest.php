@@ -10,18 +10,16 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Tests;
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Runner for phpcs XML test cases
  */
-class RunnerTest extends TestCase
+class RunnerTest extends PHPCSTestCase
 {
   private const PHPCS_BASEPATH='/phpcs/tests/files/';
+  protected const BASEPATH='tests/cases';
 
   private static $_phpcsCmd='/phpcs/vendor/bin/phpcs -v --report=csv ';
   private static $_phpcbfCmd='/phpcs/vendor/bin/phpcbf';
-  private static $_xmlPath='tests/cases';
   private static $_acceptableReturnValues=[0=>'success',1=>'validation failed',2=>'found fixable errors'];
   private static $_temporaryDirectories;
 
@@ -31,7 +29,6 @@ class RunnerTest extends TestCase
    */
   public static function setUpBeforeClass()
   {
-    require_once(__DIR__.'/../src/autoloader.php');
     require_once(__DIR__.'/XMLTestCase.php');
     self::$_temporaryDirectories=[];
   }
@@ -66,19 +63,6 @@ class RunnerTest extends TestCase
   }
 
 
-  protected function _fetchXMLCasesInternal(callable $filter): array
-  {
-    $rv=[];
-    foreach(new \DirectoryIterator(self::$_xmlPath) as $ti=>$file)
-    {
-      $filename=$file->getFilename();
-      if($file->isDot() || preg_match('/^\..*\.swp$/',$filename) || !$filter($filename))
-        continue;
-      $rv[]=[$ti,$filename];
-    }
-    return $rv;
-  }
-
   /**
    * Fetches XML testcases from the configured path (tests/cases/ by default) and prepares them for injection by the test runner
    *
@@ -103,7 +87,7 @@ class RunnerTest extends TestCase
   public function testXMLCase(int $index, string $filename)
   {
     $message_prefix=$filename.': ';
-    $fullpath=self::$_xmlPath.'/'.$filename;
+    $fullpath=self::BASEPATH.'/'.$filename;
 
     $testcase=$this->_parseTestCase($fullpath);
     list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);
@@ -162,7 +146,7 @@ class RunnerTest extends TestCase
   public function testDisablingCase(int $index, string $filename)
   {
     $message_prefix=$filename;
-    $fullpath=self::$_xmlPath.'/'.$filename;
+    $fullpath=self::BASEPATH.'/'.$filename;
 
     $testcase=$this->_parseTestCase($fullpath);
     $this->_performPHPCSTest($testcase,$message_prefix.' ignoring annotations: ',self::PHPCS_BASEPATH,'--ignore-annotations');
@@ -257,7 +241,7 @@ class RunnerTest extends TestCase
 
   private function _copyRecursive(string $source, string $destination): void
   {
-    $source=rtrim(realpath(self::$_xmlPath.'/'.$source),'/');
+    $source=rtrim(realpath(self::BASEPATH.'/'.$source),'/');
     $target=$destination.'/'.$source;
     mkdir(dirname($target),0755,true);
     if(is_file($source))
@@ -354,15 +338,5 @@ class RunnerTest extends TestCase
       $ti++;
     }
     return ['file_count'=>$file_count,'errors'=>$data,'fixables'=>$fixables];
-  }
-
-  private function _isVerbose(): bool
-  {
-    return (bool)array_intersect(['-v','--verbose','--debug'],$_SERVER['argv']);
-  }
-
-  private function _isDebug(): bool
-  {
-    return in_array('--debug',$_SERVER['argv']);
   }
 }

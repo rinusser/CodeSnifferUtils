@@ -5,12 +5,18 @@
   <rule ref="RN.Capitalization"/>
   <rule ref="RN.Classes"/>
   <rule ref="RN.CodeAnalysis"/>
+  <rule ref="RN.CodeAnalysis.MaximumPHPVersion">
+    <properties>
+      <property name="maximumVersion" value="7.1"/>
+    </properties>
+  </rule>
   <rule ref="RN.Commenting"/>
   <rule ref="RN.Files"/>
   <rule ref="RN.Naming"/>
   <rule ref="RN.Spacing"/>
   <expectations>
     <file_count>1</file_count>
+    <error file="_all/disabling/All.php" line="1">RN.CodeAnalysis.MaximumPHPVersion.MaximumExceeded</error>
     <error file="_all/disabling/All.php" line="1">RN.Files.DeclareStrict.Missing</error>
     <error file="_all/disabling/All.php" line="2">RN.Commenting.ConfigurableFileComment.Missing</error>
     <error file="_all/disabling/All.php" line="5">RN.Spacing.Namespace.PrecedingNewlines</error>

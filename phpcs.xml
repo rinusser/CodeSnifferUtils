@@ -17,4 +17,9 @@
       <property name="requiredPHPVersion" value="7.1+"/>
     </properties>
   </rule>
+  <rule ref="RN.CodeAnalysis.MaximumPHPVersion">
+    <properties>
+      <property name="maximumVersion" value="7.1"/>
+    </properties>
+  </rule>
 </ruleset>

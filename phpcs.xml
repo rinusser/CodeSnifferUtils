@@ -14,6 +14,7 @@
       <property name="copyrightContent" value="2017 Richard Nusser"/>
       <property name="licenseContent" value="GPLv3 (see http://www.gnu.org/licenses/)"/>
       <property name="linkContent" value="https://github.com/rinusser/CodeSnifferUtils"/>
+      <property name="requiredPHPVersion" value="7.1+"/>
     </properties>
   </rule>
 </ruleset>

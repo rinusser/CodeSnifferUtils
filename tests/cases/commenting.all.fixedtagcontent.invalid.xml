@@ -10,6 +10,7 @@
       <property name="copyrightContent" value="2017 Richard  Nusser"/>
       <property name="licenseContent" value="proprietary 9999"/>
       <property name="linkContent" value="anything"/>
+      <property name="requiredPHPVersion" value="12.1"/>
     </properties>
   </rule>
 
@@ -26,6 +27,7 @@
 
   <expectations>
     <file_count>2</file_count>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="5">RN.Commenting.ConfigurableFileComment.WrongPHPVersion</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="8">RN.Commenting.ConfigurableFileComment.WrongLicenseContent</error>
@@ -34,5 +36,6 @@
     <error file="commenting/fixedtagcontent/WithTags.php" line="17">RN.Commenting.ConfigurableClassComment.WrongCopyrightContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="18">RN.Commenting.ConfigurableClassComment.WrongLicenseContent</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.WrongLinkContent</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="5">RN.Commenting.ConfigurableFileComment.WrongPHPVersion</error>
   </expectations>
 </ruleset>

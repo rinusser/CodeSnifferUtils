@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /**
- * requires PHP version 7.0+
+ * requires PHP version 7.1+
  * @author Richard Nusser
  * @copyright 2017 Richard Nusser
  * @license GPLv3 (see http://www.gnu.org/licenses/)
@@ -34,6 +34,7 @@ class ConfigurableFileCommentSniff extends FileCommentSniff
 
 
   public $requiredTags=NULL;
+  public $requiredPHPVersion=NULL;
   protected $currentFile;  //CSU.IgnoreName: required by parent class
 
 
@@ -57,8 +58,41 @@ class ConfigurableFileCommentSniff extends FileCommentSniff
 
   protected function processTags($file, $stack_ptr, $comment_start)  //CSU.IgnoreName: required by parent class
   {
+    $this->_findAndProcessPHPVersion($file,$comment_start);
     $this->_processInsertableTags($file,$comment_start,$this->tags,'file');
     return parent::processTags($file,$stack_ptr,$comment_start);
+  }
+
+  protected function _findAndProcessPHPVersion(File $file, int $comment_start): void
+  {
+    if(!$this->requiredPHPVersion)
+      return;
+    $tokens=$file->getTokens();
+    [$version_token,$stated_version]=$this->_findVersionString($file,$comment_start);
+    if(!$stated_version || $stated_version==$this->requiredPHPVersion)
+      return;
+
+    $error='Stated PHP version doesn\'t match configured expectation: found "%s", expected "%s"';
+    $fix=$file->addFixableError($error,$version_token,'WrongPHPVersion',[$stated_version,$this->requiredPHPVersion]);
+    if($fix)
+    {
+      $new_content=str_replace($stated_version,$this->requiredPHPVersion,$tokens[$version_token]['content']);
+      $file->fixer->replaceToken($version_token,$new_content);
+    }
+  }
+
+  private function _findVersionString(File $file, int $start): array
+  {
+    $tokens=$file->getTokens();
+    for($ti=$start+1;$ti<$tokens[$start]['comment_closer'];$ti++)
+    {
+      if($tokens[$ti]['code']!==T_DOC_COMMENT_STRING)
+        continue;
+      if(!preg_match('/php version[^0-9]*([0-9.-]+[a-z0-9_-]*\+?)/i',$tokens[$ti]['content'],$matches))
+        continue;
+      return [$ti,$matches[1]];
+    }
+    return [NULL,NULL];
   }
 
   protected function processCategory($file, array $tags)  //CSU.IgnoreName: required by parent class

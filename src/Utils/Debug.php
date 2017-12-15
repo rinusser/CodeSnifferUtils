@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /**
- * requires PHP version 7.0+
+ * requires PHP version 7.1+
  * @author Richard Nusser
  * @copyright 2017 Richard Nusser
  * @license GPLv3 (see http://www.gnu.org/licenses/)
@@ -105,5 +105,17 @@ abstract class Debug
     else
       $output=(string)$what;
     fprintf(STDERR,"\n%s\n",$what);
+  }
+
+  /**
+   * Dumps a variable.
+   * Probably won't handle circular references.
+   *
+   * @param mixed $what the value to output
+   * @return void
+   */
+  public static function dump($what): void
+  {
+    self::output(var_export($what,true));
   }
 }

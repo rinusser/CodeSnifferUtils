@@ -332,6 +332,17 @@ The content you enter needs to be valid XML, you'll e.g. need to use `&lt;` (ins
 
 Invalid contents for found tags can automatically be fixed by phpcbf.
 
+#### Expected PHP Version
+
+File comment docblocks are required to show a PHP version somewhere before the tags. This version can be configured to
+require a specific version, e.g. 7.1:
+
+    <property name="requiredPHPVersion" value="7.1"/>
+
+Violations can be fixed automatically by phpcbf.
+
+By default there is no expected version.
+
 ### ConfigurableFunctionCommentSniff
 
 This extends PEAR.Commenting.FunctionComment: it has a configurable minimum method visibility to require docblocks.

@@ -11,6 +11,7 @@
       <property name="licenseContent" value="asdf 1234"/>
       <property name="linkContent" value="invalid.link"/>
       <property name="sinceContent" value="1.23.567b-890"/>
+      <property name="requiredPHPVersion" value="5.3"/>
     </properties>
   </rule>
 

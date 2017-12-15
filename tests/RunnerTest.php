@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /**
- * Requires PHP version 7.0+
+ * Requires PHP version 7.1+
  * @author Richard Nusser
  * @copyright 2017 Richard Nusser
  * @license GPLv3 (see http://www.gnu.org/licenses/)
@@ -129,7 +129,7 @@ class RunnerTest extends TestCase
       $this->assertEquals(1,$rv,$message);
 
       //run phpcs on temp dir and see if there are 0 errors
-      $testcase->expectedErrors=array_diff_key($testcase->expectedErrors,array_flip($actuals['fixables']));
+      $testcase->expectedErrors=array_diff_key($actuals['errors'],array_flip($actuals['fixables']));
       list($rv,)=$this->_performPHPCSTest($testcase,$message_prefix.'after automatic fixing: ',$dir.'/phpcs/tests/files',$dir);
       if($testcase->expectedErrors)
         $this->assertEquals(1,$rv,$message_prefix.'phpcs return value: phpcbf should have left some errors');

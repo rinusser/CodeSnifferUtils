@@ -278,7 +278,7 @@ abstract class FileUtils
    * @param int  $stack_ptr the function/closure token offset
    * @return string|NULL the return type (including the '?' prefix for nullable types), or NULL if none was declared
    */
-  public static function findReturnType(File $file, int $stack_ptr): ?string //XXX could add a test for this
+  public static function findReturnType(File $file, int $stack_ptr): ?string
   {
     $rv='';
     $tokens=$file->getTokens();
@@ -289,12 +289,12 @@ abstract class FileUtils
     if($next===false || $tokens[$next]['code']!==T_COLON)
       return NULL;
     $next=$file->findNext(Tokens::$emptyTokens,$next+1,NULL,true);
-    if($tokens[$next]['code']===T_NULLABLE)
+    $stop=array_merge(Tokens::$emptyTokens,[T_OPEN_CURLY_BRACKET]);
+    while(!in_array($tokens[$next]['code'],$stop) && $next<$token['scope_opener'])
     {
-      $rv='?';
-      $next=$file->findNext(Tokens::$emptyTokens,$next+1,NULL,true);
+      $rv.=$tokens[$next]['content'];
+      $next++;
     }
-    $rv.=$tokens[$next]['content'];
     return $rv;
   }
 }

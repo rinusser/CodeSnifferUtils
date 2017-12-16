@@ -149,4 +149,25 @@ class FileUtilsTest extends PHPCSTestCase
             ['\InvalidArgumentException','Exception','A\B\C','D']];
     $this->_runCases($filename,T_CATCH,$cases,[FileUtils::class,'getCaughtExceptions'],'caught exceptions');
   }
+
+  /**
+   * tests FileUtils::findReturnType()
+   */
+  public function testFindReturnType()
+  {
+    $filename='ReturnType.php';
+    $cases=[NULL,
+            NULL,
+            'int',
+            'StdClass',
+            '?iterable',
+            '?object',
+            '\Exception',
+            '\DateTime',
+            'A\B\C',
+            'D\E\F',
+            '\G\H\I',
+            '\J\K'];
+    $this->_runCases($filename,[T_FUNCTION,T_CLOSURE],$cases,[FileUtils::class,'findReturnType'],'return types');
+  }
 }

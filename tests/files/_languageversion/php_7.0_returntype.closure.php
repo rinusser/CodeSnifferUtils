@@ -1,0 +1,3 @@
+<?php
+$x=function(): \StdClass {
+};

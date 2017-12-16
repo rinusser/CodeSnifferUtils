@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Checkers\FileVersion;
 
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Files\FileUtils;
 
 /**
  * File version checks for PHP 7.2
@@ -29,22 +30,19 @@ class PHP72 extends AbstractVersion
 
   /**
    * Checks whether the passed file uses PHP 7.2's "object" type hint
+   * For example:
+   *
+   *   function asdf(object $x) {}
    *
    * @param File $file the phpcs file handle to check
    * @return bool true if any uses were found
    */
   public function usesObjectTypeHint(File $file): bool
   {
-    $cur=0;
-    while(true)
-    {
-      $cur=$file->findNext([T_FUNCTION,T_CLOSURE],$cur+1);
-      if($cur===false)
-        break;
-      foreach($file->getMethodParameters($cur) as $properties)
-        if(!empty($properties['type_hint']) && $properties['type_hint']==='object')
+    foreach(FileUtils::findAllByTypes($file,[T_FUNCTION,T_CLOSURE]) as $current)
+      foreach($file->getMethodParameters($current) as $properties)
+        if(strtolower(ltrim($properties['type_hint'],'?'))==='object')
           return true;
-    }
     return false;
   }
 }

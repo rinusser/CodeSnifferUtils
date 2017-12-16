@@ -248,4 +248,53 @@ abstract class FileUtils
     if($token['code']!==$code)
       throw new \InvalidArgumentException('expected '.$type.', got '.$token['type'].' instead.');
   }
+
+  /**
+   * Returns all tokens that match the given types
+   *
+   * @param File  $file  the phpcs file handle to look in
+   * @param array $types the list of token types to look for
+   * @return array the list of token offsets found
+   */
+  public static function findAllByTypes(File $file, array $types): array //XXX could add a test for this
+  {
+    $rv=[];
+    $current=0;
+    $ti=-10;
+    while($ti++<=$file->numTokens)
+    {
+      $current=$file->findNext($types,$current+1);
+      if($current===false)
+        break;
+      $rv[]=$current;
+    }
+    return $rv;
+  }
+
+  /**
+   * Returns a function/closure's declared return type, if any
+   *
+   * @param File $file      the phpcs file handle to check
+   * @param int  $stack_ptr the function/closure token offset
+   * @return string|NULL the return type (including the '?' prefix for nullable types), or NULL if none was declared
+   */
+  public static function findReturnType(File $file, int $stack_ptr): ?string //XXX could add a test for this
+  {
+    $rv='';
+    $tokens=$file->getTokens();
+    $token=$tokens[$stack_ptr];
+    if(!in_array($token['code'],[T_FUNCTION,T_CLOSURE],true))
+      throw new \InvalidArgumentException('token is not a function or closure, got '.$token['type'].' instead');
+    $next=$file->findNext(Tokens::$emptyTokens,$token['parenthesis_closer']+1,NULL,true);
+    if($next===false || $tokens[$next]['code']!==T_COLON)
+      return NULL;
+    $next=$file->findNext(Tokens::$emptyTokens,$next+1,NULL,true);
+    if($tokens[$next]['code']===T_NULLABLE)
+    {
+      $rv='?';
+      $next=$file->findNext(Tokens::$emptyTokens,$next+1,NULL,true);
+    }
+    $rv.=$tokens[$next]['content'];
+    return $rv;
+  }
 }

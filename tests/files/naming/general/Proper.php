@@ -86,7 +86,7 @@ class ProperVariableNaming
     $a_b_c3=$_SERVER['hostname'].$_GET['idx'];
     SomeClass::$a_b_c3;
     self::$_X=1;
-    list[$a_b,$c]=array_values($_SERVER);
+    [$a_b,$c]=array_values($_SERVER);
   }
 }
 

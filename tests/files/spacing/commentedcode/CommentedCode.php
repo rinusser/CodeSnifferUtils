@@ -6,7 +6,7 @@ use X; //fail here please
 //comment
 use A; //succeed here please
 
-class A {} //comment
+class Y {} //comment
 class B //fail here please
 {
   public $a; //comment
@@ -17,5 +17,5 @@ class B //fail here please
   public function asdf()
   {
   }//comment
-  public $c; //fail here please
+  public $d; //fail here please
 }

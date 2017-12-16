@@ -30,7 +30,6 @@ abstract class AbstractStaticClass
 
 trait TraitsShouldBeIgnored
 {
-  const SOME_CONST=1;
   public static $staticProperty;
   public static function staticMethod() {}
 }

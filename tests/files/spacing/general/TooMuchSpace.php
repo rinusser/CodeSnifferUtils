@@ -189,12 +189,12 @@ function functionWithDocBlock()
 
 
 
-class EmptyClassWithPadding()
+class EmptyClassWithPadding
 {
 
 }
 
-class ClassWithPadding()
+class ClassWithPadding
 {
   function asdf()
   {
@@ -204,7 +204,7 @@ class ClassWithPadding()
 
 
 
-abstract class AbstractWithTooMuchSpace()
+abstract class AbstractWithTooMuchSpace
 {
   const C1=NULL;
 

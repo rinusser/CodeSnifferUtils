@@ -24,7 +24,7 @@ class Proper
   public function prim()
   {
     $x=1;
-    function() use ($x) {}();
+    $y=function() use ($x) {};
   }
 }
 

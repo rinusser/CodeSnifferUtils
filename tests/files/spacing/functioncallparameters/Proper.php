@@ -33,7 +33,7 @@ $x->{implode(',',['a'  ,  ''  ,  ''])}(9,9,9); //yes, no, yes
 for($ti=0  ,  $tj=0;$ti<0;$ti++) //no
   1;
 
-f1(function($a  ,  $b){return $a+$b;},function($x  ,  $y){return new class{public $x  ,  $y  ,  $z};},3); //yes, no, no, no
+f1(function($a  ,  $b){return $a+$b;},function($x  ,  $y){return new class{public $x  ,  $y  ,  $z;};},3); //yes, no, no, no
 
 f1(); //yes
 f1(2); //yes

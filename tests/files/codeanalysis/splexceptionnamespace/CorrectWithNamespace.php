@@ -30,4 +30,4 @@ catch(LogicException | \RuntimeException | SomeCustomException $e)
 throw $x;
 throw $y;
 
-$misdirect=function() use ($x) {}
+$misdirect=function() use ($x) {};

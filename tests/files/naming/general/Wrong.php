@@ -88,6 +88,6 @@ class WrongVariableNaming
     list($aA,$_b)=$_SERVER['argv'];
     $_NOSUCHGLOBALEXISTS=2;
 
-    $y=function() { $Invalid=1; }
+    $y=function() { $Invalid=1; };
   }
 }

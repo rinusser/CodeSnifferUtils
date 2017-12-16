@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Sniffs;
 
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Files\FileUtils;
 
 /**
  * Base sniff for checking function calls
@@ -49,18 +49,9 @@ abstract class AbstractFunctionCallSniff
     if($this->_isDisabledInFile($file))
       return $file->numTokens;
 
-    $tokens=$file->getTokens();
-    $declaration=$file->findPrevious([T_FUNCTION,T_CLOSURE],$stack_ptr-1,NULL,false,NULL,true);
-    $opening_curly=$file->findPrevious(T_OPEN_CURLY_BRACKET,$stack_ptr-1);
-    if($declaration!==false && $opening_curly<$declaration)
-      return;
-
-    $skip=Tokens::$emptyTokens;
-    $prev=$file->findPrevious($skip,$stack_ptr-1,NULL,true,NULL,true);
-    if(!in_array($tokens[$prev]['code'],[T_STRING,T_VARIABLE,T_CLOSE_CURLY_BRACKET,T_CLOSE_PARENTHESIS],true))
-      return;
-
-    return $this->_processCall($file,$prev,$stack_ptr);
+    $last_callee_token=FileUtils::findLastCalleeToken($file,$stack_ptr);
+    if($last_callee_token!==false)
+      return $this->_processCall($file,$last_callee_token,$stack_ptr);
   }
 
 

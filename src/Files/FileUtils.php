@@ -297,4 +297,79 @@ abstract class FileUtils
     }
     return $rv;
   }
+
+  /**
+   * Checks whether the opening parenthesis is part of a function call. If so, return the callee's last token.
+   *
+   * @param File $file             the phpcs file handle to check
+   * @param int  $open_parenthesis the opening parenthesis's token offset to check
+   * @return int|bool the callee's last token if the parenthesis is actually part of a function call, false otherwise
+   */
+  public static function findLastCalleeToken(File $file, int $open_parenthesis)
+  {
+    $tokens=$file->getTokens();
+    self::_assertTokenIs($tokens[$open_parenthesis],T_OPEN_PARENTHESIS,'T_OPEN_PARENTHESIS');
+    $declaration=$file->findPrevious([T_FUNCTION,T_CLOSURE],$open_parenthesis-1,NULL,false,NULL,true);
+    $opening_curly=$file->findPrevious(T_OPEN_CURLY_BRACKET,$open_parenthesis-1);
+    if($declaration!==false && $opening_curly<$declaration)
+      return false;
+
+    $skip=Tokens::$emptyTokens;
+    $prev=$file->findPrevious($skip,$open_parenthesis-1,NULL,true,NULL,true);
+    if(!in_array($tokens[$prev]['code'],[T_STRING,T_VARIABLE,T_CLOSE_CURLY_BRACKET,T_CLOSE_PARENTHESIS],true))
+      return false;
+
+    return $prev;
+  }
+
+  /**
+   * Fetches commas separating expressions enclosed in parenthesis, e.g. in a function call
+   * For example:
+   *
+   * parenthesis_opener
+   *       v
+   *   asdf(1,[2,3],4);
+   *         ^     ^
+   *    separating commas
+   *
+   * @param File $file               the phpcs file handle to check
+   * @param int  $parenthesis_opener the opening parenthesis's offset
+   * @return array the list of comma offsets, if any
+   */
+  public static function getSeparatingCommas(File $file, int $parenthesis_opener): array
+  {
+    $tokens=$file->getTokens();
+    self::_assertTokenIs($tokens[$parenthesis_opener],T_OPEN_PARENTHESIS,'T_OPEN_PARENTHESIS');
+    $rv=[];
+    $parenthesis_closer=$tokens[$parenthesis_opener]['parenthesis_closer'];
+    $start=$parenthesis_opener;
+    $previous_separator=$start;
+    while(true)
+    {
+      $current=$file->findNext([T_COMMA,T_OPEN_PARENTHESIS,T_OPEN_SHORT_ARRAY,T_OPEN_CURLY_BRACKET],$start+1,NULL,false,NULL,true);
+      if($current===false || $current>$parenthesis_closer)
+        break;
+      switch($tokens[$current]['code'])
+      {
+        case T_COMMA:
+          $rv[]=$current;
+          $start=$current;
+          $previous_separator=$start;
+          break;
+        case T_OPEN_PARENTHESIS:
+          if(!empty($tokens[$current]['parenthesis_closer']))
+          {
+            $start=$tokens[$current]['parenthesis_closer'];
+            break;
+          }
+        case T_OPEN_SHORT_ARRAY:
+        case T_OPEN_CURLY_BRACKET:
+          $start=$tokens[$current]['bracket_closer'];
+          break;
+        default:
+          throw new \LogicException('unhandled type');
+      }
+    }
+    return $rv;
+  }
 }

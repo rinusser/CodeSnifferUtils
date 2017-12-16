@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Spacing;
 
 use PHP_CodeSniffer\Files\File;
+use RN\CodeSnifferUtils\Files\FileUtils;
 use RN\CodeSnifferUtils\Sniffs\AbstractFunctionCallSniff;
 
 /**
@@ -42,41 +43,16 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
       $this->_checkArgumentRange($file,$range);
   }
 
-
   private function _fetchArgumentRanges($file, int $parenthesis_opener): array
   {
-    $tokens=$file->getTokens();
     $rv=[];
-    $parenthesis_closer=$tokens[$parenthesis_opener]['parenthesis_closer'];
-    $start=$parenthesis_opener;
-    $previous_separator=$start;
-    while(true)
-    {
-      $current=$file->findNext([T_COMMA,T_OPEN_PARENTHESIS,T_OPEN_SHORT_ARRAY,T_OPEN_CURLY_BRACKET],$start+1,NULL,false,NULL,true);
-      if($current===false || $current>$parenthesis_closer)
-        break;
-      switch($tokens[$current]['code'])
-      {
-        case T_COMMA:
-          $rv[]=[$previous_separator+1,$current-1];
-          $start=$current;
-          $previous_separator=$start;
-          break;
-        case T_OPEN_PARENTHESIS:
-          if(!empty($tokens[$current]['parenthesis_closer']))
-          {
-            $start=$tokens[$current]['parenthesis_closer'];
-            break;
-          }
-        case T_OPEN_SHORT_ARRAY:
-        case T_OPEN_CURLY_BRACKET:
-          $start=$tokens[$current]['bracket_closer'];
-          break;
-        default:
-          throw new \LogicException('unhandled type');
-      }
-    }
-    $rv[]=[$previous_separator+1,$parenthesis_closer-1];
+    $tokens=$file->getTokens();
+    $commas=FileUtils::getSeparatingCommas($file,$parenthesis_opener);
+    $separators=array_merge([$parenthesis_opener],$commas,[$tokens[$parenthesis_opener]['parenthesis_closer']]);
+
+    $count=count($separators)-1;
+    for($ti=0;$ti<$count;$ti++)
+      $rv[]=[$separators[$ti]+1,$separators[$ti+1]-1];
 
     return $rv;
   }

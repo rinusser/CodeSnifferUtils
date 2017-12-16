@@ -4,7 +4,7 @@ $x=[$a,$b];
 function f1($a, $b, $c)
 {
   return function($x,$y) use ($k,$l) {
-    return array_map($x,[$k,$y+$l]);
+    return array_map($x  ,  [$k,$y+$l]);
   };
 }
 
@@ -23,7 +23,7 @@ class X
       $x++;
 
     return function($x,$y) use ($k,$l) {
-      return array_map($x,[$k,$y+$l]);
+      return array_map($x  ,  [$k,$y+$l]);
     };
   }
 }

@@ -4,14 +4,13 @@
   <file>../files/spacing/separator</file>
   <rule ref="RN.Spacing.Separator"/>
   <expectations>
-    <file_count>2</file_count>
+    <file_count>3</file_count>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
     <error file="spacing/separator/TooMuchSpace.php" line="4">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="4">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="6">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="6">RN.Spacing.Separator.SpaceBeforeComma</error>
-    <error file="spacing/separator/TooMuchSpace.php" line="7">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="7">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="7">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
     <error file="spacing/separator/TooMuchSpace.php" line="8">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
@@ -29,7 +28,6 @@
     <error file="spacing/separator/TooMuchSpace.php" line="22">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
     <error file="spacing/separator/TooMuchSpace.php" line="24">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="24">RN.Spacing.Separator.SpaceBeforeComma</error>
-    <error file="spacing/separator/TooMuchSpace.php" line="25">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="25">RN.Spacing.Separator.SpaceBeforeComma</error>
   </expectations>
 </ruleset>

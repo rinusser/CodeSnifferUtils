@@ -13,7 +13,9 @@ namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Spacing;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
+use RN\CodeSnifferUtils\Config\PropertyCast;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
+use RN\CodeSnifferUtils\Files\FileUtils;
 
 /**
  * Ensures commas and semicolons aren't preceded by any whitespaces
@@ -27,6 +29,10 @@ class SeparatorSniff implements Sniff
 
   private static $_tokens=[T_COMMA=>'Comma',T_SEMICOLON=>'Semicolon'];
 
+
+  public $includeFunctionCallCommas=false;
+
+
   /**
    * Gets called by phpcs to return a list of tokens types to wait for
    *
@@ -34,6 +40,7 @@ class SeparatorSniff implements Sniff
    */
   public function register()
   {
+    $this->includeFunctionCallCommas=PropertyCast::toBool($this->includeFunctionCallCommas,'includeFunctionCallCommas');
     return array_keys(self::$_tokens);
   }
 
@@ -52,9 +59,24 @@ class SeparatorSniff implements Sniff
     $tokens=$file->getTokens();
     if($tokens[$stack_ptr-1]['code']===T_WHITESPACE)
     {
+      if(!$this->includeFunctionCallCommas && $this->_isFunctionCallComma($file,$stack_ptr))
+        return;
       $error='Commas and semicolons must not follow whitespaces of any kind';
       $file->addError($error,$stack_ptr,'SpaceBefore'.$this->_getTokenName($tokens[$stack_ptr]['code']));
     }
+  }
+
+  protected function _isFunctionCallComma(File $file, int $comma): bool
+  {
+    $open_parenthesis=$file->findPrevious(T_OPEN_PARENTHESIS,$comma-1,NULL,false,NULL,true);
+    if($open_parenthesis===false)
+      return false;
+    $last_callee_token=FileUtils::findLastCalleeToken($file,$open_parenthesis);
+    if($last_callee_token===false)
+      return false;
+
+    $separating_commas=FileUtils::getSeparatingCommas($file,$open_parenthesis);
+    return in_array($comma,$separating_commas);
   }
 
   private function _getTokenName($type): string

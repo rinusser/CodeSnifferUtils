@@ -794,6 +794,12 @@ Errors found by this sniff currently aren't fixable automatically.
 
 Commas and semicolons must not follow any whitespaces.
 
+By default commas in function call argument lists aren't checked as they're already covered by
+FunctionCallParametersSniff. These commas can be included in this sniff by setting the `includeFunctionCallCommas`
+property:
+
+    <property name="includeFunctionCallCommas" value="yes"/>
+
 Example:
 
     function f($a, $b)  //this is OK
@@ -802,6 +808,8 @@ Example:
 
       $y=[1 , 2];       //invalid: space before comma
       $z=3 ;            //invalid: space before semicolon
+
+      asdf(1 , 2);      //OK by default, invalid if includeFunctionCallCommas is enabled
     }
 
 This currently isn't automatically fixable by phpcs. This sniff will also handle spacing *after* separators later.

@@ -38,3 +38,20 @@ f1( $x ); //both
 f1( 1,
    2 , 
    3 );
+
+
+f1(   1 ,  $a,  'asdf');
+func2(NULL,NULL,2);
+
+class Y extends Z
+{
+  public function run()
+  {
+    return [$this->add(     1,    2),
+            $this->multiply(NULL,'7',1),
+            $this->divide(  $a,  NULL)];
+  }
+}
+
+f1(  1,-2.0, 3);
+ f1(123, 4.1,-5);

@@ -783,6 +783,12 @@ Function calls' parameters must not be surrounded by whitespaces, e.g.:
     f(1,      //"1" is valid
       2);     //"2" is valid too, as long as there are no whitespaces after the above comma
 
+If there are multiple function calls in contiguous lines their parameters may be left-aligned in a grid. Numbers may
+also be right- or dot-aligned. For example:
+
+    some_function(   'a',  -1,-2.0);  //OK because it lines up with the call below
+    another_function(NULL,123, 4.11); //OK because the dots line up
+
 Additionally, empty parameter lists must not contain whitespaces:
 
     f();      //this is valid

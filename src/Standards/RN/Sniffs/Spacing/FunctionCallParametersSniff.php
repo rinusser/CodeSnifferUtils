@@ -38,9 +38,122 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
       return;
     }
 
+    $aligned_vertically=false;
+    $call_start=$file->findStartOfStatement($last_callee_token);
+    if($tokens[$call_start]['line']==$tokens[$tokens[$parenthesis_opener]['parenthesis_closer']]['line'])
+    {
+      $aligned_call_start_above=$this->_findAlignedFunctionCallAtLine($file,$last_callee_token,$tokens[$last_callee_token]['line']-1);
+      $aligned_call_start_below=$this->_findAlignedFunctionCallAtLine($file,$last_callee_token,$tokens[$last_callee_token]['line']+1);
+      if($aligned_call_start_above[0]!==false && $this->_areCommonArgumentsAligned($file,$parenthesis_opener,$aligned_call_start_above[1]))
+        $aligned_vertically=true;
+      elseif($aligned_call_start_below[0]!==false && $this->_areCommonArgumentsAligned($file,$parenthesis_opener,$aligned_call_start_below[1]))
+        $aligned_vertically=true;
+    }
+
     $argument_ranges=$this->_fetchArgumentRanges($file,$parenthesis_opener);
     foreach($argument_ranges as $range)
-      $this->_checkArgumentRange($file,$range);
+      $this->_checkArgumentRange($file,$range,$aligned_vertically);
+  }
+
+  private function _areCommonArgumentsAligned(File $file, int $f1, int $f2): bool
+  {
+    $tokens=$file->getTokens();
+    $args1=$this->_getEffectiveStarts($file,$this->_fetchArgumentRanges($file,$f1));
+    $args2=$this->_getEffectiveStarts($file,$this->_fetchArgumentRanges($file,$f2));
+    $common_count=min(count($args1),count($args2));
+    if($common_count<2)
+      return false;
+
+    for($ti=0;$ti<$common_count;$ti++)
+    {
+      $token1=$tokens[$args1[$ti]];
+      $token2=$tokens[$args2[$ti]];
+      if($this->_numbersAlign($file,$args1[$ti],$args2[$ti]))
+        continue;
+      if($token1['column']!=$token2['column'])
+        return false;
+    }
+    return true;
+  }
+
+  private function _numbersAlign(File $file, int $number1, int $number2): bool
+  {
+    $tokens=$file->getTokens();
+    $number1=$this->_getNumericString($file,$number1);
+    $number2=$this->_getNumericString($file,$number2);
+    if($number1===NULL || $number2===NULL)
+      return false;
+
+    $token1=$tokens[$args1[$ti]];
+    $token2=$tokens[$args2[$ti]];
+
+    if($token1['column']+$token1['length'] == $token2['column']+$token2['length'])
+      return true;
+
+    $dot1=strpos($number1,'.');
+    $dot2=strpos($number2,'.');
+    if($dot1===false||$dot2===false)
+      return false;
+    if($tokens1['column']+$dot1 == $tokens2['column']+$dot2)
+      return true;
+
+    return false;
+  }
+
+  private function _getNumericString(File $file, int $offset): ?string
+  {
+    $sign='';
+    $tokens=$file->getTokens();
+    if($tokens[$offset]['code']===T_MINUS)
+    {
+      $sign='-';
+      $offset++;
+    }
+    if(!in_array($tokens[$offset]['code'],[T_LNUMBER,T_DNUMBER],true))
+      return NULL;
+    return $sign.$tokens[$offset]['content'];
+  }
+
+  private function _getEffectiveStarts(File $file, array $ranges): array
+  {
+    $rv=[];
+    $tokens=$file->getTokens();
+    foreach($ranges as $range)
+    {
+      for($ti=$range[0];$ti<=$range[1];$ti++)
+      {
+        if($tokens[$ti]['code']!==T_WHITESPACE)
+        {
+          $rv[]=$ti;
+          continue 2;
+        }
+      }
+      $rv[]=$range[0];
+    }
+    return $rv;
+  }
+
+  private function _findAlignedFunctionCallAtLine(File $file, int $start, int $line): array
+  {
+    $rv_no=[false,NULL];
+    if($line<0)
+      return $rv_no;
+    $tokens=$file->getTokens();
+    foreach($tokens as $ti=>$token)
+    {
+      if($token['line']>$line)
+        return $rv_no;
+      if($token['line']<$line || $token['column']!=$tokens[$start]['column'])
+        continue;
+      $open_parenthesis=$file->findNext(T_OPEN_PARENTHESIS,$ti,NULL,false,NULL,true);
+      if($open_parenthesis===false)
+        return $rv_no;
+      $callee_token=FileUtils::findLastCalleeToken($file,$open_parenthesis);
+      if($callee_token!==false && $callee_token==$ti)
+        return [$ti,$open_parenthesis];
+      return $rv_no;
+    }
+    return $rv_no;
   }
 
   private function _fetchArgumentRanges($file, int $parenthesis_opener): array
@@ -57,7 +170,7 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
     return $rv;
   }
 
-  private function _checkArgumentRange(File $file, array $range): void
+  private function _checkArgumentRange(File $file, array $range, bool $aligned_vertically): void
   {
     $tokens=$file->getTokens();
 
@@ -89,7 +202,7 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
         }
       }
       $right_space=$tokens[$range[1]]['code']===T_WHITESPACE;
-      if($left_space)
+      if($left_space && !$aligned_vertically)
       {
         if($right_space)
         {

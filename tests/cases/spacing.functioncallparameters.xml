@@ -28,5 +28,12 @@
     <error file="spacing/functioncallparameters/TooMuchSpace.php" line="38">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
     <error file="spacing/functioncallparameters/TooMuchSpace.php" line="39">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
     <error file="spacing/functioncallparameters/TooMuchSpace.php" line="40">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="43">RN.Spacing.FunctionCallParameters.SpaceAfter</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="50">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="50">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="56">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="56">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
+    <error file="spacing/functioncallparameters/TooMuchSpace.php" line="57">RN.Spacing.FunctionCallParameters.SpaceBefore</error>
   </expectations>
 </ruleset>

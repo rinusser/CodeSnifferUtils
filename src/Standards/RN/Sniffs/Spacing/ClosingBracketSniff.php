@@ -50,6 +50,6 @@ class ClosingBracketSniff implements Sniff
       return $file->numTokens;
 
     $allowed_by_type=[PrecedingEmptyLinesChecker::T_ANY=>[-1,0]];
-    return (new PrecedingEmptyLinesChecker())->process($file,$stack_ptr,$allowed_by_type);
+    return (new PrecedingEmptyLinesChecker($allowed_by_type))->process($file,$stack_ptr);
   }
 }

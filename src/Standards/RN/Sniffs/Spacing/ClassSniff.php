@@ -54,6 +54,24 @@ class ClassSniff implements Sniff
                       T_COMMENT=>[0,2],
                       T_DOC_COMMENT_CLOSE_TAG=>0,
                       T_OPEN_TAG=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_CLASS,[T_ABSTRACT]))->process($file,$stack_ptr,$allowed_by_type);
+
+    $fetcher=[$this,'fetcher'];
+    return (new ContextAwarePrecedingEmptyLinesChecker($allowed_by_type,T_CLASS,[T_ABSTRACT]))->setFetcherBeforeSemicolon($fetcher)->process($file,$stack_ptr);
+  }
+
+  /**
+   * Used to fetch distances between file and class comments
+   *
+   * @param File $file     the phpcs file handler
+   * @param int  $current  the current token offset
+   * @param int  $previous the previous token offset
+   * @return array|NULL the distance range, or NULL if it's another combination of tokens
+   */
+  public function fetcher(File $file, int $current, int $previous)
+  {
+    $tokens=$file->getTokens();
+    //if there are file and class docblocks require 1..2 empty lines
+    if($tokens[$current]['code']===T_DOC_COMMENT_OPEN_TAG && $tokens[$previous]['code']===T_DOC_COMMENT_CLOSE_TAG)
+      return [1,2];
   }
 }

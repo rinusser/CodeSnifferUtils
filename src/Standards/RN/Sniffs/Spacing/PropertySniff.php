@@ -45,8 +45,25 @@ class PropertySniff extends AbstractVariableSniff
                       T_VARIABLE=>[-1,0],
                       T_COMMENT=>[0,1],
                       T_SEMICOLON=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_VARIABLE,[T_STATIC]))->process($file,$stack_ptr,$allowed_by_type);
+    $fetcher=[$this,'fetcher'];
+    return (new ContextAwarePrecedingEmptyLinesChecker($allowed_by_type,T_VARIABLE,[T_STATIC]))->setFetcherAfterSemicolon($fetcher)->process($file,$stack_ptr);
   }
+
+  /**
+   * Used to fetch distances between properties depending on whether they're static or not
+   *
+   * @param File $file     the phpcs file handler
+   * @param int  $current  the current token offset
+   * @param int  $previous the previous token offset
+   * @return array|NULL the distance range, or NULL if it's another combination of tokens
+   */
+  public function fetcher(File $file, int $current, int $previous)
+  {
+    $previous_properties=$file->getMemberProperties($previous);
+    $current_properties=$file->getMemberProperties($current);
+    return $previous_properties['is_static']==$current_properties['is_static']?[0,1]:[1,2];
+  }
+
 
   protected function processVariable(File $file, $stack_ptr)  //CSU.IgnoreName: required by parent class
   {

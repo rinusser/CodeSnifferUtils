@@ -53,6 +53,6 @@ class NamespaceSniff implements Sniff
                       T_DECLARE=>0,
                       T_DOC_COMMENT_CLOSE_TAG=>1,
                       T_COMMENT=>[0,1]];
-    return (new PrecedingEmptyLinesChecker())->process($file,$stack_ptr,$allowed_by_type);
+    return (new PrecedingEmptyLinesChecker($allowed_by_type))->process($file,$stack_ptr);
   }
 }

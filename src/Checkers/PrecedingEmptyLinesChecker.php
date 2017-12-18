@@ -28,27 +28,39 @@ class PrecedingEmptyLinesChecker
   use NoImplicitProperties;
 
 
+  protected $_allowedByType;
+
+  protected $_matchAny;
+
+  /**
+   * @param array $allowed_by_type a map of allowed previous token=>distance pairs
+   */
+  public function __construct(array $allowed_by_type)
+  {
+    $this->_allowedByType=$allowed_by_type;
+    $this->_matchAny=count($allowed_by_type==1) && isset($allowed_by_type[self::T_ANY]);
+  }
+
+
   /**
    * Process a file's token - should be called by other sniffs' process() methods
    *
-   * @param File  $file            the phpcs file handle
-   * @param int   $stack_ptr       the token offset to be processed
-   * @param array $allowed_by_type a map of allowed previous token=>distance pairs
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $file, int $stack_ptr, array $allowed_by_type)
+  public function process(File $file, int $stack_ptr)
   {
     $tokens=$file->getTokens();
     $effective_start=$this->_fetchEffectiveTokenStart($file,$stack_ptr);
-    $match_any=count($allowed_by_type==1) && isset($allowed_by_type[self::T_ANY]);
 
     $prev=$file->findPrevious(T_WHITESPACE,$effective_start-1,NULL,true);
-    if(!$match_any)
+    if(!$this->_matchAny)
       $prev=$this->_skipPreviousTokens($file,$prev);
 
     $preceding_line=$tokens[$prev]['line'];
 
-    if(!array_key_exists($tokens[$prev]['code'],$allowed_by_type) && !$match_any)
+    if(!array_key_exists($tokens[$prev]['code'],$this->_allowedByType) && !$this->_matchAny)
     {
       $error='Unhandled preceding token type "'.$tokens[$prev]['type'].'"';
       $file->addWarning($error,$prev,'UnhandledContext');
@@ -56,7 +68,7 @@ class PrecedingEmptyLinesChecker
     }
 
     $lines_between=$tokens[$effective_start]['line']-$preceding_line-1;
-    $expectation=$this->_fetchExpectation($allowed_by_type,$file,$prev,$stack_ptr,$match_any);
+    $expectation=$this->_fetchExpectation($file,$prev,$stack_ptr);
 
     $error_expectation=NULL;
     if(is_array($expectation))
@@ -87,18 +99,16 @@ class PrecedingEmptyLinesChecker
   /**
    * Fetch the expected distance to the previous token
    *
-   * @param array $allowed_by_type a list of token type=>distance values
-   * @param File  $file            the current phpcs file
-   * @param int   $previous        the previous token to check distance to
-   * @param int   $current         (unused) the current token to compare distance to
-   * @param bool  $match_any       whether to check distance to any previous tag (true) or a specific one (false)
+   * @param File $file     the current phpcs file
+   * @param int  $previous the previous token to check distance to
+   * @param int  $current  (unused) the current token to compare distance to
    * @return int|array
    */
-  protected function _fetchExpectation(array $allowed_by_type, File $file, int $previous, int $current, bool $match_any)
+  protected function _fetchExpectation(File $file, int $previous, int $current)
   {
     $tokens=$file->getTokens();
-    $type=$match_any?self::T_ANY:$tokens[$previous]['code'];
-    return $allowed_by_type[$type];
+    $type=$this->_matchAny?self::T_ANY:$tokens[$previous]['code'];
+    return $this->_allowedByType[$type];
   }
 
   protected function _skipPreviousTokens(File $file, int $start): int

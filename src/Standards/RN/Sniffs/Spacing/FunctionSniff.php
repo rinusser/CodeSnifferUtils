@@ -54,6 +54,26 @@ class FunctionSniff implements Sniff
                       T_OPEN_TAG=>[0,1],
                       T_CLOSE_TAG=>[0,2],
                       T_SEMICOLON=>[0,2]];
-    return (new ContextAwarePrecedingEmptyLinesChecker(T_FUNCTION,[T_ABSTRACT,T_STATIC,T_FINAL]))->process($file,$stack_ptr,$allowed_by_type);
+    $checker=new ContextAwarePrecedingEmptyLinesChecker($allowed_by_type,T_FUNCTION,[T_ABSTRACT,T_STATIC,T_FINAL]);
+    $checker->setFetcherAfterSemicolon([$this,'fetcher']);
+    return $checker->process($file,$stack_ptr);
+  }
+
+  /**
+   * Used to fetch distances between methods, depending on whether they're static or not
+   *
+   * @param File $file     the phpcs file handler
+   * @param int  $current  the current token offset
+   * @param int  $previous the previous token offset
+   * @return array|NULL the distance range, or NULL if it's another combination of tokens
+   */
+  public function fetcher(File $file, int $current, int $previous)
+  {
+    $previous_properties=$file->getMethodProperties($previous);
+    $current_properties=$file->getMethodProperties($current);
+    if($previous_properties['is_abstract']==$current_properties['is_abstract'])
+      return $previous_properties['is_static']==$current_properties['is_static']?[0,2]:[1,2];
+    else
+      return [1,2];
   }
 }

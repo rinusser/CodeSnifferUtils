@@ -26,27 +26,55 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
 
   protected $_expectedToken;
   protected $_ignoredTokens;
+  protected $_fetcherBeforeSemicolon;
+  protected $_fetcherAfterSemicolon;
 
 
   /**
-   * @param mixed $expected_token the type of token to look for when checking if multiple similar tokens are adjacent
-   * @param array $ignored_tokens the list of tokens to be skipped in addition to whitespaces and visibility modifiers
+   * @param array $allowed_by_type a map of allowed previous token=>distance pairs
+   * @param mixed $expected_token  the type of token to look for when checking if multiple similar tokens are adjacent
+   * @param array $ignored_tokens  the list of tokens to be skipped in addition to whitespaces and visibility modifiers
    */
-  public function __construct($expected_token, array $ignored_tokens=[])
+  public function __construct(array $allowed_by_type, $expected_token, array $ignored_tokens=[])
   {
+    parent::__construct($allowed_by_type);
     $this->_expectedToken=$expected_token;
     $this->_ignoredTokens=$ignored_tokens;
+  }
+
+
+  /**
+   * Use this to register a callback for fetching expectations before the semicolon check
+   *
+   * @param callable $fetcher the callback function
+   * @return ContextAwarePrecedingEmptyLinesChecker $this, fluent interface
+   */
+  public function setFetcherBeforeSemicolon(callable $fetcher): ContextAwarePrecedingEmptyLinesChecker
+  {
+    $this->_fetcherBeforeSemicolon=$fetcher;
+    return $this;
+  }
+
+  /**
+   * Use this to register a callback for fetching expectations after the semicolon check
+   *
+   * @param callable $fetcher the callback function
+   * @return ContextAwarePrecedingEmptyLinesChecker $this, fluent interface
+   */
+  public function setFetcherAfterSemicolon(callable $fetcher): ContextAwarePrecedingEmptyLinesChecker
+  {
+    $this->_fetcherAfterSemicolon=$fetcher;
+    return $this;
   }
 
   /**
    * Process a file's token - should be called by other sniffs' process() methods
    *
-   * @param File  $file            the phpcs file handle
-   * @param int   $stack_ptr       the token offset to be processed
-   * @param array $allowed_by_type a map of allowed previous token=>distance pairs
+   * @param File $file      the phpcs file handle
+   * @param int  $stack_ptr the token offset to be processed
    * @return NULL to indicate phpcs should continue processing rest of file normally
    */
-  public function process(File $file, int $stack_ptr, array $allowed_by_type)
+  public function process(File $file, int $stack_ptr)
   {
     $tokens=$file->getTokens();
     $effective_start=$this->_fetchEffectiveTokenStart($file,$stack_ptr);
@@ -58,7 +86,7 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
 
     $preceding_line=$tokens[$prev]['line'];
 
-    if(!array_key_exists($tokens[$prev]['code'],$allowed_by_type))
+    if(!array_key_exists($tokens[$prev]['code'],$this->_allowedByType))
     {
       $error='Unhandled preceding token type "'.$tokens[$prev]['type'].'"';
       $file->addWarning($error,$prev,'UnhandledContext');
@@ -66,7 +94,7 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
     }
 
     $lines_between=$tokens[$effective_start]['line']-$preceding_line-1;
-    $expectation=$this->_fetchExpectation($allowed_by_type,$file,$prev,$stack_ptr,false,$effective_start);
+    $expectation=$this->_fetchExpectation($file,$prev,$stack_ptr,$effective_start);
 
     $error_expectation=NULL;
     if(is_array($expectation))
@@ -167,48 +195,37 @@ class ContextAwarePrecedingEmptyLinesChecker extends PrecedingEmptyLinesChecker
   /**
    * Determines the actual distance to assert
    *
-   * @param array    $allowed_by_type   the initial expectation map
    * @param File     $file              the phpcs file handle
    * @param int      $previous          the previous token's offset
    * @param int      $current           the current token's offset
-   * @param bool     $match_any         (unused)
    * @param int|NULL $effective_current start of current token's context, e.g. start of accompaning docblock
    * @return array a pair of integers
    */
-  protected function _fetchExpectation(array $allowed_by_type, File $file, int $previous, int $current, bool $match_any, ?int $effective_current=NULL)
+  protected function _fetchExpectation(File $file, int $previous, int $current, ?int $effective_current=NULL)
   {
     if($effective_current===NULL)
       $effective_current=$current;
     $tokens=$file->getTokens();
 
-    if($this->_expectedToken===T_CLASS) //XXX should be extracted
+    if($this->_fetcherBeforeSemicolon)
     {
-      //if there are file and class docblocks require 1..2 empty lines
-      if($tokens[$effective_current]['code']===T_DOC_COMMENT_OPEN_TAG && $tokens[$previous]['code']===T_DOC_COMMENT_CLOSE_TAG)
-        return [1,2];
+      $value=($this->_fetcherBeforeSemicolon)($file,$effective_current,$previous);
+      if($value)
+        return $value;
     }
 
     if($tokens[$previous]['code']!==T_SEMICOLON)
-      return $allowed_by_type[$tokens[$previous]['code']];
+      return $this->_allowedByType[$tokens[$previous]['code']];
 
     $previous_entry=$file->findPrevious($this->_expectedToken,$previous-1,NULL,false,NULL,true);
     if($previous_entry===false)
       return [1,2];
 
-    if($this->_expectedToken===T_VARIABLE) //XXX this code should probably be passed by method reference in constructor
+    if($this->_fetcherAfterSemicolon)
     {
-      $previous_properties=$file->getMemberProperties($previous_entry);
-      $current_properties=$file->getMemberProperties($current);
-      return $previous_properties['is_static']==$current_properties['is_static']?[0,1]:[1,2];
-    }
-    elseif($this->_expectedToken===T_FUNCTION)
-    {
-      $previous_properties=$file->getMethodProperties($previous_entry);
-      $current_properties=$file->getMethodProperties($current);
-      if($previous_properties['is_abstract']==$current_properties['is_abstract'])
-        return $previous_properties['is_static']==$current_properties['is_static']?[0,2]:[1,2];
-      else
-        return [1,2];
+      $value=($this->_fetcherAfterSemicolon)($file,$current,$previous_entry);
+      if($value)
+        return $value;
     }
 
     return [0,1];

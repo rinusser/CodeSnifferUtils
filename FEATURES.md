@@ -388,9 +388,9 @@ This can't be fixed automatically with phpcbf.
 This rule makes an exception for test methods: they don't require a `@return` tag. PHPUnit test methods never return anything
 anyway, the @return tag would always list "void" or "NULL" and clutter the test sources.
 
-Files within a "tests" directory with filenames ending in "Test.php" are considered tests. Within those test files the methods
-`setUpBeforeClass()`, `tearDownAfterClass()`, `setUp()` and `tearDown()` are exempt from the @return tag requirement, as are any
-other methods whose name starts with `test`.
+Files within a "tests" directory with filenames ending in "Test.php" or "TestCase.php" are considered tests. Within
+those test files the methods `setUpBeforeClass()`, `tearDownAfterClass()`, `setUp()` and `tearDown()` are exempt from
+the @return tag requirement, as are any other methods whose name starts with `test`.
 
 
 ## Files

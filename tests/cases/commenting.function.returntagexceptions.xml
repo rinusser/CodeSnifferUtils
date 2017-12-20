@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="commenting.function.returntagexceptions">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/commenting/returntagexceptions</file>
+  <rule ref="RN.Commenting.ConfigurableFunctionComment"/>
+  <expectations>
+    <file_count>3</file_count>
+    <error file="commenting/returntagexceptions/SomeTestThisIsnt.php" line="7">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="commenting/returntagexceptions/SomeTestThisIsnt.php" line="14">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="commenting/returntagexceptions/SomeTestThisIsnt.php" line="21">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="commenting/returntagexceptions/SomeTestThisIsnt.php" line="28">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="commenting/returntagexceptions/SomeTestThisIsnt.php" line="35">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+  </expectations>
+</ruleset>

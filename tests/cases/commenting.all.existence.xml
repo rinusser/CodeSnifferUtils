@@ -2,29 +2,29 @@
 <ruleset name="commenting.all.without_tags">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/general</file>
-  <rule ref="RN.Commenting.ConfigurableFileComment">
+  <rule ref="RN.Commenting.FileComment">
     <properties>
       <property name="requiredTags" value=""/>
       <property name="requireAuthorEmail" value="false"/>
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableClassComment">
+  <rule ref="RN.Commenting.ClassComment">
     <properties>
       <property name="requiredTags" value=""/>
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableFunctionComment"/>
+  <rule ref="RN.Commenting.FunctionComment"/>
 
   <expectations>
     <file_count>3</file_count>
-    <error file="commenting/general/WithComments.php" line="37">RN.Commenting.ConfigurableFunctionComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="2">RN.Commenting.ConfigurableFileComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="4">RN.Commenting.ConfigurableFunctionComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="8">RN.Commenting.ConfigurableClassComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="10">RN.Commenting.ConfigurableFunctionComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="14">RN.Commenting.ConfigurableFunctionComment.Missing</error>
-    <error file="commenting/general/WithoutComments.php" line="18">RN.Commenting.ConfigurableFunctionComment.Missing</error>
+    <error file="commenting/general/WithComments.php" line="37">RN.Commenting.FunctionComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="2">RN.Commenting.FileComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="4">RN.Commenting.FunctionComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="8">RN.Commenting.ClassComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="10">RN.Commenting.FunctionComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="14">RN.Commenting.FunctionComment.Missing</error>
+    <error file="commenting/general/WithoutComments.php" line="18">RN.Commenting.FunctionComment.Missing</error>
   </expectations>
 </ruleset>

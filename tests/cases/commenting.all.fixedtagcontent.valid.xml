@@ -2,7 +2,7 @@
 <ruleset name="commenting.all.fixedtagcontent.valid">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/fixedtagcontent</file>
-  <rule ref="RN.Commenting.ConfigurableFileComment">
+  <rule ref="RN.Commenting.FileComment">
     <properties>
       <property name="requiredTags" value=""/>
       <property name="requireAuthorEmail" value="no"/>
@@ -15,7 +15,7 @@
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableClassComment">
+  <rule ref="RN.Commenting.ClassComment">
     <properties>
       <property name="requiredTags" value=""/>
       <property name="requireAuthorEmail" value="no"/>

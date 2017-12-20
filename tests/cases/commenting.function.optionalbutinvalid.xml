@@ -2,7 +2,7 @@
 <ruleset name="commenting.function.optionalbutinvalid">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/optionalfunctiondocblock</file>
-  <rule ref="RN.Commenting.ConfigurableFunctionComment">
+  <rule ref="RN.Commenting.FunctionComment">
     <properties>
       <property name="minimumVisibility" value="public"/>
     </properties>
@@ -10,7 +10,7 @@
 
   <expectations>
     <file_count>1</file_count>
-    <error file="commenting/optionalfunctiondocblock/OptionalButInvalid.php" line="15">RN.Commenting.ConfigurableFunctionComment.MissingParamTag</error>
-    <error file="commenting/optionalfunctiondocblock/OptionalButInvalid.php" line="17">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="commenting/optionalfunctiondocblock/OptionalButInvalid.php" line="15">RN.Commenting.FunctionComment.MissingParamTag</error>
+    <error file="commenting/optionalfunctiondocblock/OptionalButInvalid.php" line="17">RN.Commenting.FunctionComment.MissingReturn</error>
   </expectations>
 </ruleset>

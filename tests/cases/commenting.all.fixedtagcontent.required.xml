@@ -2,7 +2,7 @@
 <ruleset name="commenting.all.fixedtagcontent.valid">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/fixedtagcontent</file>
-  <rule ref="RN.Commenting.ConfigurableFileComment">
+  <rule ref="RN.Commenting.FileComment">
     <properties>
       <property name="requiredTags" value="author,copyright,license"/>
       <property name="requireAuthorEmail" value="no"/>
@@ -12,7 +12,7 @@
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableClassComment">
+  <rule ref="RN.Commenting.ClassComment">
     <properties>
       <property name="requiredTags" value="category,since"/>
       <property name="requireAuthorEmail" value="no"/>
@@ -23,12 +23,12 @@
 
   <expectations>
     <file_count>2</file_count>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingAuthorTag</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingCopyrightTag</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.ConfigurableFileComment.InsertableMissingLicenseTag</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingCategoryTag</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ConfigurableClassComment.InsertableMissingCategoryTag</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ConfigurableClassComment.InsertableMissingSinceTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.FileComment.InsertableMissingAuthorTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.FileComment.InsertableMissingCopyrightTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.FileComment.InsertableMissingLicenseTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ClassComment.InsertableMissingCategoryTag</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="10">RN.Commenting.ClassComment.InsertableMissingSinceTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ClassComment.InsertableMissingCategoryTag</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="20">RN.Commenting.ClassComment.InsertableMissingSinceTag</error>
   </expectations>
 </ruleset>

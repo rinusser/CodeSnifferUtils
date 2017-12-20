@@ -2,7 +2,7 @@
 <ruleset name="commenting.all.fixedtagcontent.invalid">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/fixedtagcontent</file>
-  <rule ref="RN.Commenting.ConfigurableFileComment">
+  <rule ref="RN.Commenting.FileComment">
     <properties>
       <property name="requiredTags" value=""/>
       <property name="requireAuthorEmail" value="no"/>
@@ -14,7 +14,7 @@
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableClassComment">
+  <rule ref="RN.Commenting.ClassComment">
     <properties>
       <property name="requiredTags" value=""/>
       <property name="requireAuthorEmail" value="no"/>
@@ -27,15 +27,15 @@
 
   <expectations>
     <file_count>2</file_count>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="5">RN.Commenting.ConfigurableFileComment.WrongPHPVersion</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.ConfigurableFileComment.WrongAuthorContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.ConfigurableFileComment.WrongCopyrightContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="8">RN.Commenting.ConfigurableFileComment.WrongLicenseContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="9">RN.Commenting.ConfigurableFileComment.WrongLinkContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="16">RN.Commenting.ConfigurableClassComment.WrongAuthorContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="17">RN.Commenting.ConfigurableClassComment.WrongCopyrightContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="18">RN.Commenting.ConfigurableClassComment.WrongLicenseContent</error>
-    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ConfigurableClassComment.WrongLinkContent</error>
-    <error file="commenting/fixedtagcontent/WithoutTags.php" line="5">RN.Commenting.ConfigurableFileComment.WrongPHPVersion</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="5">RN.Commenting.FileComment.WrongPHPVersion</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.FileComment.WrongAuthorContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="7">RN.Commenting.FileComment.WrongCopyrightContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="8">RN.Commenting.FileComment.WrongLicenseContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="9">RN.Commenting.FileComment.WrongLinkContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="16">RN.Commenting.ClassComment.WrongAuthorContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="17">RN.Commenting.ClassComment.WrongCopyrightContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="18">RN.Commenting.ClassComment.WrongLicenseContent</error>
+    <error file="commenting/fixedtagcontent/WithTags.php" line="19">RN.Commenting.ClassComment.WrongLinkContent</error>
+    <error file="commenting/fixedtagcontent/WithoutTags.php" line="5">RN.Commenting.FileComment.WrongPHPVersion</error>
   </expectations>
 </ruleset>

@@ -2,14 +2,14 @@
 <ruleset name="commenting.all.without_tags">
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/commenting/authoremail</file>
-  <rule ref="RN.Commenting.ConfigurableFileComment">
+  <rule ref="RN.Commenting.FileComment">
     <properties>
       <property name="requiredTags" value="author"/>
       <property name="requireAuthorEmail" value="no"/>
     </properties>
   </rule>
 
-  <rule ref="RN.Commenting.ConfigurableClassComment">
+  <rule ref="RN.Commenting.ClassComment">
     <properties>
       <property name="requiredTags" value="author"/>
       <property name="requireAuthorEmail" value="no"/>
@@ -18,13 +18,13 @@
 
   <expectations>
     <file_count>2</file_count>
-    <error file="commenting/authoremail/WithAuthorEmail.php" line="5">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
-    <error file="commenting/authoremail/WithAuthorEmail.php" line="6">RN.Commenting.ConfigurableFileComment.InvalidAuthorName</error>
-    <error file="commenting/authoremail/WithAuthorEmail.php" line="13">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
-    <error file="commenting/authoremail/WithAuthorEmail.php" line="14">RN.Commenting.ConfigurableClassComment.InvalidAuthorName</error>
-    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="5">RN.Commenting.ConfigurableFileComment.InvalidAuthors</error>
-    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="6">RN.Commenting.ConfigurableFileComment.InvalidAuthorName</error>
-    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="13">RN.Commenting.ConfigurableClassComment.InvalidAuthors</error>
-    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="14">RN.Commenting.ConfigurableClassComment.InvalidAuthorName</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="5">RN.Commenting.FileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="6">RN.Commenting.FileComment.InvalidAuthorName</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="13">RN.Commenting.ClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithAuthorEmail.php" line="14">RN.Commenting.ClassComment.InvalidAuthorName</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="5">RN.Commenting.FileComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="6">RN.Commenting.FileComment.InvalidAuthorName</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="13">RN.Commenting.ClassComment.InvalidAuthors</error>
+    <error file="commenting/authoremail/WithoutAuthorEmail.php" line="14">RN.Commenting.ClassComment.InvalidAuthorName</error>
   </expectations>
 </ruleset>

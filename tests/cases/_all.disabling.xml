@@ -18,12 +18,12 @@
     <file_count>1</file_count>
     <error file="_all/disabling/All.php" line="1">RN.CodeAnalysis.MaximumPHPVersion.MaximumExceeded</error>
     <error file="_all/disabling/All.php" line="1">RN.Files.DeclareStrict.Missing</error>
-    <error file="_all/disabling/All.php" line="2">RN.Commenting.ConfigurableFileComment.Missing</error>
+    <error file="_all/disabling/All.php" line="2">RN.Commenting.FileComment.Missing</error>
     <error file="_all/disabling/All.php" line="5">RN.Spacing.Namespace.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="9">RN.CodeAnalysis.UnusedNamespaceImport.Unused</error>
     <error file="_all/disabling/All.php" line="9">RN.Spacing.Use.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="13">RN.Spacing.Class.PrecedingNewlines</error>
-    <error file="_all/disabling/All.php" line="13">RN.Commenting.ConfigurableClassComment.Missing</error>
+    <error file="_all/disabling/All.php" line="13">RN.Commenting.ClassComment.Missing</error>
     <error file="_all/disabling/All.php" line="14">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
     <error file="_all/disabling/All.php" line="16">RN.Naming.Property.PublicHasUnderscore</error>
     <error file="_all/disabling/All.php" line="16">RN.Spacing.Property.PrecedingNewlines</error>
@@ -34,19 +34,19 @@
     <error file="_all/disabling/All.php" line="20">RN.Classes.MemberOrdering.ConstTooLate</error>
     <error file="_all/disabling/All.php" line="20">RN.Spacing.Const.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="20">RN.Classes.ExplicitConstVisibility.ImplicitVisibility</error>
-    <error file="_all/disabling/All.php" line="24">RN.Commenting.ConfigurableFunctionComment.Missing</error>
+    <error file="_all/disabling/All.php" line="24">RN.Commenting.FunctionComment.Missing</error>
     <error file="_all/disabling/All.php" line="24">RN.Naming.CamelCaseMethod.PublicHasUnderscore</error>
     <error file="_all/disabling/All.php" line="24">RN.Spacing.FunctionParameters.WrongSpaceAfterOpeningParenthesis</error>
     <error file="_all/disabling/All.php" line="24">RN.Spacing.Function.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="26">RN.CodeAnalysis.SPLExceptionNamespace.WrongNamespace</error>
     <error file="_all/disabling/All.php" line="29">RN.Spacing.ClosingBracket.PrecedingNewlines</error>
-    <error file="_all/disabling/All.php" line="31">RN.Commenting.ConfigurableFunctionComment.MissingParamTag</error>
-    <error file="_all/disabling/All.php" line="52">RN.Commenting.ConfigurableFunctionComment.MissingReturn</error>
+    <error file="_all/disabling/All.php" line="31">RN.Commenting.FunctionComment.MissingParamTag</error>
+    <error file="_all/disabling/All.php" line="52">RN.Commenting.FunctionComment.MissingReturn</error>
     <error file="_all/disabling/All.php" line="53">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
     <error file="_all/disabling/All.php" line="53">RN.Naming.SnakeCaseFunction.InvalidCharacters</error>
     <error file="_all/disabling/All.php" line="53">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
     <error file="_all/disabling/All.php" line="55">RN.Naming.SnakeCaseVariable.InvalidStart</error>
-    <error file="_all/disabling/All.php" line="59">RN.Commenting.ConfigurableClassComment.Missing</error>
+    <error file="_all/disabling/All.php" line="59">RN.Commenting.ClassComment.Missing</error>
     <error file="_all/disabling/All.php" line="59">RN.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
     <error file="_all/disabling/All.php" line="59">RN.Classes.ClassDeclaration.MultipleClasses</error>
     <error file="_all/disabling/All.php" line="65">RN.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>

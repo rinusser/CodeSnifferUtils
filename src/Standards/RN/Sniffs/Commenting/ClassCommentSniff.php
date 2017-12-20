@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Commenting;
 
-use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\ClassCommentSniff as PEARClassCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
 use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
@@ -18,7 +18,7 @@ use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 /**
  * This is based on PEAR.Commenting.ClassComment, adds configurable features
  */
-class ConfigurableClassCommentSniff extends ClassCommentSniff
+class ClassCommentSniff extends PEARClassCommentSniff
 {
   //include requireAuthorEmail property and handling
   use RequireAuthorEmail;

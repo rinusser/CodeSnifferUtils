@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Standards\RN\Sniffs\Commenting;
 
-use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff as PEARFunctionCommentSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use RN\CodeSnifferUtils\Config\PerFileSniffConfig;
@@ -19,7 +19,7 @@ use RN\CodeSnifferUtils\Utils\NoImplicitProperties;
 /**
  * This is pretty much PEAR.Commenting.FunctionComment, just with minimum visibility configuration
  */
-class ConfigurableFunctionCommentSniff extends FunctionCommentSniff
+class FunctionCommentSniff extends PEARFunctionCommentSniff
 {
   use PerFileSniffConfig;
 

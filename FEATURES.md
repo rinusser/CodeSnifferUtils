@@ -293,7 +293,7 @@ For example:
 
 ## Commenting
 
-### ConfigurableClassCommentSniff, ConfigurableFileCommentSniff
+### ClassCommentSniff, FileCommentSniff
 
 These extend PEAR.Commenting.ClassComment and PEAR.Commenting.FileComment: they accept a configurable list of required docblock tags
 and can remove the @author tag's email requirement.
@@ -304,7 +304,7 @@ Most of the issues found by these rules aren't automatically fixable by phpcbf.
 
 You can either disable all required tags, e.g. for classes' docblocks:
 
-    <rule ref="RN.Commenting.ConfigurableClassComment">
+    <rule ref="RN.Commenting.ClassComment">
       <properties>
         <property name="requiredTags" value=""/>
       </properties>
@@ -312,7 +312,7 @@ You can either disable all required tags, e.g. for classes' docblocks:
 
 or pass an arbitrary list of required tags (you can optionally prefix the tags with '@'):
 
-    <rule ref="RN.Commenting.ConfigurableFileComment">
+    <rule ref="RN.Commenting.FileComment">
       <properties>
         <property name="requiredTags" value="author,@license"/>
       </properties>
@@ -365,13 +365,13 @@ Violations can be fixed automatically by phpcbf.
 
 By default there is no expected version.
 
-### ConfigurableFunctionCommentSniff
+### FunctionCommentSniff
 
 This extends PEAR.Commenting.FunctionComment: it has a configurable minimum method visibility to require docblocks.
 
 For example to require docblocks only for public methods use this:
 
-    <rule ref="RN.Commenting.ConfigurableFunctionComment">
+    <rule ref="RN.Commenting.FunctionComment">
       <properties>
         <property name="minimumVisibility" value="public"/>
       </properties>

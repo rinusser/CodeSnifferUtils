@@ -35,9 +35,9 @@ class Violations
  * @codingStandardsIgnoreRule RN.CodeAnalysis.IgnorableUnusedFunctionParameterSniff
  * @codingStandardsIgnoreRule RN.CodeAnalysis.SPLExceptionNamespaceSniff
  * @codingStandardsIgnoreRule RN.CodeAnalysis.UnusedNamespaceImportSniff
- * @codingStandardsIgnoreRule RN.Commenting.ConfigurableClassCommentSniff
- * @codingStandardsIgnoreRule RN.Commenting.ConfigurableFileCommentSniff
- * @codingStandardsIgnoreRule RN.Commenting.ConfigurableFunctionCommentSniff
+ * @codingStandardsIgnoreRule RN.Commenting.ClassCommentSniff
+ * @codingStandardsIgnoreRule RN.Commenting.FileCommentSniff
+ * @codingStandardsIgnoreRule RN.Commenting.FunctionCommentSniff
  * @codingStandardsIgnoreRule RN.Files.DeclareStrictSniff
  * @codingStandardsIgnoreRule RN.Naming.CamelCaseMethodSniff
  * @codingStandardsIgnoreRule RN.Naming.PropertySniff

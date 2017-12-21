@@ -139,20 +139,15 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
     if($line<0)
       return $rv_no;
     $tokens=$file->getTokens();
-    foreach($tokens as $ti=>$token)
-    {
-      if($token['line']>$line)
-        return $rv_no;
-      if($token['line']<$line || $token['column']!=$tokens[$start]['column'])
-        continue;
-      $open_parenthesis=$file->findNext(T_OPEN_PARENTHESIS,$ti,NULL,false,NULL,true);
-      if($open_parenthesis===false)
-        return $rv_no;
-      $callee_token=FileUtils::findLastCalleeToken($file,$open_parenthesis);
-      if($callee_token!==false && $callee_token==$ti)
-        return [$ti,$open_parenthesis];
+    $offset=FileUtils::findTokenAtLineAndColumn($file,$line,$tokens[$start]['column']);
+    if($offset===NULL)
       return $rv_no;
-    }
+    $open_parenthesis=$file->findNext(T_OPEN_PARENTHESIS,$offset,NULL,false,NULL,true);
+    if($open_parenthesis===false)
+      return $rv_no;
+    $callee_token=FileUtils::findLastCalleeToken($file,$open_parenthesis);
+    if($callee_token!==false && $callee_token==$offset)
+      return [$offset,$open_parenthesis];
     return $rv_no;
   }
 

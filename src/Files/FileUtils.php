@@ -372,4 +372,30 @@ abstract class FileUtils
     }
     return $rv;
   }
+
+  /**
+   * Finds the token that starts at the given line and column, optionally within a list of allowed types
+   *
+   * @param File       $file   the phpcs file handle to check
+   * @param int        $line   the line number to find the token on
+   * @param int        $column the column number to find the token on
+   * @param array|NULL $types  (optional) the list of allowed tokens - NULL to search for any token
+   * @return int|NULL the token offset if found, NULL otherwise
+   */
+  public static function findTokenAtLineAndColumn(File $file, int $line, int $column, ?array $types=NULL): ?int
+  {
+    foreach($file->getTokens() as $ti=>$token)
+    {
+      if($token['line']>$line)
+        return NULL;
+      if($token['line']<$line || $token['column']!=$column)
+        continue;
+
+      if($types!==NULL)
+        return in_array($token['code'],$types,true)?$ti:NULL;
+
+      return $ti;
+    }
+    return NULL;
+  }
 }

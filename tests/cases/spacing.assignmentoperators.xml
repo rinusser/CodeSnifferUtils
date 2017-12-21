@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="spacing.assignmentoperators">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/spacing/assignmentoperators</file>
+  <rule ref="RN.Spacing.AssignmentOperators"/>
+  <expectations>
+    <file_count>2</file_count>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="2">RN.Spacing.AssignmentOperators.SpaceAfter</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="3">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="4">RN.Spacing.AssignmentOperators.SpaceAround</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="6">RN.Spacing.AssignmentOperators.SpaceAfter</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="10">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="11">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="12">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="14">RN.Spacing.AssignmentOperators.SpaceAfter</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="15">RN.Spacing.AssignmentOperators.SpaceAfter</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="16">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="18">RN.Spacing.AssignmentOperators.SpaceAfter</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="22">RN.Spacing.AssignmentOperators.SpaceAround</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="23">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="24">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="26">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+    <error file="spacing/assignmentoperators/TooMuchSpace.php" line="27">RN.Spacing.AssignmentOperators.SpaceBefore</error>
+  </expectations>
+</ruleset>

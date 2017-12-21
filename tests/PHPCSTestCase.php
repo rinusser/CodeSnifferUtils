@@ -28,7 +28,7 @@ class PHPCSTestCase extends TestCase
       $filename=$file->getFilename();
       if($file->isDot() || preg_match('/^\..*\.swp$/',$filename) || !$filter($filename))
         continue;
-      $rv[]=[$ti,$filename];
+      $rv[$filename]=[$ti,$filename];
     }
     return $rv;
   }

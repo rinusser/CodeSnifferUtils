@@ -19,6 +19,7 @@ class XMLTestCase
   private $_sources;
   private $_expectedFileCount;
   private $_expectedErrors;
+  private $_skip;
 
 
   /**

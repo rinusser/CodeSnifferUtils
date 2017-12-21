@@ -796,6 +796,43 @@ Additionally, empty parameter lists must not contain whitespaces:
 
 Errors found by this sniff currently aren't fixable automatically.
 
+### AssignmentOperatorsSniff
+
+Assignment operators and the array double arrow must not be surrounded by whitespaces, unless aligned vertically.
+If there are multiple, identical assignment operators in contiguous lines they may be preceded by spaces as long as at
+least one of the operators immediately follows the assignee expression.
+
+For example:
+
+    //these are OK: no spaces around assignment operators
+    $a=1;
+    $aa=1;
+    $aaa=1;
+
+    //these are OK: operators aligned vertically
+    $b  &=1;
+    $bb &=1;
+    $bbb&=1;
+
+    //these are OK: no whitespaces
+    $x=[1=>1,
+        11=>2,
+        111=>3];
+
+    //these are OK; aligned vertically
+    $y=[1  =>1,
+        11 =>2,
+        111=>3];
+
+    $c  += 1;  //invalid: no whitespaces after operators allowed, even when aligned
+    $cc +=1;
+    $ccc+=1;
+
+    $d *=1;    //invalid: aligned operators aren't identical
+    $dd^=1;
+
+These errors currently aren't automatically fixable.
+
 ### SeparatorSniff
 
 Commas and semicolons must not follow any whitespaces.

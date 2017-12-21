@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace RN\CodeSnifferUtils\Tests;
 
+use RN\CodeSnifferUtils\Config\PropertyCast;
+
 /**
  * Runner for phpcs XML test cases
  */
@@ -90,6 +92,9 @@ class RunnerTest extends PHPCSTestCase
     $fullpath=self::BASEPATH.'/'.$filename;
 
     $testcase=$this->_parseTestCase($fullpath);
+    if($testcase->skip)
+      return $this->markTestSkipped();
+
     list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);
 
     if($actuals['fixables'])
@@ -298,7 +303,13 @@ class RunnerTest extends PHPCSTestCase
     foreach($xml->file as $file)
       $sources[]=$file->__toString();
 
-    return new XMLTestCase($fullpath,$sources,$file_count,$errors);
+    $testcase=new XMLTestCase($fullpath,$sources,$file_count,$errors);
+
+    $skip_raw=$xml->expectations->attributes()->skip;
+    if($skip_raw && PropertyCast::toBool($skip_raw->__toString(),'skip attribute'))
+      $testcase->skip=true;
+
+    return $testcase;
   }
 
   private function _parseOutput(array $output): array

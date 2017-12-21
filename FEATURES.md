@@ -653,6 +653,8 @@ Example:
       $x=1;  //no empty line above!
     }
 
+These errors are fixable by phpcbf.
+
 ### ClosingBracketSniff
 
 Closing curly brackets (`}`) must not be preceded by empty lines.

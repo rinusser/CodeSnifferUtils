@@ -56,7 +56,17 @@ class OpeningBracketSniff implements Sniff
     {
       $currents_name=TokenNames::getPrintableName($tokens[$stack_ptr]['code'],$tokens[$stack_ptr]['type']);
       $error='Expected 0 empty lines after '.$currents_name.', got '.$lines_between.' instead';
-      $file->addError($error,$stack_ptr,'SucceedingNewlines');
+      $fix=$file->addFixableError($error,$stack_ptr,'SucceedingNewlines');
+      if($fix)
+      {
+        $spacing=$file->getTokensAsString($stack_ptr+1,$next-$stack_ptr-1);
+        $space_parts=explode("\n",$spacing);
+        $file->fixer->beginChangeset();
+        $file->fixer->replaceToken($stack_ptr+1,"\n".array_pop($space_parts));
+        for($ti=$stack_ptr+2;$ti<$next;$ti++)
+          $file->fixer->replaceToken($ti,'');
+        $file->fixer->endChangeset();
+      }
     }
     return NULL;
   }

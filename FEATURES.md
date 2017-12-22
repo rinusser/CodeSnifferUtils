@@ -881,4 +881,6 @@ Example:
       asdf(1 , 2);      //OK by default, invalid if includeFunctionCallCommas is enabled
     }
 
-This currently isn't automatically fixable by phpcs. This sniff will also handle spacing *after* separators later.
+Whitespaces before separators can be removed by phpcbf automatically.
+
+This sniff will also handle spacing *after* separators later.

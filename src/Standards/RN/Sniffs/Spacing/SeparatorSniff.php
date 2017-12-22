@@ -57,12 +57,17 @@ class SeparatorSniff implements Sniff
       return $file->numTokens;
 
     $tokens=$file->getTokens();
-    if($tokens[$stack_ptr-1]['code']===T_WHITESPACE)
+    if($tokens[$stack_ptr-1]['code']!==T_WHITESPACE || !$this->includeFunctionCallCommas && $this->_isFunctionCallComma($file,$stack_ptr))
+      return;
+    $error='Commas and semicolons must not follow whitespaces of any kind';
+    $fix=$file->addFixableError($error,$stack_ptr,'SpaceBefore'.$this->_getTokenName($tokens[$stack_ptr]['code']));
+    if($fix)
     {
-      if(!$this->includeFunctionCallCommas && $this->_isFunctionCallComma($file,$stack_ptr))
-        return;
-      $error='Commas and semicolons must not follow whitespaces of any kind';
-      $file->addError($error,$stack_ptr,'SpaceBefore'.$this->_getTokenName($tokens[$stack_ptr]['code']));
+      $pos=$stack_ptr;
+      $file->fixer->beginChangeSet();
+      while($tokens[--$pos]['code']===T_WHITESPACE)
+        $file->fixer->replaceToken($pos,'');
+      $file->fixer->endChangeSet();
     }
   }
 

@@ -29,5 +29,6 @@
     <error file="spacing/separator/TooMuchSpace.php" line="24">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="24">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="25">RN.Spacing.Separator.SpaceBeforeComma</error>
+    <error file="spacing/separator/TooMuchSpace.php" line="33">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
   </expectations>
 </ruleset>

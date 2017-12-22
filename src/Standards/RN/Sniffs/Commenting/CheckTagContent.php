@@ -126,7 +126,6 @@ trait CheckTagContent
   {
     if(!$fixables)
       return;
-    $tokens=$file->getTokens();
     $file->fixer->beginChangeset();
     foreach($fixables as $fixable)
     {

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="codeanalysis.unusedvariable">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/codeanalysis/unusedvariable</file>
+  <rule ref="RN.CodeAnalysis.UnusedVariable"/>
+  <expectations>
+    <file_count>2</file_count>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="4">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="5">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="6">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="7">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="8">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="11">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="11">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="12">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="12">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="12">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="15">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="22">RN.CodeAnalysis.UnusedVariable.Unused</error>
+    <error file="codeanalysis/unusedvariable/UnusedVariables.php" line="23">RN.CodeAnalysis.UnusedVariable.Unused</error>
+  </expectations>
+</ruleset>

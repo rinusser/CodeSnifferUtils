@@ -60,7 +60,6 @@ class PHP71 extends AbstractVersion
    */
   public function usesVoidOrIterableReturnType(File $file): bool
   {
-    $tokens=$file->getTokens();
     foreach(FileUtils::findAllByTypes($file,[T_FUNCTION,T_CLOSURE]) as $current)
     {
       $type=FileUtils::findReturnType($file,$current);

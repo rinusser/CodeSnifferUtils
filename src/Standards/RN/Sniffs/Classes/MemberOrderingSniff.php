@@ -81,7 +81,6 @@ class MemberOrderingSniff extends AbstractScopeSniff
 
     $this->_validateOrderProperties(); //there's no hook in AbstractScopeSniff that allows for doing this just once per instance
 
-    $tokens=$file->getTokens();
     try
     {
       [$order,$name,$error_prefix]=$this->_getProcessParameters($file,$stack_ptr);

@@ -81,6 +81,7 @@ $too_new_feature=function(object $x) {};
  * @codingStandardsIgnoreRule RN.Spacing.ClosureOpeningBracket
  * @codingStandardsIgnoreRule RN.Spacing.FunctionCallParameters
  * @codingStandardsIgnoreRule RN.CodeAnalysis.MaximumPHPVersion
+ * @codingStandardsIgnoreRule RN.CodeAnalysis.UnusedVariable
  *
  * @return void
  */

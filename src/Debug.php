@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @link https://github.com/rinusser/CodeSnifferUtils
  */
 
-namespace RN\CodeSnifferUtils\Utils;
+namespace RN\CodeSnifferUtils;
 
 use PHP_CodeSniffer\Files\File;
 
@@ -104,7 +104,7 @@ abstract class Debug
       $output=$what->__toString();
     else
       $output=(string)$what;
-    fprintf(STDERR,"\n%s\n",$what);
+    fprintf(STDERR,"\n%s\n",$output);
   }
 
   /**

@@ -46,6 +46,7 @@
     <error file="_all/disabling/All.php" line="53">RN.Naming.SnakeCaseFunction.InvalidCharacters</error>
     <error file="_all/disabling/All.php" line="53">RN.Naming.SnakeCaseFunctionParameters.InvalidStart</error>
     <error file="_all/disabling/All.php" line="55">RN.Naming.SnakeCaseVariable.InvalidStart</error>
+    <error file="_all/disabling/All.php" line="55">RN.CodeAnalysis.UnusedVariable.Unused</error>
     <error file="_all/disabling/All.php" line="59">RN.Commenting.ClassComment.Missing</error>
     <error file="_all/disabling/All.php" line="59">RN.CodeAnalysis.StaticOnlyAbstractClass.ClassShouldBeAbstract</error>
     <error file="_all/disabling/All.php" line="59">RN.Classes.ClassDeclaration.MultipleClasses</error>

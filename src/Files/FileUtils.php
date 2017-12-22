@@ -343,7 +343,6 @@ abstract class FileUtils
     $rv=[];
     $parenthesis_closer=$tokens[$parenthesis_opener]['parenthesis_closer'];
     $start=$parenthesis_opener;
-    $previous_separator=$start;
     while(true)
     {
       $current=$file->findNext([T_COMMA,T_OPEN_PARENTHESIS,T_OPEN_SHORT_ARRAY,T_OPEN_CURLY_BRACKET],$start+1,NULL,false,NULL,true);
@@ -354,7 +353,6 @@ abstract class FileUtils
         case T_COMMA:
           $rv[]=$current;
           $start=$current;
-          $previous_separator=$start;
           break;
         case T_OPEN_PARENTHESIS:
           if(!empty($tokens[$current]['parenthesis_closer']))
@@ -397,5 +395,37 @@ abstract class FileUtils
       return $ti;
     }
     return NULL;
+  }
+
+  /**
+   * Checks for a specific sequence of tokens
+   * For example:
+   *
+   *   $x[]=1;
+   *     ^
+   *  $start
+   *
+   * will return  true  for the sequence [T_OPEN_SQUARE_BRACKET,T_CLOSE_SQUARE_BRACKET,T_EQUAL].
+   *
+   * @param File  $file     the phpcs file handle to check in
+   * @param int   $start    the token offset to start looking at
+   * @param array $sequence the list of tokens to check for, in order
+   * @param array $ignore   a whitelist of tokens to ignore
+   * @return bool whether the sequence was found
+   */
+  public static function checkForTokenSequence(File $file, int $start, array $sequence, array $ignore): bool
+  {
+    $tokens=$file->getTokens();
+    $source=0;
+    for($ti=$start;$ti<$file->numTokens;$ti++)
+    {
+      if(!isset($sequence[$source]))
+        break;
+      if(in_array($tokens[$ti]['code'],$ignore,true))
+        continue;
+      if($tokens[$ti]['code']!==$sequence[$source++])
+        return false;
+    }
+    return true;
   }
 }

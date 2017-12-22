@@ -42,8 +42,6 @@ class UnusedNamespaceImportSniff extends AbstractScopeSniff
     if($this->_isDisabledInFile($file))
       return $file->numTokens;
 
-    $tokens=$file->getTokens();
-
     $end=$file->findNext(T_SEMICOLON,$stack_ptr+1,NULL,false);
     if(!$end)
     {

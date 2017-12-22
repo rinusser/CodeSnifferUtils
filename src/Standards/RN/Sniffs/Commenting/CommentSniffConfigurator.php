@@ -39,7 +39,7 @@ abstract class CommentSniffConfigurator
     }
 
     //update known tags' "required" flag
-    foreach($tags as $name=>$options)
+    foreach(array_keys($tags) as $name)
     {
       $is_required=in_array($name,$required);
       if($is_required)

@@ -290,6 +290,30 @@ For example:
       use D;
     }
 
+### UnusedVariableSniff
+
+This rule finds defined but then unused variables. Currently only variables within functions or closures are checked.
+Function parameters are ignored, they're handled elsewhere.
+
+For example:
+
+    function f(array $par1, $par2) //$par2 is unused, but a function parameter
+    {
+      global $a;        //$a is invalid, it's never used
+      [$b,$c]=$par1;    //$b is invalid, it's never used
+      list($d)=$par1;   //OK: $d is used further down
+      SomeClass::$c=3;  //OK: $c isn't actually being written to
+      $this->$d=3;      //OK: $d isn't actually being written to
+
+      foreach($par1 as $x=>[$y,$z])     //$z is invalid, it's never used
+      {
+        yield function() use ($x,$y) {  //$y is invalid, it's not used within the closure
+          return $x;
+        };
+        echo $y;
+      }
+    }
+
 
 ## Commenting
 

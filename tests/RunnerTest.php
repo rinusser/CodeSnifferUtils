@@ -40,6 +40,11 @@ class RunnerTest extends PHPCSTestCase
    */
   public static function tearDownAfterClass()
   {
+    //keep temporary files if we're debugging
+    if(self::_isDebug())
+      return;
+
+    //delete temporary files, e.g. files fixed with phpcbf
     foreach(self::$_temporaryDirectories as $dir)
       self::_deleteRecursive($dir);
   }
@@ -113,7 +118,7 @@ class RunnerTest extends PHPCSTestCase
       //run phpcbf on temp dir, this should fix all errors
       exec(self::$_phpcbfCmd.' --standard='.$fullpath.' '.$dir,$output,$rv);
       $message=$message_prefix.'phpcbf return value; should have fixed errors';
-      if($this->_isDebug())
+      if(self::_isDebug())
         $message.="\n".var_export($output,true);
       $this->assertEquals(1,$rv,$message);
 
@@ -168,7 +173,7 @@ class RunnerTest extends PHPCSTestCase
                   1=>['pipe','w'],
                   2=>STDERR];
     $cmd=self::$_phpcsCmd.' --basepath='.$basepath.' --standard='.$testcase->filename.' '.$additional_args;
-    if($this->_isDebug())
+    if(self::_isDebug())
       echo "\n  CMD: ",$cmd,"\n";
     $proc=proc_open($cmd,$pipes_specs,$pipes);
     fclose($pipes[0]);
@@ -179,7 +184,7 @@ class RunnerTest extends PHPCSTestCase
     $printable_output="\n  ".implode("\n  ",$output);
     $this->_assertIsPHPCSValidationReturnValue($rv,$printable_output);
 
-    if($this->_isDebug())
+    if(self::_isDebug())
       echo $printable_output;
 
     foreach($output as $row)

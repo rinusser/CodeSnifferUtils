@@ -53,28 +53,57 @@ class AssignmentOperatorsSniff implements Sniff
     $tokens=$file->getTokens();
 
     $grid_alignment=$this->_findVerticalAlignment($file,$stack_ptr);
-    $space_before=$grid_alignment!==true && ($tokens[$stack_ptr-1]['code']??NULL)===T_WHITESPACE;
+    $space_before=$grid_alignment!==0 && ($tokens[$stack_ptr-1]['code']??NULL)===T_WHITESPACE;
     $space_after=($tokens[$stack_ptr+1]['code']??NULL)===T_WHITESPACE;
 
     [$code,$message]=$this->_getErrorCodeAndMessage($space_before,$space_after,$grid_alignment!==NULL);
     if($code!==NULL)
-      $file->addError($message,$stack_ptr,$code);
+    {
+      if($space_before && $grid_alignment<0)
+        $file->addError($message,$stack_ptr,$code);
+      else
+      {
+        if($file->addFixableError($message,$stack_ptr,$code))
+        {
+          $file->fixer->beginChangeset();
+          if($space_after)
+            $file->fixer->replaceToken($stack_ptr+1,'');
+          if($space_before)
+            $file->fixer->replaceToken($stack_ptr-1,substr($tokens[$stack_ptr-1]['content'],0,-$grid_alignment));
+          $file->fixer->endChangeset();
+        }
+      }
+    }
   }
 
-  private function _findVerticalAlignment(File $file, int $stack_ptr): ?bool
+  private function _findVerticalAlignment(File $file, int $stack_ptr): ?int
   {
     $results_above=$this->_checkDirection($file,$stack_ptr,-1);
     $results_below=$this->_checkDirection($file,$stack_ptr,1);
-    $aligned=$results_above[0]||$results_below[0];
-    $left_aligned=$results_above[1]||$results_below[1];
 
-    return $aligned?$left_aligned:NULL;
+    //there's nothing to do if there isn't an identical operator above or below
+    $aligned=$results_above[0]||$results_below[0];
+    if(!$aligned)
+      return NULL;
+
+    //if the vertical operator column immediately follows a non-whitespace token somewhere above or below consider the current line aligned as well
+    if($results_above[1]===0||$results_below[1]===0)
+      return 0;
+
+    //only include the whitespace lengths in the directions that actually align
+    $minded=[];
+    foreach([$results_above,$results_below] as $result)
+      if($result[0])
+        $minded[]=$result[1];
+
+    //return the lowest whitespace length: this amount of spaces needs to be removed in the entire block of lines
+    return min($minded);
   }
 
   private function _checkDirection(File $file, int $stack_ptr, int $delta): array
   {
     $tokens=$file->getTokens();
-    $left_aligned=false;
+    $left_aligned=999999;
     $aligned=false;
     $token=$tokens[$stack_ptr];
     $column=$token['column'];
@@ -87,8 +116,18 @@ class AssignmentOperatorsSniff implements Sniff
         break;
       $aligned=true;
       if(($tokens[$offset-1]['code']??NULL)!==T_WHITESPACE)
-        $left_aligned=true;
+        $left_aligned=0;
+      elseif(($tokens[$offset-2]['code']??NULL)!==T_WHITESPACE && $tokens[$offset-2]['line']==$tokens[$offset]['line'])
+      {
+        if(trim($tokens[$offset-1]['content'],' ')!=='')
+          $left_aligned=-1;
+        elseif($left_aligned>0)
+          $left_aligned=min($left_aligned,strlen($tokens[$offset-1]['content']));
+      }
     }
+
+    if($left_aligned>999998)
+      $left_aligned=-1;
 
     return [$aligned,$left_aligned];
   }

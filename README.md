@@ -95,10 +95,28 @@ The testsuite requires PHPUnit and PHP\_CodeSniffer installed. Start the Docker 
 
 (alternatively use phpunit directly if installed locally)
 
-PHPUnit invokes phpcs (via `tests/TestRunner.php`) for each case (`tests/cases/*.xml`) and then parsing phpcs's output. Tested files are in `tests/files/`.
+PHPUnit invokes phpcs (via `tests/TestRunner.php`) for each case (`tests/cases/*.xml`) and then parsing phpcs's output.
+Tested files are in `tests/files/`.
 
-If any tested errors are fixable the test runner will run phpcbf on a copy of the test case's files and run phpcs on the modified
-copies to confirm the fixable errors were actually fixed.
+If any tested errors are fixable the test runner will run phpcbf on a copy of the test case's files and run phpcs on
+the modified copies to confirm the fixable errors were actually fixed.
+
+If you pass the `--debug` argument to phpunit the test runner won't clean up temporary files in /tmp/. Use this to
+debug fixer code.
+
+If you pass the `--bash` argument to phpunit.sh it will invoke a shell in the Docker container instead of running
+tests. Use this to access temporary files created by the test, e.g.:
+
+    $ ./phpunit.sh --bash
+    copy/paste this to execute tests:
+
+      alias ll='ls -la';  /phpcs/vendor/bin/phpunit --color=always
+
+    I have no name!@abcdef012345:/phpcs$ vendor/bin/phpunit --debug --filter assign
+    [...]
+    OK (1 test, 6 assertions)
+
+After that you'll find the files fixed by phpcbf in the /tmp/CodeSnifferUtils\* directories.
 
 
 # Legal

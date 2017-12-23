@@ -20,6 +20,17 @@ use PHP_CodeSniffer\Files\File;
  */
 class PHPCSTestCase extends TestCase
 {
+  protected static function _isVerbose(): bool
+  {
+    return (bool)array_intersect(['-v','--verbose','--debug'],$_SERVER['argv']);
+  }
+
+  protected static function _isDebug(): bool
+  {
+    return in_array('--debug',$_SERVER['argv']);
+  }
+
+
   protected function _fetchXMLCasesInternal(callable $filter): array
   {
     $rv=[];
@@ -46,15 +57,5 @@ class PHPCSTestCase extends TestCase
     $file->parse();
 
     return $file;
-  }
-
-  protected function _isVerbose(): bool
-  {
-    return (bool)array_intersect(['-v','--verbose','--debug'],$_SERVER['argv']);
-  }
-
-  protected function _isDebug(): bool
-  {
-    return in_array('--debug',$_SERVER['argv']);
   }
 }

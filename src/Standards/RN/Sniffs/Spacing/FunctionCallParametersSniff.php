@@ -217,10 +217,10 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
       }
     }
 
-    $this->_registerError($file,$range,$error,$type);
+    $this->_handleError($file,$range,$error,$type,$aligned_vertically);
   }
 
-  private function _registerError(File $file, array $range, ?string $error, ?string $type): void
+  private function _handleError(File $file, array $range, ?string $error, ?string $type, bool $aligned_vertically): void
   {
     if(!$error)
       return;
@@ -235,6 +235,46 @@ class FunctionCallParametersSniff extends AbstractFunctionCallSniff
         break;
       }
     }
-    $file->addError($error,$target,$type);
+
+    if($aligned_vertically)
+    {
+      $file->addError($error,$target,$type);
+      return;
+    }
+    else
+    {
+      if($file->addFixableError($error,$target,$type))
+        $this->_trimSpaces($file,$range,$type);
+    }
+  }
+
+  private function _trimSpaces(File $file, array $range, string $type): void
+  {
+    $tokens=$file->getTokens();
+    $file->fixer->beginChangeset();
+
+    if($type==='SpaceBefore'||$type==='SpaceAround'||$type==='SpaceInstead')
+    {
+      //remove any whitespaces before the call parameter
+      for($ti=$range[0];$ti<=$range[1];$ti++)
+      {
+        if($tokens[$ti]['code']!==T_WHITESPACE)
+          break;
+        $file->fixer->replaceToken($ti,'');
+      }
+    }
+
+    if($type==='SpaceAfter'||$type==='SpaceAround')
+    {
+      //remove any whitespaces after the call parameter
+      for($ti=$range[1];$ti>=$range[0];$ti--)
+      {
+        if($tokens[$ti]['code']!==T_WHITESPACE)
+          break;
+        $file->fixer->replaceToken($ti,'');
+      }
+    }
+
+    $file->fixer->endChangeset();
   }
 }

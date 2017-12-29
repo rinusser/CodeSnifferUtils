@@ -34,10 +34,10 @@ f1( function($a  ,  $b){return $a+$b;} , function($x  ,  $y){},3 ); //both, befo
 f1( ); //instead
 f1( $x ); //both
 
-//this should find before, after and around
-f1( 1,
-   2 , 
-   3 );
+
+
+
+
 
 
 f1(   1 ,  $a,  'asdf');
@@ -55,3 +55,10 @@ class Y extends Z
 
 f1(  1,-2.0, 3);
  f1(123, 4.1,-5);
+
+
+//this should find before, after and around
+f1( 1,
+   2 , 
+   3 );
+

@@ -102,6 +102,15 @@ class RunnerTest extends PHPCSTestCase
 
     list(,$actuals)=$this->_performPHPCSTest($testcase,$message_prefix);
 
+    $formatter=function($err) use ($testcase) {
+      $err=$testcase->expectedErrors[$err];
+      return sprintf("%s#%d: %s",$err['file'],$err['line'],$err['source']);
+    };
+    $printable_expected_fixables=array_map($formatter,$testcase->expectedFixables);
+    $printable_actual_fixables=array_map($formatter,$actuals['fixables']);
+
+    $this->assertEquals($printable_expected_fixables,$printable_actual_fixables,'list of fixable error indices');
+
     if($actuals['fixables'])
     {
       //create empty temporary directory
@@ -124,8 +133,6 @@ class RunnerTest extends PHPCSTestCase
 
       //run phpcs on temp dir and see if there are 0 errors
       $testcase->expectedErrors=array_diff_key($actuals['errors'],array_flip($actuals['fixables']));
-
-      $this->assertEquals($testcase->expectedFixables,$actuals['fixables'],'list of fixable error indices');
 
       list($rv,)=$this->_performPHPCSTest($testcase,$message_prefix.'after automatic fixing: ',$dir.'/phpcs/tests/files',$dir);
       if($testcase->expectedErrors)
@@ -300,6 +307,11 @@ class RunnerTest extends PHPCSTestCase
     $file_count=(int)$xml->expectations->file_count->__toString();
     $errors=[];
     $fixables=[];
+
+    $all_fixable=$xml->expectations->attributes()->fixable;
+    if($all_fixable)
+      $all_fixable=PropertyCast::toBool($all_fixable->__toString(),'fixable');
+
     foreach($xml->expectations->error as $error)
     {
       $file=$error->attributes()->file->__toString();
@@ -308,7 +320,8 @@ class RunnerTest extends PHPCSTestCase
       $errors[]=['file'=>$file,'line'=>$line,'source'=>$type];
 
       $fixable=$error->attributes()->fixable;
-      if($fixable && PropertyCast::toBool($fixable->__toString(),'fixable'))
+      $fixable=$fixable ? PropertyCast::toBool($fixable->__toString(),'fixable') : NULL;
+      if($fixable || $all_fixable&&$fixable!==false)
         $fixables[]=count($errors)-1;
     }
 
@@ -318,10 +331,6 @@ class RunnerTest extends PHPCSTestCase
 
     $testcase=new XMLTestCase($fullpath,$sources,$file_count,$errors);
     $testcase->expectedFixables=$fixables;
-
-    $all_fixable=$xml->expectations->attributes()->fixable;
-    if($all_fixable && PropertyCast::toBool($all_fixable->__toString(),'fixable'))
-      $testcase->expectedFixables=array_keys($testcase->expectedErrors);
 
     $skip_raw=$xml->expectations->attributes()->skip;
     if($skip_raw && PropertyCast::toBool($skip_raw->__toString(),'skip attribute'))

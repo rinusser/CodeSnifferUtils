@@ -844,7 +844,7 @@ Additionally, empty parameter lists must not contain whitespaces:
     f();      //this is valid
     f( );     //this isn't
 
-Errors found by this sniff currently aren't fixable automatically.
+Most errors found by this sniff are fixable by phpcbf. Spacing errors in vertically aligned calls are not.
 
 ### AssignmentOperatorsSniff
 

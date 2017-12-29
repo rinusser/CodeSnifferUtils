@@ -182,6 +182,30 @@ This rule currently isn't automatically fixable by phpcbf, you'll need to fix th
 
 The code analysis errors won't be fixed automatically by phpcbf as it's way too easy to introduce bugs.
 
+### AbortedControlStructureSniff
+
+This attempts to find prematurely aborted control structures by looking for semicolons where control structure bodies
+should be.
+
+For example:
+
+    if($a) {}              //this is OK: empty bodies are not covered in this sniff
+    elseif($b);            //this gets a warning: there is no body
+
+    foreach($x as $y);     //warning
+
+    while($c);             //warning
+
+    for($i=0;$i<10;$i++);  //warning
+
+    switch($x);            //warning
+
+    do
+    {
+      while(...);          //this gets a warning: it's an empty while loop
+    } while(...);          //this is OK, it's part of a do-while loop
+
+
 ### IgnorableUnusedFunctionParameterSniff
 
 This extends Generic.CodeAnalysis.UnusedFunctionParameterSniff: it can ignore function parameters marked as unused.

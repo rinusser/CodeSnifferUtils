@@ -71,6 +71,8 @@ wrong_call_parameter_spacing( 1 );
 $too_new_feature=function(object $x) {};
 
 
+for(;;);
+
 /**
  * use this docblock to register any additional rule exceptions without changing expected line numbers
  *
@@ -82,6 +84,7 @@ $too_new_feature=function(object $x) {};
  * @codingStandardsIgnoreRule RN.Spacing.FunctionCallParameters
  * @codingStandardsIgnoreRule RN.CodeAnalysis.MaximumPHPVersion
  * @codingStandardsIgnoreRule RN.CodeAnalysis.UnusedVariable
+ * @codingStandardsIgnoreRule RN.CodeAnalysis.AbortedControlStructure
  *
  * @return void
  */

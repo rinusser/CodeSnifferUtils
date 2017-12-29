@@ -52,5 +52,6 @@
     <error file="_all/disabling/All.php" line="59">RN.Classes.ClassDeclaration.MultipleClasses</error>
     <error file="_all/disabling/All.php" line="65">RN.Spacing.ClosureOpeningBracket.PrecedingNewlines</error>
     <error file="_all/disabling/All.php" line="68">RN.Spacing.FunctionCallParameters.SpaceAround</error>
+    <error file="_all/disabling/All.php" line="74">RN.CodeAnalysis.AbortedControlStructure.Found</error>
   </expectations>
 </ruleset>

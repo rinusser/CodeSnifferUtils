@@ -4,7 +4,7 @@
   <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.OpeningBracket"/>
   <rule ref="RN.Spacing.ClosureOpeningBracket"/>
-  <expectations>
+  <expectations fixable="true">
     <file_count>5</file_count>
     <error file="spacing/general/TooMuchSpace.php" line="23">RN.Spacing.OpeningBracket.SucceedingNewlines</error>
     <error file="spacing/general/TooMuchSpace.php" line="39">RN.Spacing.OpeningBracket.SucceedingNewlines</error>

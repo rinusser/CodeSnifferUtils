@@ -124,6 +124,9 @@ class RunnerTest extends PHPCSTestCase
 
       //run phpcs on temp dir and see if there are 0 errors
       $testcase->expectedErrors=array_diff_key($actuals['errors'],array_flip($actuals['fixables']));
+
+      $this->assertEquals($testcase->expectedFixables,$actuals['fixables'],'list of fixable error indices');
+
       list($rv,)=$this->_performPHPCSTest($testcase,$message_prefix.'after automatic fixing: ',$dir.'/phpcs/tests/files',$dir);
       if($testcase->expectedErrors)
         $this->assertEquals(1,$rv,$message_prefix.'phpcs return value: phpcbf should have left some errors');
@@ -296,12 +299,17 @@ class RunnerTest extends PHPCSTestCase
     $xml=new \SimpleXMLElement(file_get_contents($fullpath));
     $file_count=(int)$xml->expectations->file_count->__toString();
     $errors=[];
+    $fixables=[];
     foreach($xml->expectations->error as $error)
     {
       $file=$error->attributes()->file->__toString();
       $line=$error->attributes()->line->__toString();
       $type=$error->__toString();
       $errors[]=['file'=>$file,'line'=>$line,'source'=>$type];
+
+      $fixable=$error->attributes()->fixable;
+      if($fixable && PropertyCast::toBool($fixable->__toString(),'fixable'))
+        $fixables[]=count($errors)-1;
     }
 
     $sources=[];
@@ -309,6 +317,11 @@ class RunnerTest extends PHPCSTestCase
       $sources[]=$file->__toString();
 
     $testcase=new XMLTestCase($fullpath,$sources,$file_count,$errors);
+    $testcase->expectedFixables=$fixables;
+
+    $all_fixable=$xml->expectations->attributes()->fixable;
+    if($all_fixable && PropertyCast::toBool($all_fixable->__toString(),'fixable'))
+      $testcase->expectedFixables=array_keys($testcase->expectedErrors);
 
     $skip_raw=$xml->expectations->attributes()->skip;
     if($skip_raw && PropertyCast::toBool($skip_raw->__toString(),'skip attribute'))

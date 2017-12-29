@@ -21,7 +21,7 @@
     </properties>
   </rule>
 
-  <expectations>
+  <expectations fixable="true">
     <file_count>2</file_count>
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.FileComment.InsertableMissingAuthorTag</error>
     <error file="commenting/fixedtagcontent/WithoutTags.php" line="6">RN.Commenting.FileComment.InsertableMissingCopyrightTag</error>

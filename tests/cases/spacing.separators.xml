@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/separator</file>
   <rule ref="RN.Spacing.Separator"/>
-  <expectations>
+  <expectations fixable="true">
     <file_count>3</file_count>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeSemicolon</error>

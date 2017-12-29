@@ -7,7 +7,7 @@
       <property name="includeFunctionCallCommas" value="yes"/>
     </properties>
   </rule>
-  <expectations>
+  <expectations fixable="true">
     <file_count>1</file_count>
     <error file="spacing/separator/Configuration.php" line="2">RN.Spacing.Separator.SpaceBeforeComma</error>
   </expectations>

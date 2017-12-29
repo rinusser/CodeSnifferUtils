@@ -8,7 +8,7 @@
       <property name="nullCase" value="ucfirst"/>
     </properties>
   </rule>
-  <expectations>
+  <expectations fixable="true">
     <file_count>6</file_count>
     <error file="capitalization/booleannull/UcfirstBoolean.php" line="2">RN.Capitalization.BooleanNULL.BooleanCase</error>
     <error file="capitalization/booleannull/UcfirstBoolean.php" line="3">RN.Capitalization.BooleanNULL.BooleanCase</error>

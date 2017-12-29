@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/assignmentoperators</file>
   <rule ref="RN.Spacing.AssignmentOperators"/>
-  <expectations>
+  <expectations fixable="true">
     <file_count>2</file_count>
     <error file="spacing/assignmentoperators/TooMuchSpace.php" line="2">RN.Spacing.AssignmentOperators.SpaceAfter</error>
     <error file="spacing/assignmentoperators/TooMuchSpace.php" line="3">RN.Spacing.AssignmentOperators.SpaceBefore</error>

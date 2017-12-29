@@ -25,7 +25,7 @@
     </properties>
   </rule>
 
-  <expectations>
+  <expectations fixable="true">
     <file_count>2</file_count>
     <error file="commenting/fixedtagcontent/WithTags.php" line="5">RN.Commenting.FileComment.WrongPHPVersion</error>
     <error file="commenting/fixedtagcontent/WithTags.php" line="6">RN.Commenting.FileComment.WrongAuthorContent</error>

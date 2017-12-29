@@ -7,6 +7,6 @@
   <expectations>
     <file_count>1</file_count>
     <error file="internal/PartiallyFixable.php" line="1">RN.Files.DeclareStrict.Missing</error>
-    <error file="internal/PartiallyFixable.php" line="2">RN.Capitalization.BooleanNULL.BooleanCase</error>
+    <error file="internal/PartiallyFixable.php" line="2" fixable="true">RN.Capitalization.BooleanNULL.BooleanCase</error>
   </expectations>
 </ruleset>

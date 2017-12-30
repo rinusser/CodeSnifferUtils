@@ -1,4 +1,5 @@
 <?php
+function a() {} //testcase for CSU-65: functions/closures immediately after opening tag caused internal error
 
 function add3($a, $b, $c)
 {

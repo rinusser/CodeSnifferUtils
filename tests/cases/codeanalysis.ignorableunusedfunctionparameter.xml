@@ -4,7 +4,7 @@
   <file>../files/codeanalysis/unusedparameters</file>
   <rule ref="RN.CodeAnalysis.IgnorableUnusedFunctionParameter"/>
   <expectations>
-    <file_count>2</file_count>
+    <file_count>3</file_count>
     <error file="codeanalysis/unusedparameters/Wrong.php" line="3">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
     <error file="codeanalysis/unusedparameters/Wrong.php" line="9">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>
     <error file="codeanalysis/unusedparameters/Wrong.php" line="9">RN.CodeAnalysis.IgnorableUnusedFunctionParameter.Found</error>

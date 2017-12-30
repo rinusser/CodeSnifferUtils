@@ -50,7 +50,7 @@ class IgnorableUnusedFunctionParameterFileProxy extends File
     if($tokens[$docblock_end]['line']>=$tokens[$stack_ptr]['line']-1)
     {
       $docblock_start=$tokens[$docblock_end]['comment_opener'];
-      foreach($tokens[$docblock_start]['comment_tags'] as $ti=>$offset)
+      foreach($tokens[$docblock_start]['comment_tags']??[] as $ti=>$offset)
       {
         if($tokens[$offset]['content']!=='@param')
           continue;

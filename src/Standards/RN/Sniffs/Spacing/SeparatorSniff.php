@@ -60,6 +60,17 @@ class SeparatorSniff implements Sniff
     if($tokens[$stack_ptr-1]['code']!==T_WHITESPACE || !$this->includeFunctionCallCommas && $this->_isFunctionCallComma($file,$stack_ptr))
       return;
     $error='Commas and semicolons must not follow whitespaces of any kind';
+
+    if($tokens[$stack_ptr]['code']===T_SEMICOLON)
+    {
+      $prev=$file->findPrevious(T_WHITESPACE,$stack_ptr-1,NULL,true);
+      if($prev!==false && $tokens[$prev]['code']===T_SEMICOLON && $tokens[$prev]['line']!=$tokens[$stack_ptr]['line'])
+      {
+        $file->addError($error,$stack_ptr,'SpaceBefore'.$this->_getTokenName($tokens[$stack_ptr]['code']));
+        return;
+      }
+    }
+
     $fix=$file->addFixableError($error,$stack_ptr,'SpaceBefore'.$this->_getTokenName($tokens[$stack_ptr]['code']));
     if($fix)
     {

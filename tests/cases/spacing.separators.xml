@@ -4,7 +4,7 @@
   <file>../files/spacing/separator</file>
   <rule ref="RN.Spacing.Separator"/>
   <expectations fixable="true">
-    <file_count>3</file_count>
+    <file_count>4</file_count>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="2">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
     <error file="spacing/separator/TooMuchSpace.php" line="4">RN.Spacing.Separator.SpaceBeforeComma</error>
@@ -30,5 +30,7 @@
     <error file="spacing/separator/TooMuchSpace.php" line="24">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="25">RN.Spacing.Separator.SpaceBeforeComma</error>
     <error file="spacing/separator/TooMuchSpace.php" line="33">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/Unfixable.php" line="3" fixable="false">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
+    <error file="spacing/separator/Unfixable.php" line="6" fixable="false">RN.Spacing.Separator.SpaceBeforeSemicolon</error>
   </expectations>
 </ruleset>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="codeanalysis.doublesemicolon">
+  <autoload>../../src/autoloader.php</autoload>
+  <file>../files/codeanalysis/doublesemicolon</file>
+  <rule ref="RN.CodeAnalysis.DoubleSemicolon"/>
+  <expectations>
+    <file_count>1</file_count>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="2">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="3">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="4">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="6">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="7">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+    <error file="codeanalysis/doublesemicolon/Invalid.php" line="9">RN.CodeAnalysis.DoubleSemicolon.Found</error>
+  </expectations>
+</ruleset>

@@ -205,6 +205,21 @@ For example:
       while(...);          //this gets a warning: it's an empty while loop
     } while(...);          //this is OK, it's part of a do-while loop
 
+### DoubleSemicolonSniff
+
+This will find semicolons following other semicolons with nothing but optional whitespaces and comments in between.
+The `for` loop separators are exempt from this.
+
+For example:
+
+    $x=1;;   //this triggers a warning
+
+    $y=1;
+    ;        //this triggers a warning
+
+    for(;;) {}  //this is OK
+
+Nested code inside `for` loops' parentheses, e.g. in closures, is currently not checked.
 
 ### IgnorableUnusedFunctionParameterSniff
 
@@ -907,6 +922,7 @@ Example:
       asdf(1 , 2);      //OK by default, invalid if includeFunctionCallCommas is enabled
     }
 
-Whitespaces before separators can be removed by phpcbf automatically.
+Whitespaces before separators can be removed by phpcbf automatically. Semicolons directly following other semicolons
+across multiple lines won't be fixed as this conflicts with another automatic fixer.
 
 This sniff will also handle spacing *after* separators later.

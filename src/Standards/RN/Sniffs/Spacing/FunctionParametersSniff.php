@@ -85,17 +85,39 @@ class FunctionParametersSniff implements Sniff
       $str=$this->_stripParameterModifiers($str);
 
       if($tokens[$type]['code']!==T_EQUAL && trim($str))
-        $str=$this->_processTypeHint($str,$file,$current);
+        $str=$this->_processTypeHint($str,$file,$current,$type+1);
 
       if(!trim($str) && strpos($str,"\n")!==false)
         continue;
 
       if($str!==$preceding_token[0])
+        $this->_handleLeftError($file,$type,$current,$preceding_token);
+    }
+  }
+
+  private function _handleLeftError(File $file, int $type, int $current, array $preceding_token): void
+  {
+    $tokens=$file->getTokens();
+    $error='Wrong distance between '.TokenNames::getPrintableName($tokens[$type]).' and '.$preceding_token[1];
+
+    if(!$file->addFixableError($error,$current,'WrongSpaceAfter'.$preceding_token[2]))
+      return;
+
+    $file->fixer->beginChangeset();
+    if($preceding_token[0]!=='' && $tokens[$type+1]['code']!==T_WHITESPACE)
+    {
+      $file->fixer->addContent($type,$preceding_token[0]);
+    }
+    else
+    {
+      for($ti=$type+1;$ti<$current;$ti++)
       {
-        $error='Wrong distance between '.TokenNames::getPrintableName($tokens[$type]).' and '.$preceding_token[1];
-        $file->addError($error,$current,'WrongSpaceAfter'.$preceding_token[2]);
+        if($tokens[$ti]['code']!==T_WHITESPACE)
+          break;
+        $file->fixer->replaceToken($ti,$ti>$type+1?'':$preceding_token[0]);
       }
     }
+    $file->fixer->endChangeset();
   }
 
   protected function _stripParameterModifiers(string $str): string
@@ -107,7 +129,7 @@ class FunctionParametersSniff implements Sniff
     return $str;
   }
 
-  protected function _processTypeHint(string $str, File $file, int $current): string
+  protected function _processTypeHint(string $str, File $file, int $current, int $start): string
   {
     if(preg_match('/[ \t]/',trim($str)))
     {
@@ -122,7 +144,20 @@ class FunctionParametersSniff implements Sniff
       if($last2[0]===' ' || $last2[1]!==' ')
       {
         $error='Wrong distance after type hint in function parameter, expected 1 blank';
-        $file->addError($error,$current-1,'WrongSpaceAfterTypeHint');
+        if($file->addFixableError($error,$current-1,'WrongSpaceAfterTypeHint'))
+        {
+          $hint_start=$file->findNext(T_WHITESPACE,$start,NULL,true);
+          $first_space_after=$file->findNext(T_WHITESPACE,$hint_start+1);
+          $file->fixer->beginChangeset();
+          $file->fixer->replaceToken($first_space_after,' ');
+          for($ti=$first_space_after+1;$ti<$current;$ti++)
+          {
+            if($tokens[$ti]['code']!==T_WHITESPACE)
+              break;
+            $file->fixer->replaceToken($ti,'');
+          }
+          $file->fixer->endChangeset();
+        }
       }
       $str=rtrim($str);
     }

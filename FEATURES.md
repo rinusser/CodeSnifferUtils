@@ -822,6 +822,8 @@ but not to function calls, e.g.:
 
     asdf(1,2);
 
+Errors are automatically fixable by phpcbf.
+
 ### FunctionCallParametersSniff
 
 Function calls' parameters must not be surrounded by whitespaces, e.g.:

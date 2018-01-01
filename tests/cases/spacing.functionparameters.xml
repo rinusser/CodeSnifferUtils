@@ -3,7 +3,7 @@
   <autoload>../../src/autoloader.php</autoload>
   <file>../files/spacing/general</file>
   <rule ref="RN.Spacing.FunctionParameters"/>
-  <expectations>
+  <expectations fixable="true">
     <file_count>5</file_count>
     <error file="spacing/general/TooLittleSpace.php" line="59">RN.Spacing.FunctionParameters.WrongSpaceAfterComma</error>
     <error file="spacing/general/TooLittleSpace.php" line="59">RN.Spacing.FunctionParameters.WrongSpaceAfterComma</error>

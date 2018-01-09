@@ -123,7 +123,7 @@ After that you'll find the files fixed by phpcbf in the /tmp/CodeSnifferUtils\* 
 
 ## Copyright
 
-Copyright (C) 2017 Richard Nusser
+Copyright (C) 2017-2018 Richard Nusser
 
 ## License
 

@@ -11,7 +11,7 @@
       <property name="requiredTags" value="author,license,copyright,link"/>
       <property name="requireAuthorEmail" value="no"/>
       <property name="authorContent" value="Richard Nusser"/>
-      <property name="copyrightContent" value="2017 Richard Nusser"/>
+      <property name="copyrightContent" value="2017-2018 Richard Nusser"/>
       <property name="licenseContent" value="GPLv3 (see http://www.gnu.org/licenses/)"/>
       <property name="linkContent" value="https://github.com/rinusser/CodeSnifferUtils"/>
       <property name="requiredPHPVersion" value="7.1+"/>
